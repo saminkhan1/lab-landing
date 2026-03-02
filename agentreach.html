@@ -1017,8 +1017,10 @@
       <h2 class="reveal">Get early access</h2>
       <p class="reveal">We're onboarding a small group of design partners. Ship your first persistent agent in an afternoon.</p>
       <form class="cta-form reveal" id="betaForm">
-        <input type="email" placeholder="you@company.com" required id="betaEmail">
-        <button type="submit">Request Access</button>
+        <input type="hidden" name="access_key" value="YOUR_WEB3FORMS_ACCESS_KEY">
+        <input type="hidden" name="subject" value="AgentReach Beta Request">
+        <input type="email" name="email" placeholder="you@company.com" required id="betaEmail">
+        <button type="submit" id="betaSubmit">Request Access</button>
       </form>
       <div class="cta-success" id="betaSuccess">
         You're on the list. We'll be in touch soon.
@@ -1032,7 +1034,7 @@
     <div class="container" style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
       <div class="footer-left">
         <a href="/" class="footer-logo">Sideral Labs</a>
-        <span class="footer-copy">© 2025</span>
+        <span class="footer-copy">© 2026</span>
       </div>
       <div class="footer-links">
         <a href="mailto:hello@sideral.dev">Contact</a>
@@ -1058,14 +1060,31 @@
     reveals.forEach(el => observer.observe(el));
 
     // Beta form
-    document.getElementById('betaForm').addEventListener('submit', function(e) {
+    document.getElementById('betaForm').addEventListener('submit', async function(e) {
       e.preventDefault();
-      const email = document.getElementById('betaEmail').value;
-      // In production, POST to your backend here
-      console.log('Beta signup:', email);
-      this.style.display = 'none';
-      document.getElementById('betaSuccess').style.display = 'block';
-      document.querySelector('.cta-note').style.display = 'none';
+      const btn = document.getElementById('betaSubmit');
+      btn.textContent = 'Sending...';
+      btn.disabled = true;
+
+      const data = new FormData(this);
+      try {
+        const res = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          body: data
+        });
+        const json = await res.json();
+        if (json.success) {
+          this.style.display = 'none';
+          document.getElementById('betaSuccess').style.display = 'block';
+          document.querySelector('.cta-note').style.display = 'none';
+        } else {
+          btn.textContent = 'Try again';
+          btn.disabled = false;
+        }
+      } catch {
+        btn.textContent = 'Try again';
+        btn.disabled = false;
+      }
     });
   </script>
 </body>
