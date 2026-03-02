@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sideral Labs</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #0a0a0c;
+      --bg-raised: #111114;
+      --border: #1e1e24;
+      --text: #e8e8ed;
+      --text-dim: #6b6b78;
+      --text-muted: #3a3a45;
+      --accent: #00E5A0;
+      --accent-dim: rgba(0, 229, 160, 0.08);
+      --mono: 'JetBrains Mono', monospace;
+      --sans: 'DM Sans', sans-serif;
+    }
+
+    html { font-size: 16px; scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Noise overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    /* Subtle grid lines */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(var(--border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 120px 120px;
+      opacity: 0.15;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* ---- NAV ---- */
+    nav {
+      padding: 2rem 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .logo {
+      font-family: var(--mono);
+      font-weight: 500;
+      font-size: 0.8rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .logo span {
+      color: var(--accent);
+    }
+
+    nav a.nav-link {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    nav a.nav-link:hover {
+      color: var(--accent);
+    }
+
+    /* ---- HERO ---- */
+    .hero {
+      padding: 12rem 0 6rem;
+      position: relative;
+    }
+
+    .hero-label {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.2s;
+    }
+
+    .hero h1 {
+      font-family: var(--sans);
+      font-weight: 300;
+      font-size: clamp(2.4rem, 5vw, 3.6rem);
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+      max-width: 600px;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.4s;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--text-dim);
+    }
+
+    .hero-sub {
+      margin-top: 2rem;
+      font-size: 1rem;
+      font-weight: 300;
+      color: var(--text-dim);
+      line-height: 1.7;
+      max-width: 440px;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.6s;
+    }
+
+    /* ---- DIVIDER ---- */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 4rem 0;
+    }
+
+    /* ---- PROJECTS ---- */
+    .projects-header {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 2.5rem;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.8s;
+    }
+
+    .project-list {
+      list-style: none;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 1s;
+    }
+
+    .project-item {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      padding: 1.5rem 0;
+      border-top: 1px solid var(--border);
+      text-decoration: none;
+      color: inherit;
+      transition: background 0.3s;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .project-item:last-child {
+      border-bottom: 1px solid var(--border);
+    }
+
+    .project-item::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--accent-dim);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .project-item:hover::before {
+      opacity: 1;
+    }
+
+    .project-item:hover .project-name {
+      color: var(--accent);
+    }
+
+    .project-item:hover .project-arrow {
+      transform: translateX(4px);
+      color: var(--accent);
+    }
+
+    .project-name {
+      font-family: var(--sans);
+      font-weight: 400;
+      font-size: 1.1rem;
+      transition: color 0.3s;
+      position: relative;
+      z-index: 1;
+      padding-left: 1rem;
+    }
+
+    .project-meta {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      position: relative;
+      z-index: 1;
+      padding-right: 1rem;
+    }
+
+    .project-status {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .project-status.active {
+      color: var(--accent);
+    }
+
+    .project-arrow {
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      transition: transform 0.3s, color 0.3s;
+    }
+
+    /* ---- FOOTER ---- */
+    footer {
+      padding: 4rem 0 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 1.2s;
+    }
+
+    footer .copyright {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+    }
+
+    footer .contact {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      color: var(--text-dim);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    footer .contact:hover {
+      color: var(--accent);
+    }
+
+    /* ---- GLOW ---- */
+    .glow {
+      position: fixed;
+      top: -200px;
+      right: -200px;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(0, 229, 160, 0.04) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ---- ANIMATIONS ---- */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ---- RESPONSIVE ---- */
+    @media (max-width: 600px) {
+      .hero { padding: 6rem 0 4rem; }
+      .project-meta { gap: 0.8rem; }
+      .project-status { display: none; }
+      footer { flex-direction: column; gap: 1rem; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+  <div class="glow"></div>
+  <div class="container">
+    <nav>
+      <a href="/" class="logo">Sideral<span>.</span></a>
+      <a href="mailto:hello@sideral.dev" class="nav-link">Contact</a>
+    </nav>
+
+    <section class="hero">
+      <p class="hero-label">Applied AI Research</p>
+      <h1>Building infrastructure for <em>autonomous systems</em></h1>
+      <p class="hero-sub">We develop the foundational layers that give AI agents persistence, identity, and real-world connectivity.</p>
+    </section>
+
+    <div class="divider"></div>
+
+    <p class="projects-header">Projects</p>
+
+    <ul class="project-list">
+      <a href="/agentreach.html" class="project-item">
+        <span class="project-name">AgentReach</span>
+        <span class="project-meta">
+          <span class="project-status active">Beta</span>
+          <span class="project-arrow">→</span>
+        </span>
+      </a>
+      <div class="project-item" style="cursor: default;">
+        <span class="project-name" style="color: var(--text-dim);">Project Atlas</span>
+        <span class="project-meta">
+          <span class="project-status">Coming soon</span>
+          <span class="project-arrow" style="visibility: hidden;">→</span>
+        </span>
+      </div>
+      <div class="project-item" style="cursor: default;">
+        <span class="project-name" style="color: var(--text-dim);">Project Meridian</span>
+        <span class="project-meta">
+          <span class="project-status">Research</span>
+          <span class="project-arrow" style="visibility: hidden;">→</span>
+        </span>
+      </div>
+    </ul>
+
+    <footer>
+      <span class="copyright">© 2025 Sideral Labs</span>
+      <a href="mailto:hello@sideral.dev" class="contact">hello@sideral.dev</a>
+    </footer>
+  </div>
+</body>
+</html>

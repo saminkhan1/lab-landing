@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AgentReach — The Identity Layer for AI</title>
+  <meta name="description" content="One phone number. One email. One API. Give your AI agents persistent, multi-modal identity with sub-10ms voice latency.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300;1,9..40,400&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #0a0a0c;
+      --bg-raised: #0f0f13;
+      --bg-card: #111116;
+      --border: #1a1a22;
+      --border-light: #25252f;
+      --text: #e8e8ed;
+      --text-secondary: #a0a0b0;
+      --text-dim: #6b6b78;
+      --text-muted: #3a3a45;
+      --accent: #00E5A0;
+      --accent-soft: rgba(0, 229, 160, 0.12);
+      --accent-glow: rgba(0, 229, 160, 0.06);
+      --red: #ff4d4d;
+      --red-soft: rgba(255, 77, 77, 0.1);
+      --mono: 'JetBrains Mono', monospace;
+      --sans: 'DM Sans', sans-serif;
+    }
+
+    html { font-size: 16px; scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      min-height: 100vh;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Noise */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    .container--narrow {
+      max-width: 720px;
+    }
+
+    /* ---- NAV ---- */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 0 2rem;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      background: rgba(10, 10, 12, 0.8);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-inner {
+      max-width: 1000px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 56px;
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .logo {
+      font-family: var(--mono);
+      font-weight: 500;
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .logo:hover { color: var(--text); }
+
+    .nav-separator {
+      color: var(--text-muted);
+      font-size: 1.2rem;
+      font-weight: 200;
+    }
+
+    .nav-product {
+      font-family: var(--sans);
+      font-weight: 500;
+      font-size: 0.85rem;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .nav-cta {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.5rem 1.2rem;
+      background: var(--accent);
+      color: var(--bg);
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      text-decoration: none;
+      font-weight: 500;
+      transition: opacity 0.3s, transform 0.2s;
+    }
+
+    .nav-cta:hover {
+      opacity: 0.85;
+      transform: translateY(-1px);
+    }
+
+    /* ---- HERO ---- */
+    .hero {
+      padding: 10rem 0 5rem;
+      position: relative;
+    }
+
+    .hero-glow {
+      position: absolute;
+      top: -100px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 800px;
+      height: 500px;
+      background: radial-gradient(ellipse at center, rgba(0, 229, 160, 0.06) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.35rem 0.9rem;
+      border: 1px solid var(--border-light);
+      border-radius: 100px;
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-bottom: 2.5rem;
+      opacity: 0;
+      animation: fadeUp 0.7s ease forwards 0.1s;
+    }
+
+    .hero-badge .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    .hero h1 {
+      font-family: var(--sans);
+      font-weight: 300;
+      font-size: clamp(2.6rem, 6vw, 4rem);
+      line-height: 1.1;
+      letter-spacing: -0.035em;
+      max-width: 700px;
+      opacity: 0;
+      animation: fadeUp 0.7s ease forwards 0.25s;
+    }
+
+    .hero h1 strong {
+      font-weight: 500;
+      background: linear-gradient(135deg, var(--accent), #00b8d4);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-desc {
+      margin-top: 1.8rem;
+      font-size: 1.1rem;
+      font-weight: 300;
+      line-height: 1.7;
+      color: var(--text-secondary);
+      max-width: 520px;
+      opacity: 0;
+      animation: fadeUp 0.7s ease forwards 0.4s;
+    }
+
+    .hero-actions {
+      margin-top: 2.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      opacity: 0;
+      animation: fadeUp 0.7s ease forwards 0.55s;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 0.75rem 1.6rem;
+      background: var(--accent);
+      color: var(--bg);
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: opacity 0.3s, transform 0.2s, box-shadow 0.3s;
+      box-shadow: 0 0 24px rgba(0, 229, 160, 0.15);
+    }
+
+    .btn-primary:hover {
+      opacity: 0.9;
+      transform: translateY(-1px);
+      box-shadow: 0 0 32px rgba(0, 229, 160, 0.25);
+    }
+
+    .btn-ghost {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      font-weight: 400;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 0.75rem 1.4rem;
+      background: transparent;
+      color: var(--text-dim);
+      border: 1px solid var(--border-light);
+      border-radius: 5px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: color 0.3s, border-color 0.3s;
+    }
+
+    .btn-ghost:hover {
+      color: var(--text);
+      border-color: var(--text-muted);
+    }
+
+    /* ---- CODE BLOCK in hero ---- */
+    .hero-code {
+      margin-top: 4rem;
+      opacity: 0;
+      animation: fadeUp 0.7s ease forwards 0.7s;
+    }
+
+    .code-window {
+      background: var(--bg-raised);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .code-header {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.8rem 1.2rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .code-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--text-muted);
+    }
+
+    .code-title {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--text-muted);
+      margin-left: 0.5rem;
+    }
+
+    .code-body {
+      padding: 1.4rem 1.6rem;
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      line-height: 1.8;
+      overflow-x: auto;
+      white-space: pre;
+    }
+
+    .code-body .kw { color: #c792ea; }
+    .code-body .fn { color: #82aaff; }
+    .code-body .str { color: var(--accent); }
+    .code-body .cm { color: var(--text-muted); }
+    .code-body .prop { color: #f78c6c; }
+    .code-body .op { color: var(--text-dim); }
+
+    /* ---- STATS BAR ---- */
+    .stats {
+      padding: 4rem 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat-value {
+      font-family: var(--mono);
+      font-size: clamp(1.8rem, 4vw, 2.4rem);
+      font-weight: 300;
+      letter-spacing: -0.02em;
+      color: var(--accent);
+    }
+
+    .stat-label {
+      margin-top: 0.5rem;
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+    }
+
+    /* ---- PROBLEM SECTION ---- */
+    .section {
+      padding: 6rem 0;
+    }
+
+    .section-label {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+    }
+
+    .section-title {
+      font-weight: 400;
+      font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+      line-height: 1.25;
+      letter-spacing: -0.02em;
+      max-width: 560px;
+      margin-bottom: 3rem;
+    }
+
+    .problem-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .problem-card {
+      background: var(--bg-card);
+      padding: 2rem;
+    }
+
+    .problem-icon {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--red);
+      background: var(--red-soft);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 6px;
+      margin-bottom: 1.2rem;
+    }
+
+    .problem-card h3 {
+      font-weight: 500;
+      font-size: 0.95rem;
+      margin-bottom: 0.6rem;
+      letter-spacing: -0.01em;
+    }
+
+    .problem-card p {
+      font-size: 0.85rem;
+      font-weight: 300;
+      color: var(--text-dim);
+      line-height: 1.65;
+    }
+
+    .problem-card .metric {
+      display: inline-block;
+      margin-top: 0.8rem;
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--red);
+      background: var(--red-soft);
+      padding: 0.2rem 0.6rem;
+      border-radius: 3px;
+    }
+
+    /* ---- SOLUTION SECTION ---- */
+    .solution-section {
+      background: var(--bg-raised);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .solution-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    .solution-features {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .feature {
+      padding: 1.5rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--bg);
+      transition: border-color 0.3s;
+    }
+
+    .feature:hover {
+      border-color: var(--border-light);
+    }
+
+    .feature-tag {
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.7rem;
+    }
+
+    .feature h3 {
+      font-weight: 500;
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.01em;
+    }
+
+    .feature p {
+      font-size: 0.85rem;
+      font-weight: 300;
+      color: var(--text-dim);
+      line-height: 1.6;
+    }
+
+    /* ---- ARCHITECTURE DIAGRAM ---- */
+    .arch-visual {
+      padding: 2rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--bg);
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      position: sticky;
+      top: 5rem;
+    }
+
+    .arch-title {
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+    }
+
+    .arch-flow {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .arch-node {
+      padding: 0.8rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      background: var(--bg-card);
+      color: var(--text-dim);
+      text-align: center;
+      font-size: 0.68rem;
+      position: relative;
+    }
+
+    .arch-node.highlight {
+      border-color: var(--accent);
+      background: var(--accent-soft);
+      color: var(--accent);
+    }
+
+    .arch-connector {
+      display: flex;
+      justify-content: center;
+      padding: 0.3rem 0;
+      color: var(--text-muted);
+      font-size: 0.65rem;
+    }
+
+    .arch-latency {
+      text-align: center;
+      margin-top: 1rem;
+      padding: 0.6rem;
+      border: 1px dashed var(--border-light);
+      border-radius: 4px;
+      color: var(--accent);
+      font-size: 0.65rem;
+    }
+
+    /* ---- USE CASES ---- */
+    .usecases-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .usecase {
+      padding: 2rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--bg-card);
+      transition: border-color 0.3s, transform 0.3s;
+    }
+
+    .usecase:hover {
+      border-color: var(--border-light);
+      transform: translateY(-2px);
+    }
+
+    .usecase-icon {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      filter: grayscale(0.3);
+    }
+
+    .usecase h3 {
+      font-weight: 500;
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .usecase p {
+      font-size: 0.85rem;
+      font-weight: 300;
+      color: var(--text-dim);
+      line-height: 1.6;
+    }
+
+    /* ---- INTEGRATIONS ---- */
+    .integrations {
+      text-align: center;
+    }
+
+    .integration-logos {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 3rem;
+      flex-wrap: wrap;
+      margin-top: 2rem;
+    }
+
+    .integration-item {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      font-weight: 400;
+      color: var(--text-dim);
+      padding: 0.8rem 1.4rem;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      transition: border-color 0.3s, color 0.3s;
+    }
+
+    .integration-item:hover {
+      border-color: var(--border-light);
+      color: var(--text-secondary);
+    }
+
+    /* ---- CTA SECTION ---- */
+    .cta-section {
+      padding: 6rem 0;
+      text-align: center;
+      position: relative;
+    }
+
+    .cta-glow {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 600px;
+      height: 400px;
+      background: radial-gradient(ellipse at center, rgba(0, 229, 160, 0.05) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .cta-section h2 {
+      font-weight: 300;
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      letter-spacing: -0.03em;
+      margin-bottom: 1rem;
+      position: relative;
+    }
+
+    .cta-section p {
+      font-size: 1rem;
+      font-weight: 300;
+      color: var(--text-dim);
+      margin-bottom: 2.5rem;
+      position: relative;
+    }
+
+    .cta-form {
+      display: flex;
+      gap: 0.75rem;
+      max-width: 440px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .cta-form input {
+      flex: 1;
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      padding: 0.8rem 1.2rem;
+      background: var(--bg-raised);
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.3s;
+    }
+
+    .cta-form input::placeholder {
+      color: var(--text-muted);
+    }
+
+    .cta-form input:focus {
+      border-color: var(--accent);
+    }
+
+    .cta-form button {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 0.8rem 1.6rem;
+      background: var(--accent);
+      color: var(--bg);
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: opacity 0.3s;
+      white-space: nowrap;
+    }
+
+    .cta-form button:hover {
+      opacity: 0.85;
+    }
+
+    .cta-note {
+      margin-top: 1rem;
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      color: var(--text-muted);
+      letter-spacing: 0.05em;
+      position: relative;
+    }
+
+    /* Success state */
+    .cta-success {
+      display: none;
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      color: var(--accent);
+      padding: 1rem;
+      border: 1px solid var(--accent);
+      border-radius: 5px;
+      background: var(--accent-soft);
+      max-width: 440px;
+      margin: 0 auto;
+    }
+
+    /* ---- FOOTER ---- */
+    footer {
+      padding: 3rem 0;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    footer .footer-left {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    footer .footer-logo {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      text-decoration: none;
+    }
+
+    footer .footer-copy {
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      color: var(--text-muted);
+    }
+
+    footer .footer-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    footer .footer-links a {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.08em;
+      color: var(--text-dim);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    footer .footer-links a:hover {
+      color: var(--accent);
+    }
+
+    /* ---- SCROLL ANIMATIONS ---- */
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ---- ANIMATIONS ---- */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    /* ---- RESPONSIVE ---- */
+    @media (max-width: 768px) {
+      .container { padding: 0 1.25rem; }
+      .hero { padding: 7rem 0 3rem; }
+      .hero h1 { font-size: 2rem; }
+      .hero-desc { font-size: 0.95rem; }
+      .hero-actions { flex-direction: column; align-items: flex-start; }
+      .hero-code { margin-top: 2.5rem; }
+      .code-body { font-size: 0.65rem; line-height: 1.7; padding: 1rem 1.2rem; }
+      .stats { padding: 2.5rem 0; }
+      .stats-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+      .stat { text-align: left; display: flex; align-items: baseline; gap: 1rem; }
+      .stat-value { font-size: 1.5rem; }
+      .stat-label { margin-top: 0; }
+      .section { padding: 4rem 0; }
+      .section-title { font-size: 1.5rem; }
+      .problem-grid { grid-template-columns: 1fr; }
+      .solution-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .arch-visual { position: static; }
+      .usecases-grid { grid-template-columns: 1fr; }
+      .integration-logos { gap: 0.75rem; }
+      .integration-item { font-size: 0.65rem; padding: 0.6rem 1rem; }
+      .cta-section { padding: 4rem 0; }
+      .cta-section h2 { font-size: 1.8rem; }
+      .cta-form { flex-direction: column; }
+      footer { flex-direction: column; gap: 1.5rem; align-items: flex-start; }
+      footer .footer-left { flex-direction: column; gap: 0.5rem; }
+      /* Nav mobile fix */
+      .nav-inner { height: 48px; }
+      .logo { font-size: 0.65rem; }
+      .nav-separator { display: none; }
+      .nav-product { display: none; }
+      .nav-cta { font-size: 0.6rem; padding: 0.4rem 0.9rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-inner">
+      <div class="nav-left">
+        <a href="/" class="logo">Sideral</a>
+        <span class="nav-separator">/</span>
+        <a href="/agentreach.html" class="nav-product">AgentReach</a>
+      </div>
+      <a href="#beta" class="nav-cta">Request Beta</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-glow"></div>
+    <div class="container">
+      <div class="hero-badge">
+        <span class="dot"></span>
+        <span>Now accepting beta partners</span>
+      </div>
+      <h1>Give your AI agents a <strong>permanent identity</strong></h1>
+      <p class="hero-desc">One phone number. One email. One API. AgentReach is the identity layer that connects your AI to the real world with sub-10ms voice latency.</p>
+      <div class="hero-actions">
+        <a href="#beta" class="btn-primary">Get Beta Access</a>
+        <a href="#how" class="btn-ghost">How it works</a>
+      </div>
+
+      <div class="hero-code">
+        <div class="code-window">
+          <div class="code-header">
+            <span class="code-dot"></span>
+            <span class="code-dot"></span>
+            <span class="code-dot"></span>
+            <span class="code-title">provision.ts</span>
+          </div>
+          <div class="code-body">
+<span class="cm">// Create a persistent identity in one call</span>
+<span class="kw">const</span> agent <span class="op">=</span> <span class="kw">await</span> agentreach.<span class="fn">identities</span>.<span class="fn">create</span>({
+  <span class="prop">name</span>: <span class="str">"Dr. Chen's Scheduling Assistant"</span>,
+  <span class="prop">model</span>: <span class="str">"gpt-4o-realtime"</span>,
+  <span class="prop">channels</span>: [<span class="str">"voice"</span>, <span class="str">"email"</span>]
+});
+
+<span class="cm">// agent.phone  → +1 (415) 555-0142</span>
+<span class="cm">// agent.email  → scheduling@agent.reach.dev</span>
+<span class="cm">// agent.id     → ag_7x2k9...</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <section class="stats">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat reveal">
+          <div class="stat-value">&lt;10ms</div>
+          <div class="stat-label">Internal processing latency</div>
+        </div>
+        <div class="stat reveal">
+          <div class="stat-value">1 API</div>
+          <div class="stat-label">Replaces 4-6 vendor integrations</div>
+        </div>
+        <div class="stat reveal">
+          <div class="stat-value">1 Identity</div>
+          <div class="stat-label">Phone + email + session state</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROBLEM -->
+  <section class="section">
+    <div class="container">
+      <p class="section-label reveal">The problem</p>
+      <h2 class="section-title reveal">Your agents are born as strangers every time they restart</h2>
+      <div class="problem-grid reveal">
+        <div class="problem-card">
+          <div class="problem-icon">!</div>
+          <h3>Identity fragmentation</h3>
+          <p>Phone, email, and session state live in separate systems. There's no source of truth for "Agent #247 spoke with Dr. Chen at 2pm."</p>
+        </div>
+        <div class="problem-card">
+          <div class="problem-icon">~</div>
+          <h3>Unacceptable latency</h3>
+          <p>Traditional telephony stacks transcode audio through multiple hops, adding hundreds of milliseconds of delay that breaks conversational AI.</p>
+          <span class="metric">300–600ms added latency</span>
+        </div>
+        <div class="problem-card">
+          <div class="problem-icon">#</div>
+          <h3>Vendor sprawl</h3>
+          <p>Enterprise teams manage 4–6 vendor integrations per agent — each with separate SLAs, auth models, and failure modes. It compounds.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOLUTION -->
+  <section class="section solution-section" id="how">
+    <div class="container">
+      <p class="section-label reveal">The solution</p>
+      <h2 class="section-title reveal">The nervous system for your AI agents — not the brain</h2>
+      <div class="solution-grid">
+        <div class="solution-features">
+          <div class="feature reveal">
+            <div class="feature-tag">Identity</div>
+            <h3>One agent. One permanent address.</h3>
+            <p>Each agent gets a phone number, an email address, and a canonical ID — unified under a single API. State persists across restarts, channels, and time.</p>
+          </div>
+          <div class="feature reveal">
+            <div class="feature-tag">Audio passthrough</div>
+            <h3>Raw G.711 µ-law. Zero transcoding.</h3>
+            <p>We stream audio bi-directionally between the PSTN and your model's real-time API. No intermediate TTS/STT hops. Under 10ms internal overhead.</p>
+          </div>
+          <div class="feature reveal">
+            <div class="feature-tag">Unified inbox</div>
+            <h3>Every interaction, one timeline.</h3>
+            <p>Calls, voicemails, emails, and system events flow into a single queryable inbox. Your agent polls one endpoint and sees everything.</p>
+          </div>
+        </div>
+        <div class="arch-visual reveal">
+          <div class="arch-title">Data flow</div>
+          <div class="arch-flow">
+            <div class="arch-node">PSTN / Caller</div>
+            <div class="arch-connector">↓ G.711 µ-law</div>
+            <div class="arch-node">Twilio Media Stream</div>
+            <div class="arch-connector">↓ WebSocket</div>
+            <div class="arch-node highlight">AgentReach Gateway</div>
+            <div class="arch-connector">↓ Raw audio passthrough</div>
+            <div class="arch-node">Your AI Model</div>
+            <div class="arch-connector" style="font-size: 0.58rem; color: var(--text-muted);">GPT-4o Realtime / ElevenLabs / Cartesia</div>
+          </div>
+          <div class="arch-latency">Total internal overhead: &lt;10ms</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- USE CASES -->
+  <section class="section">
+    <div class="container">
+      <p class="section-label reveal">Use cases</p>
+      <h2 class="section-title reveal">Built for agents that need to be remembered</h2>
+      <div class="usecases-grid">
+        <div class="usecase reveal">
+          <div class="usecase-icon">&#x2695;</div>
+          <h3>Medical scheduling</h3>
+          <p>Patients call back and your agent remembers their name, appointment history, and preferences — across phone, email, and SMS.</p>
+        </div>
+        <div class="usecase reveal">
+          <div class="usecase-icon">&#x2696;</div>
+          <h3>Legal assistants</h3>
+          <p>Persistent identity across every client touchpoint. One agent, one number, one complete record for compliance and continuity.</p>
+        </div>
+        <div class="usecase reveal">
+          <div class="usecase-icon">&#x27E1;</div>
+          <h3>Financial advisors</h3>
+          <p>Clients interact with the same agent identity whether they call, email, or log in. Trust is built through consistency.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INTEGRATIONS -->
+  <section class="section integrations">
+    <div class="container">
+      <p class="section-label reveal">Compatible with</p>
+      <h2 class="section-title reveal" style="margin-left: auto; margin-right: auto;">Bring your own model</h2>
+      <div class="integration-logos reveal">
+        <div class="integration-item">OpenAI Realtime</div>
+        <div class="integration-item">ElevenLabs</div>
+        <div class="integration-item">Cartesia</div>
+        <div class="integration-item">Deepgram</div>
+        <div class="integration-item">Any WebSocket model</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section" id="beta">
+    <div class="cta-glow"></div>
+    <div class="container">
+      <h2 class="reveal">Get early access</h2>
+      <p class="reveal">We're onboarding a small group of design partners. Ship your first persistent agent in an afternoon.</p>
+      <form class="cta-form reveal" id="betaForm">
+        <input type="email" placeholder="you@company.com" required id="betaEmail">
+        <button type="submit">Request Access</button>
+      </form>
+      <div class="cta-success" id="betaSuccess">
+        You're on the list. We'll be in touch soon.
+      </div>
+      <p class="cta-note reveal">No credit card. We'll reach out within 48 hours.</p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container" style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
+      <div class="footer-left">
+        <a href="/" class="footer-logo">Sideral Labs</a>
+        <span class="footer-copy">© 2025</span>
+      </div>
+      <div class="footer-links">
+        <a href="mailto:hello@sideral.dev">Contact</a>
+        <a href="/">Lab</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => {
+            entry.target.classList.add('visible');
+          }, i * 80);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+    reveals.forEach(el => observer.observe(el));
+
+    // Beta form
+    document.getElementById('betaForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const email = document.getElementById('betaEmail').value;
+      // In production, POST to your backend here
+      console.log('Beta signup:', email);
+      this.style.display = 'none';
+      document.getElementById('betaSuccess').style.display = 'block';
+      document.querySelector('.cta-note').style.display = 'none';
+    });
+  </script>
+</body>
+</html>
