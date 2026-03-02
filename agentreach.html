@@ -653,10 +653,16 @@
 
     .cta-form {
       display: flex;
-      gap: 0.75rem;
+      flex-direction: column;
+      gap: 0.5rem;
       max-width: 440px;
       margin: 0 auto;
       position: relative;
+    }
+
+    .form-row {
+      display: flex;
+      gap: 0.75rem;
     }
 
     .cta-form input {
@@ -678,6 +684,19 @@
 
     .cta-form input:focus {
       border-color: var(--accent);
+    }
+
+    .form-optional {
+      font-size: 0.78rem !important;
+      padding: 0.75rem 1.2rem !important;
+      border-color: var(--border) !important;
+      background: var(--bg-raised) !important;
+      border-radius: 5px !important;
+      width: 100%;
+    }
+
+    .form-optional:focus {
+      border-color: var(--accent) !important;
     }
 
     .cta-form button {
@@ -817,7 +836,7 @@
       .integration-item { font-size: 0.65rem; padding: 0.6rem 1rem; }
       .cta-section { padding: 4rem 0; }
       .cta-section h2 { font-size: 1.8rem; }
-      .cta-form { flex-direction: column; }
+      .form-row { flex-direction: column; }
       footer { flex-direction: column; gap: 1.5rem; align-items: flex-start; }
       footer .footer-left { flex-direction: column; gap: 0.5rem; }
       /* Nav mobile fix */
@@ -957,7 +976,7 @@
           <div class="arch-flow">
             <div class="arch-node">PSTN / Caller</div>
             <div class="arch-connector">↓ G.711 µ-law</div>
-            <div class="arch-node">Twilio Media Stream</div>
+            <div class="arch-node">Carrier Media Stream</div>
             <div class="arch-connector">↓ WebSocket</div>
             <div class="arch-node highlight">AgentReach Gateway</div>
             <div class="arch-connector">↓ Raw audio passthrough</div>
@@ -1019,8 +1038,13 @@
       <form class="cta-form reveal" id="betaForm">
         <input type="hidden" name="access_key" value="49933144-0c1c-4cc4-8450-b6b066e96507">
         <input type="hidden" name="subject" value="AgentReach Beta Request">
-        <input type="email" name="email" placeholder="you@company.com" required id="betaEmail">
-        <button type="submit" id="betaSubmit">Request Access</button>
+        <input type="hidden" name="from_name" value="AgentReach Beta">
+        <input type="hidden" name="replyto" id="replytoField">
+        <input type="text" name="building" placeholder="What are you building? (optional)" class="form-optional">
+        <div class="form-row">
+          <input type="email" name="email" placeholder="you@company.com" required id="betaEmail">
+          <button type="submit" id="betaSubmit">Request Access</button>
+        </div>
       </form>
       <div class="cta-success" id="betaSuccess">
         You're on the list. We'll be in touch soon.
@@ -1037,7 +1061,6 @@
         <span class="footer-copy">© 2026</span>
       </div>
       <div class="footer-links">
-        <a href="mailto:hello@sideral.dev">Contact</a>
         <a href="/">Lab</a>
       </div>
     </div>
@@ -1062,6 +1085,7 @@
     // Beta form
     document.getElementById('betaForm').addEventListener('submit', async function(e) {
       e.preventDefault();
+      document.getElementById('replytoField').value = document.getElementById('betaEmail').value;
       const btn = document.getElementById('betaSubmit');
       btn.textContent = 'Sending...';
       btn.disabled = true;
