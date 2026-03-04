@@ -1,3 +1,6 @@
 .DS_Store
 .wrangler/
 CLAUDE.md
+.dev.vars*
+.env*
+!.dev.vars.example

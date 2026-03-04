@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AgentReach — The Identity Layer for AI</title>
-  <meta name="description" content="One phone number. One email. One API. Give your AI agents persistent, multi-modal identity with sub-10ms voice latency.">
+  <title>AgentReach — Provision Real-World Credentials for AI Agents</title>
+  <meta name="description" content="Give each agent a phone number, email inbox, and virtual card tied to one canonical agent ID. One API for real-world execution.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300;1,9..40,400&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
@@ -23,7 +23,6 @@
       --text-muted: #3a3a45;
       --accent: #00E5A0;
       --accent-soft: rgba(0, 229, 160, 0.12);
-      --accent-glow: rgba(0, 229, 160, 0.06);
       --red: #ff4d4d;
       --red-soft: rgba(255, 77, 77, 0.1);
       --mono: 'JetBrains Mono', monospace;
@@ -48,7 +47,7 @@
       inset: 0;
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
       pointer-events: none;
-      z-index: 9999;
+      z-index: 0;
     }
 
     .container {
@@ -75,6 +74,12 @@
       -webkit-backdrop-filter: blur(16px);
       background: rgba(10, 10, 12, 0.8);
       border-bottom: 1px solid var(--border);
+    }
+
+    @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+      nav {
+        background: rgba(10, 10, 12, 0.96);
+      }
     }
 
     .nav-inner {
@@ -207,9 +212,19 @@
       font-weight: 300;
       line-height: 1.7;
       color: var(--text-secondary);
-      max-width: 520px;
+      max-width: 620px;
       opacity: 0;
       animation: fadeUp 0.7s ease forwards 0.4s;
+    }
+
+    .hero-support {
+      display: block;
+      margin-top: 0.55rem;
+      color: var(--text-dim);
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
     }
 
     .hero-actions {
@@ -320,7 +335,7 @@
     .code-body .prop { color: #f78c6c; }
     .code-body .op { color: var(--text-dim); }
 
-    /* ---- STATS BAR ---- */
+    /* ---- WHAT YOU GET ---- */
     .stats {
       padding: 4rem 0;
       border-top: 1px solid var(--border);
@@ -329,29 +344,44 @@
 
     .stats-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 2rem;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
     }
 
     .stat {
-      text-align: center;
+      text-align: left;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--bg-card);
+      padding: 1.5rem;
     }
 
     .stat-value {
       font-family: var(--mono);
-      font-size: clamp(1.8rem, 4vw, 2.4rem);
-      font-weight: 300;
-      letter-spacing: -0.02em;
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
       color: var(--accent);
     }
 
     .stat-label {
-      margin-top: 0.5rem;
-      font-family: var(--mono);
-      font-size: 0.65rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
+      margin-top: 0.8rem;
+      font-family: var(--sans);
+      font-size: 0.9rem;
+      font-weight: 300;
+      line-height: 1.6;
       color: var(--text-dim);
+    }
+
+    .stats-note {
+      margin-top: 1.4rem;
+      text-align: center;
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
     }
 
     /* ---- PROBLEM SECTION ---- */
@@ -375,6 +405,11 @@
       letter-spacing: -0.02em;
       max-width: 560px;
       margin-bottom: 3rem;
+    }
+
+    .section-title--center {
+      margin-left: auto;
+      margin-right: auto;
     }
 
     .problem-grid {
@@ -421,15 +456,21 @@
       line-height: 1.65;
     }
 
-    .problem-card .metric {
-      display: inline-block;
-      margin-top: 0.8rem;
+    .trust-list {
+      margin: 0;
+      padding-left: 1.1rem;
+      display: grid;
+      gap: 0.85rem;
+      color: var(--text-dim);
+      font-size: 0.9rem;
+      line-height: 1.6;
+      font-weight: 300;
+    }
+
+    .trust-list code {
       font-family: var(--mono);
-      font-size: 0.7rem;
-      color: var(--red);
-      background: var(--red-soft);
-      padding: 0.2rem 0.6rem;
-      border-radius: 3px;
+      font-size: 0.78rem;
+      color: var(--text-secondary);
     }
 
     /* ---- SOLUTION SECTION ---- */
@@ -592,6 +633,15 @@
       text-align: center;
     }
 
+    .integration-copy {
+      max-width: 640px;
+      margin: -1.5rem auto 0;
+      font-size: 0.95rem;
+      font-weight: 300;
+      line-height: 1.65;
+      color: var(--text-dim);
+    }
+
     .integration-logos {
       display: flex;
       justify-content: center;
@@ -654,7 +704,7 @@
     .cta-form {
       display: flex;
       flex-direction: column;
-      gap: 0.5rem;
+      gap: 0.65rem;
       max-width: 440px;
       margin: 0 auto;
       position: relative;
@@ -697,6 +747,45 @@
 
     .form-optional:focus {
       border-color: var(--accent) !important;
+    }
+
+    .field-trap {
+      position: absolute;
+      left: -10000px;
+      top: auto;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    .form-status {
+      min-height: 1.2rem;
+      margin-top: 0.25rem;
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.03em;
+      color: var(--text-muted);
+      text-align: left;
+    }
+
+    .form-status.error {
+      color: #ff8585;
+    }
+
+    .form-status.success {
+      color: var(--accent);
     }
 
     .cta-form button {
@@ -749,6 +838,13 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
     }
 
     footer .footer-left {
@@ -812,26 +908,37 @@
       50% { opacity: 0.4; }
     }
 
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+      body::before { display: none; }
+      .reveal { opacity: 1; transform: none; }
+    }
+
     /* ---- RESPONSIVE ---- */
     @media (max-width: 768px) {
       .container { padding: 0 1.25rem; }
+      body::before { display: none; }
       .hero { padding: 7rem 0 3rem; }
       .hero h1 { font-size: 2rem; }
       .hero-desc { font-size: 0.95rem; }
+      .hero-support { font-size: 0.62rem; }
       .hero-actions { flex-direction: column; align-items: flex-start; }
       .hero-code { margin-top: 2.5rem; }
       .code-body { font-size: 0.65rem; line-height: 1.7; padding: 1rem 1.2rem; }
       .stats { padding: 2.5rem 0; }
-      .stats-grid { grid-template-columns: 1fr; gap: 1.5rem; }
-      .stat { text-align: left; display: flex; align-items: baseline; gap: 1rem; }
-      .stat-value { font-size: 1.5rem; }
-      .stat-label { margin-top: 0; }
+      .stats-grid { grid-template-columns: 1fr; gap: 0.85rem; }
       .section { padding: 4rem 0; }
       .section-title { font-size: 1.5rem; }
       .problem-grid { grid-template-columns: 1fr; }
       .solution-grid { grid-template-columns: 1fr; gap: 2rem; }
       .arch-visual { position: static; }
       .usecases-grid { grid-template-columns: 1fr; }
+      .integration-copy { margin-top: -1.3rem; font-size: 0.9rem; }
       .integration-logos { gap: 0.75rem; }
       .integration-item { font-size: 0.65rem; padding: 0.6rem 1rem; }
       .cta-section { padding: 4rem 0; }
@@ -868,13 +975,13 @@
     <div class="container">
       <div class="hero-badge">
         <span class="dot"></span>
-        <span>Now accepting beta partners</span>
+        <span>Beta for teams shipping production agents</span>
       </div>
-      <h1>Give your AI agents a <strong>permanent identity</strong></h1>
-      <p class="hero-desc">One phone number. One email. One API. AgentReach is the identity layer that connects your AI to the real world with sub-10ms voice latency.</p>
+      <h1>Your agent can reason. It still can&rsquo;t <strong>call, email, or pay.</strong></h1>
+      <p class="hero-desc">AgentReach provisions phone numbers, inboxes, and virtual cards for your agent, all tied to one canonical agent ID.<span class="hero-support">One API. One agent record. Real-world actions.</span></p>
       <div class="hero-actions">
-        <a href="#beta" class="btn-primary">Get Beta Access</a>
-        <a href="#how" class="btn-ghost">How it works</a>
+        <a href="#beta" class="btn-primary">Request Beta Access</a>
+        <a href="#how" class="btn-ghost">See How It Works</a>
       </div>
 
       <div class="hero-code">
@@ -887,38 +994,42 @@
           </div>
           <div class="code-body">
 <span class="cm">// Create a persistent identity in one call</span>
-<span class="kw">const</span> agent <span class="op">=</span> <span class="kw">await</span> agentreach.<span class="fn">identities</span>.<span class="fn">create</span>({
-  <span class="prop">name</span>: <span class="str">"Dr. Chen's Scheduling Assistant"</span>,
-  <span class="prop">model</span>: <span class="str">"gpt-4o-realtime"</span>,
-  <span class="prop">channels</span>: [<span class="str">"voice"</span>, <span class="str">"email"</span>]
+<span class="kw">const</span> agent <span class="op">=</span> <span class="kw">await</span> agentreach.<span class="fn">agents</span>.<span class="fn">create</span>({
+  <span class="prop">name</span>: <span class="str">"Vendor Follow-up Agent"</span>,
+  <span class="prop">channels</span>: [<span class="str">"phone"</span>, <span class="str">"email"</span>],
+  <span class="prop">payments</span>: { <span class="prop">virtual_card</span>: <span class="kw">true</span> }
 });
 
-<span class="cm">// agent.phone  → +1 (415) 555-0142</span>
-<span class="cm">// agent.email  → scheduling@agent.reach.dev</span>
-<span class="cm">// agent.id     → ag_7x2k9...</span>
+<span class="cm">// agent.agent_id      → ag_92f1...</span>
+<span class="cm">// agent.phone_number  → +1 (415) 555-0142</span>
+<span class="cm">// agent.email_inbox   → followup@agentreach.dev</span>
+<span class="cm">// agent.virtual_card  → card_38xp...</span>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- STATS -->
+  <!-- WHAT YOUR AGENT GETS -->
   <section class="stats">
     <div class="container">
+      <p class="section-label reveal">What your agent gets</p>
+      <h2 class="section-title reveal">Provision credentials once. Reuse them across every workflow.</h2>
       <div class="stats-grid">
         <div class="stat reveal">
-          <div class="stat-value">&lt;10ms</div>
-          <div class="stat-label">Internal processing latency</div>
+          <div class="stat-value">Phone Credentials</div>
+          <div class="stat-label">Calls, SMS, and voicemail tied to your agent record.</div>
         </div>
         <div class="stat reveal">
-          <div class="stat-value">1 API</div>
-          <div class="stat-label">Replaces 4-6 vendor integrations</div>
+          <div class="stat-value">Email Inbox</div>
+          <div class="stat-label">Send and receive email threads with state your agent can track.</div>
         </div>
         <div class="stat reveal">
-          <div class="stat-value">1 Identity</div>
-          <div class="stat-label">Phone + email + session state</div>
+          <div class="stat-value">Virtual Card</div>
+          <div class="stat-label">Use a programmatic payment method from the same API surface.</div>
         </div>
       </div>
+      <p class="stats-note reveal">All mapped to one canonical <code>agent_id</code>.</p>
     </div>
   </section>
 
@@ -926,65 +1037,79 @@
   <section class="section">
     <div class="container">
       <p class="section-label reveal">The problem</p>
-      <h2 class="section-title reveal">Your agents are born as strangers every time they restart</h2>
+      <h2 class="section-title reveal">Most agents fail at the execution layer.</h2>
       <div class="problem-grid reveal">
         <div class="problem-card">
           <div class="problem-icon">!</div>
-          <h3>Identity fragmentation</h3>
-          <p>Phone, email, and session state live in separate systems. There's no source of truth for "Agent #247 spoke with Dr. Chen at 2pm."</p>
+          <h3>Credential fragmentation</h3>
+          <p>Phone, inbox, and payment rails live in separate vendors. You spend time wiring auth instead of shipping tasks.</p>
         </div>
         <div class="problem-card">
           <div class="problem-icon">~</div>
-          <h3>Unacceptable latency</h3>
-          <p>Traditional telephony stacks transcode audio through multiple hops, adding hundreds of milliseconds of delay that breaks conversational AI.</p>
-          <span class="metric">300–600ms added latency</span>
+          <h3>No canonical identity</h3>
+          <p>Events arrive with different IDs per channel. Your agent cannot reliably link a call, email thread, and payment event.</p>
         </div>
         <div class="problem-card">
           <div class="problem-icon">#</div>
-          <h3>Vendor sprawl</h3>
-          <p>Enterprise teams manage 4–6 vendor integrations per agent — each with separate SLAs, auth models, and failure modes. It compounds.</p>
+          <h3>Operational drag</h3>
+          <p>Every new workflow adds glue code, retries, and edge-case handling across telephony, inboxes, and payments.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- SOLUTION -->
+  <!-- HOW IT WORKS -->
   <section class="section solution-section" id="how">
     <div class="container">
-      <p class="section-label reveal">The solution</p>
-      <h2 class="section-title reveal">The nervous system for your AI agents — not the brain</h2>
+      <p class="section-label reveal">How it works</p>
+      <h2 class="section-title reveal">Create one agent record, then execute through one ID.</h2>
       <div class="solution-grid">
         <div class="solution-features">
           <div class="feature reveal">
-            <div class="feature-tag">Identity</div>
-            <h3>One agent. One permanent address.</h3>
-            <p>Each agent gets a phone number, an email address, and a canonical ID — unified under a single API. State persists across restarts, channels, and time.</p>
+            <div class="feature-tag">Step 1</div>
+            <h3>Create your agent record.</h3>
+            <p>Call <code>agentreach.agents.create</code> once to create a canonical <code>agent_id</code> for your agent.</p>
           </div>
           <div class="feature reveal">
-            <div class="feature-tag">Audio passthrough</div>
-            <h3>Raw G.711 µ-law. Zero transcoding.</h3>
-            <p>We stream audio bi-directionally between the PSTN and your model's real-time API. No intermediate TTS/STT hops. Under 10ms internal overhead.</p>
+            <div class="feature-tag">Step 2</div>
+            <h3>Provision channel credentials.</h3>
+            <p>Attach phone, email inbox, and virtual card credentials to that same resource.</p>
           </div>
           <div class="feature reveal">
-            <div class="feature-tag">Unified inbox</div>
-            <h3>Every interaction, one timeline.</h3>
-            <p>Calls, voicemails, emails, and system events flow into a single queryable inbox. Your agent polls one endpoint and sees everything.</p>
+            <div class="feature-tag">Step 3</div>
+            <h3>Consume unified events and act.</h3>
+            <p>Read calls, SMS, voicemail, emails, and payment events in one timeline keyed by <code>agent_id</code>.</p>
           </div>
         </div>
         <div class="arch-visual reveal">
-          <div class="arch-title">Data flow</div>
+          <div class="arch-title">Event mapping</div>
           <div class="arch-flow">
-            <div class="arch-node">PSTN / Caller</div>
-            <div class="arch-connector">↓ G.711 µ-law</div>
-            <div class="arch-node">Carrier Media Stream</div>
-            <div class="arch-connector">↓ WebSocket</div>
-            <div class="arch-node highlight">AgentReach Gateway</div>
-            <div class="arch-connector">↓ Raw audio passthrough</div>
-            <div class="arch-node">Your AI Model</div>
-            <div class="arch-connector" style="font-size: 0.58rem; color: var(--text-muted);">GPT-4o Realtime / ElevenLabs / Cartesia</div>
+            <div class="arch-node highlight">agent_id: ag_92f1...</div>
+            <div class="arch-connector">↓</div>
+            <div class="arch-node">voice.call.received  →  ag_92f1...</div>
+            <div class="arch-connector">↓</div>
+            <div class="arch-node">email.thread.replied →  ag_92f1...</div>
+            <div class="arch-connector">↓</div>
+            <div class="arch-node">card.charge.captured →  ag_92f1...</div>
           </div>
-          <div class="arch-latency">Total internal overhead: &lt;10ms</div>
+          <div class="arch-latency">Every channel event resolves to the same agent record.</div>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DEVELOPER TRUST -->
+  <section class="section">
+    <div class="container container--narrow">
+      <p class="section-label reveal">Developer trust</p>
+      <h2 class="section-title reveal">Built for production workflows.</h2>
+      <div class="feature reveal">
+        <ul class="trust-list">
+          <li>Use one canonical <code>agent_id</code> across phone, inbox, and card events.</li>
+          <li>Provision and manage credential lifecycle through API calls instead of manual vendor consoles.</li>
+          <li>Keep one event timeline per agent for audits, retries, and deterministic workflow logic.</li>
+          <li>Use beta scope boundaries clearly so your team knows what is ready for live traffic.</li>
+        </ul>
       </div>
     </div>
   </section>
@@ -993,22 +1118,22 @@
   <section class="section">
     <div class="container">
       <p class="section-label reveal">Use cases</p>
-      <h2 class="section-title reveal">Built for agents that need to be remembered</h2>
+      <h2 class="section-title reveal">Common execution patterns for your agent.</h2>
       <div class="usecases-grid">
         <div class="usecase reveal">
-          <div class="usecase-icon">&#x2695;</div>
-          <h3>Medical scheduling</h3>
-          <p>Patients call back and your agent remembers their name, appointment history, and preferences — across phone, email, and SMS.</p>
+          <div class="usecase-icon">&#x260E;</div>
+          <h3>Follow up by phone after inbound email.</h3>
+          <p>Your agent can turn an email thread into a call without losing context or identity.</p>
         </div>
         <div class="usecase reveal">
-          <div class="usecase-icon">&#x2696;</div>
-          <h3>Legal assistants</h3>
-          <p>Persistent identity across every client touchpoint. One agent, one number, one complete record for compliance and continuity.</p>
+          <div class="usecase-icon">&#x1F4B3;</div>
+          <h3>Collect payment after a confirmed workflow.</h3>
+          <p>Your agent can complete payment steps after it confirms a booking, order, or service action.</p>
         </div>
         <div class="usecase reveal">
-          <div class="usecase-icon">&#x27E1;</div>
-          <h3>Financial advisors</h3>
-          <p>Clients interact with the same agent identity whether they call, email, or log in. Trust is built through consistency.</p>
+          <div class="usecase-icon">&#x1F4E8;</div>
+          <h3>Resume conversations across channels.</h3>
+          <p>Your agent can pick up the same timeline when someone replies later by SMS, voicemail, or email.</p>
         </div>
       </div>
     </div>
@@ -1017,8 +1142,9 @@
   <!-- INTEGRATIONS -->
   <section class="section integrations">
     <div class="container">
-      <p class="section-label reveal">Compatible with</p>
-      <h2 class="section-title reveal" style="margin-left: auto; margin-right: auto;">Bring your own model</h2>
+      <p class="section-label reveal">Integrations</p>
+      <h2 class="section-title section-title--center reveal">Bring your model. Keep your stack.</h2>
+      <p class="integration-copy reveal">AgentReach handles credential provisioning and channel rails. Your model handles reasoning and decisions.</p>
       <div class="integration-logos reveal">
         <div class="integration-item">OpenAI Realtime</div>
         <div class="integration-item">ElevenLabs</div>
@@ -1033,29 +1159,32 @@
   <section class="cta-section" id="beta">
     <div class="cta-glow"></div>
     <div class="container">
-      <h2 class="reveal">Get early access</h2>
-      <p class="reveal">We're onboarding a small group of design partners. Ship your first persistent agent in an afternoon.</p>
-      <form class="cta-form reveal" id="betaForm">
-        <input type="hidden" name="access_key" value="49933144-0c1c-4cc4-8450-b6b066e96507">
-        <input type="hidden" name="subject" value="AgentReach Beta Request">
-        <input type="hidden" name="from_name" value="AgentReach Beta">
-        <input type="hidden" name="replyto" id="replytoField">
-        <input type="text" name="building" placeholder="What are you building? (optional)" class="form-optional">
+      <h2 class="reveal">Get beta access</h2>
+      <p class="reveal">Tell us what you&rsquo;re building. We&rsquo;ll follow up with access details.</p>
+      <form class="cta-form reveal" id="betaForm" novalidate>
+        <label class="sr-only" for="buildingInput">What are you building?</label>
+        <input type="text" id="buildingInput" name="building" placeholder="What are you building? (optional)" class="form-optional" autocomplete="off">
         <div class="form-row">
-          <input type="email" name="email" placeholder="you@company.com" required id="betaEmail">
+          <label class="sr-only" for="betaEmail">Work email</label>
+          <input type="email" name="email" placeholder="you@company.com" required id="betaEmail" autocomplete="email" inputmode="email">
           <button type="submit" id="betaSubmit">Request Access</button>
         </div>
+        <div class="field-trap" aria-hidden="true">
+          <label class="sr-only" for="websiteField">Website</label>
+          <input type="text" id="websiteField" name="website" tabindex="-1" autocomplete="off">
+        </div>
+        <p class="form-status" id="betaStatus" role="status" aria-live="polite"></p>
       </form>
       <div class="cta-success" id="betaSuccess">
         You're on the list. We'll be in touch soon.
       </div>
-      <p class="cta-note reveal">No credit card. We'll reach out within 48 hours.</p>
+      <p class="cta-note reveal">No credit card required.</p>
     </div>
   </section>
 
   <!-- FOOTER -->
   <footer>
-    <div class="container" style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
+    <div class="container footer-inner">
       <div class="footer-left">
         <a href="/" class="footer-logo">Sideral Labs</a>
         <span class="footer-copy">© 2026</span>
@@ -1069,45 +1198,87 @@
   <script>
     // Scroll reveal
     const reveals = document.querySelectorAll('.reveal');
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry, i) => {
-        if (entry.isIntersecting) {
-          setTimeout(() => {
-            entry.target.classList.add('visible');
-          }, i * 80);
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry, i) => {
+          if (entry.isIntersecting) {
+            setTimeout(() => {
+              entry.target.classList.add('visible');
+            }, i * 80);
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 
-    reveals.forEach(el => observer.observe(el));
+      reveals.forEach(el => observer.observe(el));
+    } else {
+      reveals.forEach(el => el.classList.add('visible'));
+    }
 
     // Beta form
-    document.getElementById('betaForm').addEventListener('submit', async function(e) {
-      e.preventDefault();
-      document.getElementById('replytoField').value = document.getElementById('betaEmail').value;
-      const btn = document.getElementById('betaSubmit');
-      btn.textContent = 'Sending...';
-      btn.disabled = true;
+    const betaForm = document.getElementById('betaForm');
+    const betaSubmit = document.getElementById('betaSubmit');
+    const betaStatus = document.getElementById('betaStatus');
+    const betaSuccess = document.getElementById('betaSuccess');
+    const betaEmail = document.getElementById('betaEmail');
+    const buildingInput = document.getElementById('buildingInput');
+    const websiteField = document.getElementById('websiteField');
+    const ctaNote = document.querySelector('.cta-note');
 
-      const data = new FormData(this);
+    function setStatus(message, type) {
+      betaStatus.textContent = message;
+      betaStatus.className = 'form-status';
+      if (type) betaStatus.classList.add(type);
+    }
+
+    function resetSubmitState() {
+      betaSubmit.textContent = 'Request Access';
+      betaSubmit.disabled = false;
+    }
+
+    betaForm.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      if (!betaEmail.checkValidity()) {
+        setStatus('Enter a valid work email.', 'error');
+        betaEmail.focus();
+        return;
+      }
+
+      setStatus('', '');
+      betaSubmit.textContent = 'Sending...';
+      betaSubmit.disabled = true;
+
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 8000);
       try {
-        const res = await fetch('https://api.web3forms.com/submit', {
+        const res = await fetch('/api/beta', {
           method: 'POST',
-          body: data
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            email: betaEmail.value.trim(),
+            building: buildingInput.value.trim(),
+            website: websiteField.value.trim()
+          }),
+          signal: controller.signal
         });
-        const json = await res.json();
-        if (json.success) {
+        const json = await res.json().catch(() => ({}));
+        if (res.ok && json.ok) {
           this.style.display = 'none';
-          document.getElementById('betaSuccess').style.display = 'block';
-          document.querySelector('.cta-note').style.display = 'none';
+          betaSuccess.style.display = 'block';
+          if (ctaNote) ctaNote.style.display = 'none';
+          setStatus('Request received.', 'success');
         } else {
-          btn.textContent = 'Try again';
-          btn.disabled = false;
+          setStatus(json.error || 'Unable to submit. Please try again.', 'error');
+          resetSubmitState();
         }
-      } catch {
-        btn.textContent = 'Try again';
-        btn.disabled = false;
+      } catch (error) {
+        const message = error.name === 'AbortError'
+          ? 'Request timed out. Please try again.'
+          : 'Network error. Please try again.';
+        setStatus(message, 'error');
+        resetSubmitState();
+      } finally {
+        clearTimeout(timeoutId);
       }
     });
   </script>

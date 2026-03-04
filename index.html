@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sideral Labs</title>
+  <meta name="description" content="Sideral Labs builds applied AI products, including AgentReach for provisioning phone, inbox, and payment credentials for AI agents.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
@@ -172,6 +173,10 @@
       animation: fadeUp 0.8s ease forwards 1s;
     }
 
+    .project-list > li {
+      list-style: none;
+    }
+
     .project-item {
       display: flex;
       align-items: baseline;
@@ -185,7 +190,7 @@
       position: relative;
     }
 
-    .project-item:last-child {
+    .project-list > li:last-child .project-item {
       border-bottom: 1px solid var(--border);
     }
 
@@ -209,6 +214,22 @@
     .project-item:hover .project-arrow {
       transform: translateX(4px);
       color: var(--accent);
+    }
+
+    .project-item--static {
+      cursor: default;
+    }
+
+    .project-item--static::before {
+      display: none;
+    }
+
+    .project-name--muted {
+      color: var(--text-dim);
+    }
+
+    .project-arrow--hidden {
+      visibility: hidden;
     }
 
     .project-name {
@@ -325,27 +346,33 @@
     <p class="projects-header">Work</p>
 
     <ul class="project-list">
-      <a href="/agentreach.html" class="project-item">
-        <span class="project-name">AgentReach</span>
-        <span class="project-meta">
-          <span class="project-status active">Beta</span>
-          <span class="project-arrow">→</span>
-        </span>
-      </a>
-      <div class="project-item" style="cursor: default;">
-        <span class="project-name" style="color: var(--text-dim);">Project Atlas</span>
-        <span class="project-meta">
-          <span class="project-status">Coming soon</span>
-          <span class="project-arrow" style="visibility: hidden;">→</span>
-        </span>
-      </div>
-      <div class="project-item" style="cursor: default;">
-        <span class="project-name" style="color: var(--text-dim);">Project Meridian</span>
-        <span class="project-meta">
-          <span class="project-status">Research</span>
-          <span class="project-arrow" style="visibility: hidden;">→</span>
-        </span>
-      </div>
+      <li>
+        <a href="/agentreach.html" class="project-item">
+          <span class="project-name">AgentReach</span>
+          <span class="project-meta">
+            <span class="project-status active">Beta</span>
+            <span class="project-arrow">→</span>
+          </span>
+        </a>
+      </li>
+      <li>
+        <div class="project-item project-item--static">
+          <span class="project-name project-name--muted">Project Atlas</span>
+          <span class="project-meta">
+            <span class="project-status">Coming soon</span>
+            <span class="project-arrow project-arrow--hidden">→</span>
+          </span>
+        </div>
+      </li>
+      <li>
+        <div class="project-item project-item--static">
+          <span class="project-name project-name--muted">Project Meridian</span>
+          <span class="project-meta">
+            <span class="project-status">Research</span>
+            <span class="project-arrow project-arrow--hidden">→</span>
+          </span>
+        </div>
+      </li>
     </ul>
 
     <footer>
