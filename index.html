@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sideral Labs</title>
-  <meta name="description" content="Sideral Labs builds applied AI products, including AgentReach for provisioning phone, inbox, and payment credentials for AI agents.">
+  <title>Wexpro Labs</title>
+  <meta name="description" content="Wexpro Labs is a focused product lab. We build, test, and ship software products from first concept to production.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
@@ -179,7 +179,7 @@
 
     .project-item {
       display: flex;
-      align-items: baseline;
+      align-items: flex-start;
       justify-content: space-between;
       padding: 1.5rem 0;
       border-top: 1px solid var(--border);
@@ -216,6 +216,10 @@
       color: var(--accent);
     }
 
+    .project-item:hover .project-desc {
+      color: var(--text);
+    }
+
     .project-item--static {
       cursor: default;
     }
@@ -239,7 +243,24 @@
       transition: color 0.3s;
       position: relative;
       z-index: 1;
+    }
+
+    .project-main {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
       padding-left: 1rem;
+      position: relative;
+      z-index: 1;
+      max-width: 620px;
+    }
+
+    .project-desc {
+      font-size: 0.86rem;
+      font-weight: 300;
+      line-height: 1.6;
+      color: var(--text-dim);
+      transition: color 0.3s;
     }
 
     .project-meta {
@@ -249,6 +270,7 @@
       position: relative;
       z-index: 1;
       padding-right: 1rem;
+      margin-top: 0.1rem;
     }
 
     .project-status {
@@ -323,6 +345,8 @@
       .hero { padding: 6rem 0 4rem; }
       .project-meta { gap: 0.8rem; }
       .project-status { display: none; }
+      .project-main { max-width: 100%; }
+      .project-desc { font-size: 0.82rem; }
       footer { flex-direction: column; gap: 1rem; align-items: flex-start; }
     }
   </style>
@@ -331,14 +355,14 @@
   <div class="glow"></div>
   <div class="container">
     <nav>
-      <a href="/" class="logo">Sideral<span>.</span></a>
-      <a href="mailto:hello@sideral.dev" class="nav-link">Contact</a>
+      <a href="/" class="logo">Wexpro<span>.</span></a>
+      <a href="mailto:hello@Wexpro.dev" class="nav-link">Contact</a>
     </nav>
 
     <section class="hero">
-      <p class="hero-label">Applied AI Lab</p>
-      <h1>We make AI software <em>worth using.</em></h1>
-      <p class="hero-sub">Sideral is a focused AI lab. We identify hard problems, build tight products, and ship to real users. No noise — just work.</p>
+      <p class="hero-label">Applied Product Lab</p>
+      <h1>We build software that <em>ships and holds up.</em></h1>
+      <p class="hero-sub">Wexpro is a focused product lab. We find hard, practical problems and ship products people can rely on.</p>
     </section>
 
     <div class="divider"></div>
@@ -348,7 +372,10 @@
     <ul class="project-list">
       <li>
         <a href="/agentreach.html" class="project-item">
-          <span class="project-name">AgentReach</span>
+          <div class="project-main">
+            <span class="project-name">AgentReach</span>
+            <p class="project-desc">Current beta product for teams shipping automated workflows in production.</p>
+          </div>
           <span class="project-meta">
             <span class="project-status active">Beta</span>
             <span class="project-arrow">→</span>
@@ -357,7 +384,10 @@
       </li>
       <li>
         <div class="project-item project-item--static">
-          <span class="project-name project-name--muted">Project Atlas</span>
+          <div class="project-main">
+            <span class="project-name project-name--muted">Project Atlas</span>
+            <p class="project-desc">Next product track in active development.</p>
+          </div>
           <span class="project-meta">
             <span class="project-status">Coming soon</span>
             <span class="project-arrow project-arrow--hidden">→</span>
@@ -366,7 +396,10 @@
       </li>
       <li>
         <div class="project-item project-item--static">
-          <span class="project-name project-name--muted">Project Meridian</span>
+          <div class="project-main">
+            <span class="project-name project-name--muted">Project Meridian</span>
+            <p class="project-desc">Ongoing research track for new product directions.</p>
+          </div>
           <span class="project-meta">
             <span class="project-status">Research</span>
             <span class="project-arrow project-arrow--hidden">→</span>
@@ -376,7 +409,7 @@
     </ul>
 
     <footer>
-      <span class="copyright">© 2026 Sideral Labs</span>
+      <span class="copyright">© 2026 Wexpro Labs</span>
     </footer>
   </div>
 </body>
