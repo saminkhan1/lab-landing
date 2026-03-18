@@ -1355,9 +1355,12 @@
     <div class="container">
       <h2 class="reveal">Ship your agent&rsquo;s first real-world action</h2>
       <p class="reveal">Tell us what you&rsquo;re building. We&rsquo;ll get you set up.</p>
-      <form class="cta-form reveal" id="betaForm" method="post" action="/api/beta" novalidate>
+      <form class="cta-form reveal" id="betaForm" novalidate>
+        <input type="hidden" name="access_key" value="49933144-0c1c-4cc4-8450-b6b066e96507">
+        <input type="hidden" name="subject" value="Agent Connect Beta Request">
+        <input type="hidden" name="from_name" value="Agent Connect Beta">
         <label class="sr-only" for="buildingInput">What are you building?</label>
-        <input type="text" id="buildingInput" name="building" placeholder="What are you building? (optional)" class="form-optional" autocomplete="off">
+        <input type="text" id="buildingInput" name="message" placeholder="What are you building? (optional)" class="form-optional" autocomplete="off">
         <div class="form-row">
           <label class="sr-only" for="betaEmail">Work email</label>
           <input type="email" name="email" placeholder="you@company.com" required id="betaEmail" autocomplete="email" inputmode="email">
@@ -1365,7 +1368,7 @@
         </div>
         <div class="field-trap" aria-hidden="true">
           <label class="sr-only" for="websiteField">Website</label>
-          <input type="text" id="websiteField" name="website" tabindex="-1" autocomplete="off">
+          <input type="text" id="websiteField" name="redirect" tabindex="-1" autocomplete="off">
         </div>
         <p class="form-status" id="betaStatus" role="status" aria-live="polite"></p>
       </form>
@@ -1445,25 +1448,31 @@
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 8000);
       try {
-        const res = await fetch('/api/beta', {
+        const formData = new URLSearchParams();
+        formData.set('access_key', '49933144-0c1c-4cc4-8450-b6b066e96507');
+        formData.set('subject', 'Agent Connect Beta Request');
+        formData.set('from_name', 'Agent Connect Beta');
+        formData.set('email', betaEmail.value.trim());
+        formData.set('replyto', betaEmail.value.trim());
+        if (buildingInput.value.trim()) {
+          formData.set('message', buildingInput.value.trim());
+        }
+
+        const res = await fetch('https://api.web3forms.com/submit', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            email: betaEmail.value.trim(),
-            building: buildingInput.value.trim(),
-            website: websiteField.value.trim()
-          }),
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: formData.toString(),
           signal: controller.signal
         });
         const json = await res.json().catch(() => ({}));
-        if (res.ok && json.ok) {
+        if (res.ok && json.success) {
           this.style.display = 'none';
           betaSuccess.style.display = 'block';
           betaSuccess.focus();
           if (ctaNote) ctaNote.style.display = 'none';
           setStatus('Request received.', 'success');
         } else {
-          setStatus(json.error || 'Unable to submit. Please try again.', 'error');
+          setStatus('Submission failed. Please try again.', 'error');
           resetSubmitState();
         }
       } catch (error) {

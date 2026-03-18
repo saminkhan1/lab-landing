@@ -213,20 +213,20 @@
       transition: opacity 0.3s;
     }
 
-    .project-item:hover::before {
+    .project-item:not(.project-item--static):hover::before {
       opacity: 1;
     }
 
-    .project-item:hover .project-name {
+    .project-item:not(.project-item--static):hover .project-name {
       color: var(--accent);
     }
 
-    .project-item:hover .project-arrow {
+    .project-item:not(.project-item--static):hover .project-arrow {
       transform: translateX(4px);
       color: var(--accent);
     }
 
-    .project-item:hover .project-desc {
+    .project-item:not(.project-item--static):hover .project-desc {
       color: var(--text);
     }
 
