@@ -24,7 +24,16 @@
       --sans: 'DM Sans', sans-serif;
     }
 
-    html { font-size: 16px; scroll-behavior: smooth; }
+    html {
+      font-size: 16px;
+      scroll-behavior: smooth;
+      max-width: 100%;
+      overflow-x: hidden;
+    }
+
+    @supports (overflow: clip) {
+      html { overflow-x: clip; }
+    }
 
     body {
       background: var(--bg);
@@ -32,6 +41,7 @@
       font-family: var(--sans);
       min-height: 100vh;
       overflow-x: hidden;
+      max-width: 100%;
       position: relative;
     }
 
@@ -325,11 +335,8 @@
     /* ---- GLOW ---- */
     .glow {
       position: fixed;
-      top: -200px;
-      right: -200px;
-      width: 600px;
-      height: 600px;
-      background: radial-gradient(circle, rgba(0, 229, 160, 0.04) 0%, transparent 70%);
+      inset: 0;
+      background: radial-gradient(circle at 110% -10%, rgba(0, 229, 160, 0.04) 0%, transparent 45%);
       pointer-events: none;
       z-index: 0;
     }
@@ -340,12 +347,27 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+      body::before,
+      body::after {
+        display: none;
+      }
+    }
+
     /* ---- RESPONSIVE ---- */
     @media (max-width: 600px) {
+      .container { padding: 0 1.25rem; }
       .hero { padding: 6rem 0 4rem; }
       .project-meta { gap: 0.8rem; }
       .project-status { display: none; }
-      .project-main { max-width: 100%; }
+      .project-main { max-width: 100%; padding-left: 0; }
+      .project-meta { padding-right: 0; }
       .project-desc { font-size: 0.82rem; }
       footer { flex-direction: column; gap: 1rem; align-items: flex-start; }
     }
@@ -356,7 +378,7 @@
   <div class="container">
     <nav>
       <a href="/" class="logo">Wexpro<span>.</span></a>
-      <a href="mailto:hello@Wexpro.dev" class="nav-link">Contact</a>
+      <a href="mailto:samin@wexprolabs.com" class="nav-link">Contact</a>
     </nav>
 
     <section class="hero">
@@ -371,10 +393,10 @@
 
     <ul class="project-list">
       <li>
-        <a href="/agentreach.html" class="project-item">
+        <a href="/agentconnect" class="project-item">
           <div class="project-main">
-            <span class="project-name">AgentReach</span>
-            <p class="project-desc">Current beta product for teams shipping automated workflows in production.</p>
+            <span class="project-name">Agent Connect</span>
+            <p class="project-desc">One identity, one API for giving AI agents email inboxes, virtual cards, and a unified event timeline.</p>
           </div>
           <span class="project-meta">
             <span class="project-status active">Beta</span>

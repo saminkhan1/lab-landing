@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AgentReach — Provision Real-World Credentials for AI Agents</title>
-  <meta name="description" content="Give each agent a phone number, email inbox, and virtual card tied to one canonical agent ID. One API for real-world execution.">
+  <title>Agent Connect — Phone, email, and payments for AI agents</title>
+  <meta name="description" content="Give every AI agent a phone number, email inbox, and virtual card tied to one canonical agent ID. One API, one identity, one event timeline.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300;1,9..40,400&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
@@ -23,13 +23,25 @@
       --text-muted: #3a3a45;
       --accent: #00E5A0;
       --accent-soft: rgba(0, 229, 160, 0.12);
+      --accent-glow: rgba(0, 229, 160, 0.06);
       --red: #ff4d4d;
       --red-soft: rgba(255, 77, 77, 0.1);
+      --amber: #f5a623;
+      --amber-soft: rgba(245, 166, 35, 0.1);
       --mono: 'JetBrains Mono', monospace;
       --sans: 'DM Sans', sans-serif;
     }
 
-    html { font-size: 16px; scroll-behavior: smooth; }
+    html {
+      font-size: 16px;
+      scroll-behavior: smooth;
+      max-width: 100%;
+      overflow-x: hidden;
+    }
+
+    @supports (overflow: clip) {
+      html { overflow-x: clip; }
+    }
 
     body {
       background: var(--bg);
@@ -37,6 +49,7 @@
       font-family: var(--sans);
       min-height: 100vh;
       overflow-x: hidden;
+      max-width: 100%;
       -webkit-font-smoothing: antialiased;
     }
 
@@ -149,6 +162,7 @@
     .hero {
       padding: 10rem 0 5rem;
       position: relative;
+      overflow-x: hidden;
     }
 
     .hero-glow {
@@ -156,9 +170,9 @@
       top: -100px;
       left: 50%;
       transform: translateX(-50%);
-      width: 800px;
-      height: 500px;
-      background: radial-gradient(ellipse at center, rgba(0, 229, 160, 0.06) 0%, transparent 65%);
+      width: min(800px, calc(100vw - 2rem));
+      height: min(500px, 65vw);
+      background: radial-gradient(ellipse at center, var(--accent-glow) 0%, transparent 65%);
       pointer-events: none;
     }
 
@@ -193,7 +207,7 @@
       font-size: clamp(2.6rem, 6vw, 4rem);
       line-height: 1.1;
       letter-spacing: -0.035em;
-      max-width: 700px;
+      max-width: 720px;
       opacity: 0;
       animation: fadeUp 0.7s ease forwards 0.25s;
     }
@@ -374,6 +388,21 @@
       color: var(--text-dim);
     }
 
+    .stat-coming {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      margin-top: 0.65rem;
+      font-family: var(--mono);
+      font-size: 0.58rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      padding: 0.2rem 0.55rem;
+      border: 1px solid var(--border);
+      border-radius: 3px;
+    }
+
     .stats-note {
       margin-top: 1.4rem;
       text-align: center;
@@ -387,6 +416,11 @@
     /* ---- PROBLEM SECTION ---- */
     .section {
       padding: 6rem 0;
+    }
+
+    #how,
+    #beta {
+      scroll-margin-top: 72px;
     }
 
     .section-label {
@@ -454,23 +488,6 @@
       font-weight: 300;
       color: var(--text-dim);
       line-height: 1.65;
-    }
-
-    .trust-list {
-      margin: 0;
-      padding-left: 1.1rem;
-      display: grid;
-      gap: 0.85rem;
-      color: var(--text-dim);
-      font-size: 0.9rem;
-      line-height: 1.6;
-      font-weight: 300;
-    }
-
-    .trust-list code {
-      font-family: var(--mono);
-      font-size: 0.78rem;
-      color: var(--text-secondary);
     }
 
     /* ---- SOLUTION SECTION ---- */
@@ -589,6 +606,71 @@
       font-size: 0.65rem;
     }
 
+    /* ---- WHY NOT DIY ---- */
+    .why-section {
+      padding: 6rem 0;
+    }
+
+    .why-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+    }
+
+    .why-col h3 {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+
+    .why-col h3.why-without {
+      color: var(--text-muted);
+    }
+
+    .why-col h3.why-with {
+      color: var(--accent);
+    }
+
+    .why-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .why-list li {
+      font-size: 0.88rem;
+      font-weight: 300;
+      line-height: 1.6;
+      color: var(--text-dim);
+      padding-left: 1.3rem;
+      position: relative;
+    }
+
+    .why-list li::before {
+      position: absolute;
+      left: 0;
+      top: 0;
+      font-family: var(--mono);
+      font-size: 0.75rem;
+    }
+
+    .why-list--without li::before {
+      content: '~';
+      color: var(--red);
+    }
+
+    .why-list--with li::before {
+      content: '>';
+      color: var(--accent);
+    }
+
+    .why-list--with li {
+      color: var(--text-secondary);
+    }
+
     /* ---- USE CASES ---- */
     .usecases-grid {
       display: grid;
@@ -667,11 +749,53 @@
       color: var(--text-secondary);
     }
 
+    /* ---- FOR WHO ---- */
+    .for-section {
+      padding: 6rem 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .for-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .for-card {
+      padding: 2rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--bg-card);
+    }
+
+    .for-card-label {
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.8rem;
+    }
+
+    .for-card h3 {
+      font-weight: 500;
+      font-size: 0.95rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .for-card p {
+      font-size: 0.85rem;
+      font-weight: 300;
+      color: var(--text-dim);
+      line-height: 1.6;
+    }
+
     /* ---- CTA SECTION ---- */
     .cta-section {
       padding: 6rem 0;
       text-align: center;
       position: relative;
+      overflow-x: hidden;
     }
 
     .cta-glow {
@@ -679,8 +803,8 @@
       bottom: 0;
       left: 50%;
       transform: translateX(-50%);
-      width: 600px;
-      height: 400px;
+      width: min(600px, calc(100vw - 2rem));
+      height: min(400px, 55vw);
       background: radial-gradient(ellipse at center, rgba(0, 229, 160, 0.05) 0%, transparent 65%);
       pointer-events: none;
     }
@@ -831,6 +955,11 @@
       margin: 0 auto;
     }
 
+    .cta-success:focus {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
     /* ---- FOOTER ---- */
     footer {
       padding: 3rem 0;
@@ -923,13 +1052,31 @@
     @media (max-width: 768px) {
       .container { padding: 0 1.25rem; }
       body::before { display: none; }
+      nav { padding: 0 1.25rem; }
       .hero { padding: 7rem 0 3rem; }
       .hero h1 { font-size: 2rem; }
       .hero-desc { font-size: 0.95rem; }
       .hero-support { font-size: 0.62rem; }
+      #how,
+      #beta {
+        scroll-margin-top: 60px;
+      }
+      .hero-badge { max-width: 100%; flex-wrap: wrap; }
       .hero-actions { flex-direction: column; align-items: flex-start; }
+      .btn-primary,
+      .btn-ghost {
+        width: 100%;
+        justify-content: center;
+      }
       .hero-code { margin-top: 2.5rem; }
-      .code-body { font-size: 0.65rem; line-height: 1.7; padding: 1rem 1.2rem; }
+      .code-body {
+        font-size: 0.65rem;
+        line-height: 1.7;
+        padding: 1rem 1.2rem;
+        white-space: pre-wrap;
+        overflow-wrap: anywhere;
+        word-break: break-word;
+      }
       .stats { padding: 2.5rem 0; }
       .stats-grid { grid-template-columns: 1fr; gap: 0.85rem; }
       .section { padding: 4rem 0; }
@@ -938,12 +1085,15 @@
       .solution-grid { grid-template-columns: 1fr; gap: 2rem; }
       .arch-visual { position: static; }
       .usecases-grid { grid-template-columns: 1fr; }
+      .why-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .for-grid { grid-template-columns: 1fr; }
       .integration-copy { margin-top: -1.3rem; font-size: 0.9rem; }
       .integration-logos { gap: 0.75rem; }
       .integration-item { font-size: 0.65rem; padding: 0.6rem 1rem; }
       .cta-section { padding: 4rem 0; }
       .cta-section h2 { font-size: 1.8rem; }
       .form-row { flex-direction: column; }
+      .cta-form button { width: 100%; }
       footer { flex-direction: column; gap: 1.5rem; align-items: flex-start; }
       footer .footer-left { flex-direction: column; gap: 0.5rem; }
       /* Nav mobile fix */
@@ -963,7 +1113,7 @@
       <div class="nav-left">
         <a href="/" class="logo">Wexpro</a>
         <span class="nav-separator">/</span>
-        <a href="/agentreach.html" class="nav-product">AgentReach</a>
+        <a href="/agentconnect" class="nav-product">Agent Connect</a>
       </div>
       <a href="#beta" class="nav-cta">Request Beta</a>
     </div>
@@ -975,10 +1125,10 @@
     <div class="container">
       <div class="hero-badge">
         <span class="dot"></span>
-        <span>Beta for teams shipping production agents</span>
+        <span>Now in private beta</span>
       </div>
       <h1>Your agent can reason. It still can&rsquo;t <strong>call, email, or pay.</strong></h1>
-      <p class="hero-desc">AgentReach provisions phone numbers, inboxes, and virtual cards for your agent, all tied to one canonical agent ID.<span class="hero-support">One API. One agent record. Real-world actions.</span></p>
+      <p class="hero-desc">Agent Connect provisions phone numbers, email inboxes, and virtual cards for your AI agents&mdash;all tied to one canonical <code style="font-family: var(--mono); font-size: 0.95rem; color: var(--accent);">agent_id</code>. Every call, message, and transaction lands in a single event timeline.<span class="hero-support">One API. One agent record. Full event history.</span></p>
       <div class="hero-actions">
         <a href="#beta" class="btn-primary">Request Beta Access</a>
         <a href="#how" class="btn-ghost">See How It Works</a>
@@ -993,17 +1143,20 @@
             <span class="code-title">provision.ts</span>
           </div>
           <div class="code-body">
-<span class="cm">// Create a persistent identity in one call</span>
-<span class="kw">const</span> agent <span class="op">=</span> <span class="kw">await</span> agentreach.<span class="fn">agents</span>.<span class="fn">create</span>({
-  <span class="prop">name</span>: <span class="str">"Vendor Follow-up Agent"</span>,
-  <span class="prop">channels</span>: [<span class="str">"phone"</span>, <span class="str">"email"</span>],
-  <span class="prop">payments</span>: { <span class="prop">virtual_card</span>: <span class="kw">true</span> }
+<span class="cm">// Create the canonical agent record</span>
+<span class="kw">const</span> agent <span class="op">=</span> <span class="kw">await</span> ac.<span class="fn">post</span>(<span class="str">"/agents"</span>, {
+  <span class="prop">name</span>: <span class="str">"Vendor Outreach Agent"</span>
 });
 
-<span class="cm">// agent.agent_id      → ag_92f1...</span>
-<span class="cm">// agent.phone_number  → +1 (415) 555-0142</span>
-<span class="cm">// agent.email_inbox   → followup@agentreach.dev</span>
-<span class="cm">// agent.virtual_card  → card_38xp...</span>
+<span class="cm">// Provision credentials — phone, email, card</span>
+<span class="kw">await</span> ac.<span class="fn">post</span>(<span class="str">`/agents/${agent.id}/resources`</span>, { <span class="prop">type</span>: <span class="str">"phone"</span> });
+<span class="kw">await</span> ac.<span class="fn">post</span>(<span class="str">`/agents/${agent.id}/resources`</span>, { <span class="prop">type</span>: <span class="str">"email_inbox"</span> });
+<span class="kw">await</span> ac.<span class="fn">post</span>(<span class="str">`/agents/${agent.id}/resources`</span>, {
+  <span class="prop">type</span>: <span class="str">"card"</span>, <span class="prop">currency</span>: <span class="str">"usd"</span>
+});
+
+<span class="cm">// One timeline — calls, emails, transactions</span>
+<span class="kw">const</span> events <span class="op">=</span> <span class="kw">await</span> ac.<span class="fn">get</span>(<span class="str">`/agents/${agent.id}/timeline`</span>);
           </div>
         </div>
       </div>
@@ -1014,22 +1167,22 @@
   <section class="stats">
     <div class="container">
       <p class="section-label reveal">What your agent gets</p>
-      <h2 class="section-title reveal">Provision credentials once. Reuse them across every workflow.</h2>
+      <h2 class="section-title reveal">Real-world credentials, provisioned through one API.</h2>
       <div class="stats-grid">
         <div class="stat reveal">
-          <div class="stat-value">Phone Credentials</div>
-          <div class="stat-label">Calls, SMS, and voicemail tied to your agent record.</div>
+          <div class="stat-value">Phone Number</div>
+          <div class="stat-label">Calls, SMS, and voicemail tied to your agent&rsquo;s identity. Your agent can reach out and be reached back.</div>
         </div>
         <div class="stat reveal">
           <div class="stat-value">Email Inbox</div>
-          <div class="stat-label">Send and receive email threads with state your agent can track.</div>
+          <div class="stat-label">A real address your agent owns. Send, receive, and track threads with full state&mdash;no forwarding hacks.</div>
         </div>
         <div class="stat reveal">
           <div class="stat-value">Virtual Card</div>
-          <div class="stat-label">Use a programmatic payment method from the same API surface.</div>
+          <div class="stat-label">Issue virtual cards with spending limits, category restrictions, and webhook-driven transaction events.</div>
         </div>
       </div>
-      <p class="stats-note reveal">All mapped to one canonical <code>agent_id</code>.</p>
+      <p class="stats-note reveal">All mapped to one canonical <code>agent_id</code>, queryable through one timeline.</p>
     </div>
   </section>
 
@@ -1037,22 +1190,22 @@
   <section class="section">
     <div class="container">
       <p class="section-label reveal">The problem</p>
-      <h2 class="section-title reveal">Most agents fail at the execution layer.</h2>
+      <h2 class="section-title reveal">You built the brain. Now you&rsquo;re stuck wiring the hands.</h2>
       <div class="problem-grid reveal">
         <div class="problem-card">
           <div class="problem-icon">!</div>
-          <h3>Credential fragmentation</h3>
-          <p>Phone, inbox, and payment rails live in separate vendors. You spend time wiring auth instead of shipping tasks.</p>
+          <h3>Three vendors, three dashboards, three ID systems</h3>
+          <p>Telephony provider, email service, payment processor&mdash;each with its own auth, its own webhook format, and its own notion of &ldquo;who sent this.&rdquo;</p>
         </div>
         <div class="problem-card">
           <div class="problem-icon">~</div>
-          <h3>No canonical identity</h3>
-          <p>Events arrive with different IDs per channel. Your agent cannot reliably link a call, email thread, and payment event.</p>
+          <h3>Events you can&rsquo;t correlate</h3>
+          <p>A call comes in with one provider ID. An email arrives with another. A charge posts with a third. Good luck building a timeline your agent can reason over.</p>
         </div>
         <div class="problem-card">
           <div class="problem-icon">#</div>
-          <h3>Operational drag</h3>
-          <p>Every new workflow adds glue code, retries, and edge-case handling across telephony, inboxes, and payments.</p>
+          <h3>Weeks of glue code before your first workflow</h3>
+          <p>Webhook verification, retry logic, idempotency, credential lifecycle&mdash;multiplied across telephony, email, and payments. You wanted to ship an agent, not maintain integration plumbing.</p>
         </div>
       </div>
     </div>
@@ -1062,54 +1215,70 @@
   <section class="section solution-section" id="how">
     <div class="container">
       <p class="section-label reveal">How it works</p>
-      <h2 class="section-title reveal">Create one agent record, then execute through one ID.</h2>
+      <h2 class="section-title reveal">Three API calls from zero to a fully-credentialed agent.</h2>
       <div class="solution-grid">
         <div class="solution-features">
           <div class="feature reveal">
             <div class="feature-tag">Step 1</div>
-            <h3>Create your agent record.</h3>
-            <p>Call <code>agentreach.agents.create</code> once to create a canonical <code>agent_id</code> for your agent.</p>
+            <h3>Register your agent.</h3>
+            <p>One <code>POST /agents</code> creates the canonical record. This ID is the anchor for everything that follows.</p>
           </div>
           <div class="feature reveal">
             <div class="feature-tag">Step 2</div>
-            <h3>Provision channel credentials.</h3>
-            <p>Attach phone, email inbox, and virtual card credentials to that same resource.</p>
+            <h3>Attach capabilities.</h3>
+            <p>Provision a phone number, email inbox, or virtual card through the same resource API. Each capability is tied to your agent and enforced by configurable policies.</p>
           </div>
           <div class="feature reveal">
             <div class="feature-tag">Step 3</div>
-            <h3>Consume unified events and act.</h3>
-            <p>Read calls, SMS, voicemail, emails, and payment events in one timeline keyed by <code>agent_id</code>.</p>
+            <h3>Consume one timeline.</h3>
+            <p>Calls, emails, card authorizations, settled transactions&mdash;all normalized into one event stream keyed by <code>agent_id</code>.</p>
           </div>
         </div>
         <div class="arch-visual reveal">
-          <div class="arch-title">Event mapping</div>
+          <div class="arch-title">Unified event stream</div>
           <div class="arch-flow">
             <div class="arch-node highlight">agent_id: ag_92f1...</div>
             <div class="arch-connector">↓</div>
-            <div class="arch-node">voice.call.received  →  ag_92f1...</div>
+            <div class="arch-node">sms.received &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; →&nbsp; ag_92f1...</div>
             <div class="arch-connector">↓</div>
-            <div class="arch-node">email.thread.replied →  ag_92f1...</div>
+            <div class="arch-node">email.received &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; →&nbsp; ag_92f1...</div>
             <div class="arch-connector">↓</div>
-            <div class="arch-node">card.charge.captured →  ag_92f1...</div>
+            <div class="arch-node">payment.card.authorized&nbsp; →&nbsp; ag_92f1...</div>
+            <div class="arch-connector">↓</div>
+            <div class="arch-node">payment.card.settled &nbsp; &nbsp; →&nbsp; ag_92f1...</div>
           </div>
-          <div class="arch-latency">Every channel event resolves to the same agent record.</div>
+          <div class="arch-latency">One agent. One timeline. Every channel.</div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- DEVELOPER TRUST -->
-  <section class="section">
-    <div class="container container--narrow">
-      <p class="section-label reveal">Developer trust</p>
-      <h2 class="section-title reveal">Built for production workflows.</h2>
-      <div class="feature reveal">
-        <ul class="trust-list">
-          <li>Use one canonical <code>agent_id</code> across phone, inbox, and card events.</li>
-          <li>Provision and manage credential lifecycle through API calls instead of manual vendor consoles.</li>
-          <li>Keep one event timeline per agent for audits, retries, and deterministic workflow logic.</li>
-          <li>Use beta scope boundaries clearly so your team knows what is ready for live traffic.</li>
-        </ul>
+  <!-- WHY NOT DIY -->
+  <section class="why-section">
+    <div class="container">
+      <p class="section-label reveal">Why not just wire it yourself?</p>
+      <h2 class="section-title reveal">You could. Here&rsquo;s what that looks like.</h2>
+      <div class="why-grid reveal">
+        <div class="why-col">
+          <h3 class="why-without">Without Agent Connect</h3>
+          <ul class="why-list why-list--without">
+            <li>Separate API keys and auth for telephony, email, and payments</li>
+            <li>Custom idempotency logic per provider to avoid duplicate events</li>
+            <li>Manual correlation between call IDs, email thread IDs, and payment charge IDs</li>
+            <li>Build your own event log, retry queue, and webhook verification</li>
+            <li>Credential provisioning scattered across three vendor dashboards</li>
+          </ul>
+        </div>
+        <div class="why-col">
+          <h3 class="why-with">With Agent Connect</h3>
+          <ul class="why-list why-list--with">
+            <li>One API key. One auth model. One webhook endpoint.</li>
+            <li>Idempotent event ingestion handled at the platform level</li>
+            <li>Every event already keyed to the same <code style="font-family: var(--mono); font-size: 0.82rem; color: var(--accent);">agent_id</code></li>
+            <li>Canonical event log with cursor-based pagination out of the box</li>
+            <li>Provision phone, email, and cards through the same REST API</li>
+          </ul>
+        </div>
       </div>
     </div>
   </section>
@@ -1118,22 +1287,47 @@
   <section class="section">
     <div class="container">
       <p class="section-label reveal">Use cases</p>
-      <h2 class="section-title reveal">Common execution patterns for your agent.</h2>
+      <h2 class="section-title reveal">What teams are building.</h2>
       <div class="usecases-grid">
         <div class="usecase reveal">
           <div class="usecase-icon">&#x260E;</div>
-          <h3>Follow up by phone after inbound email.</h3>
-          <p>Your agent can turn an email thread into a call without losing context or identity.</p>
+          <h3>Follow up by phone after inbound email</h3>
+          <p>Your agent receives an email, decides a call is faster, and follows up by phone&mdash;without losing context or switching identities.</p>
         </div>
         <div class="usecase reveal">
           <div class="usecase-icon">&#x1F4B3;</div>
-          <h3>Collect payment after a confirmed workflow.</h3>
-          <p>Your agent can complete payment steps after it confirms a booking, order, or service action.</p>
+          <h3>Authorize spending after a confirmed workflow</h3>
+          <p>Agent negotiates a deal over email, then issues a virtual card to close the purchase. Transaction webhooks feed directly into the same timeline.</p>
         </div>
         <div class="usecase reveal">
-          <div class="usecase-icon">&#x1F4E8;</div>
-          <h3>Resume conversations across channels.</h3>
-          <p>Your agent can pick up the same timeline when someone replies later by SMS, voicemail, or email.</p>
+          <div class="usecase-icon">&#x1F504;</div>
+          <h3>Resume conversations across channels</h3>
+          <p>Someone replies by SMS, then follows up by email a day later. Your agent picks up the same timeline without re-fetching from three different APIs.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHO IT'S FOR -->
+  <section class="for-section">
+    <div class="container">
+      <p class="section-label reveal">Who it&rsquo;s for</p>
+      <h2 class="section-title reveal">Built for teams shipping agents to production.</h2>
+      <div class="for-grid reveal">
+        <div class="for-card">
+          <div class="for-card-label">Agent platforms</div>
+          <h3>Orchestration frameworks that need real-world rails</h3>
+          <p>Give your users phone, email, and payments as first-class agent capabilities, without building the integration layer yourself.</p>
+        </div>
+        <div class="for-card">
+          <div class="for-card-label">AI-native SaaS</div>
+          <h3>Products where each user or agent needs its own number, inbox, and card</h3>
+          <p>Provision credentials programmatically per tenant. Agent Connect handles lifecycle, policy enforcement, and event ingestion.</p>
+        </div>
+        <div class="for-card">
+          <div class="for-card-label">Infra teams</div>
+          <h3>Internal teams piloting agentic workflows</h3>
+          <p>Skip the months of plumbing. Get phone, email, and payments wired in days instead of quarters.</p>
         </div>
       </div>
     </div>
@@ -1142,15 +1336,15 @@
   <!-- INTEGRATIONS -->
   <section class="section integrations">
     <div class="container">
-      <p class="section-label reveal">Integrations</p>
-      <h2 class="section-title section-title--center reveal">Bring your model. Keep your stack.</h2>
-      <p class="integration-copy reveal">AgentReach handles credential provisioning and channel rails. Your model handles reasoning and decisions.</p>
+      <p class="section-label reveal">Works with your stack</p>
+      <h2 class="section-title section-title--center reveal">Bring your model. Keep your orchestrator.</h2>
+      <p class="integration-copy reveal">Agent Connect handles credential provisioning and channel rails. Your model handles reasoning and decisions.</p>
       <div class="integration-logos reveal">
         <div class="integration-item">OpenAI Realtime</div>
         <div class="integration-item">ElevenLabs</div>
-        <div class="integration-item">Cartesia</div>
         <div class="integration-item">Deepgram</div>
-        <div class="integration-item">Any WebSocket model</div>
+        <div class="integration-item">MCP Server</div>
+        <div class="integration-item">Any LLM / Orchestrator</div>
       </div>
     </div>
   </section>
@@ -1159,9 +1353,9 @@
   <section class="cta-section" id="beta">
     <div class="cta-glow"></div>
     <div class="container">
-      <h2 class="reveal">Get beta access</h2>
-      <p class="reveal">Tell us what you&rsquo;re building. We&rsquo;ll follow up with access details.</p>
-      <form class="cta-form reveal" id="betaForm" novalidate>
+      <h2 class="reveal">Ship your agent&rsquo;s first real-world action</h2>
+      <p class="reveal">Tell us what you&rsquo;re building. We&rsquo;ll get you set up.</p>
+      <form class="cta-form reveal" id="betaForm" method="post" action="/api/beta" novalidate>
         <label class="sr-only" for="buildingInput">What are you building?</label>
         <input type="text" id="buildingInput" name="building" placeholder="What are you building? (optional)" class="form-optional" autocomplete="off">
         <div class="form-row">
@@ -1175,10 +1369,10 @@
         </div>
         <p class="form-status" id="betaStatus" role="status" aria-live="polite"></p>
       </form>
-      <div class="cta-success" id="betaSuccess">
+      <div class="cta-success" id="betaSuccess" role="status" aria-live="polite" tabindex="-1">
         You're on the list. We'll be in touch soon.
       </div>
-      <p class="cta-note reveal">No credit card required.</p>
+      <p class="cta-note reveal">No credit card required. Beta includes email + virtual cards.</p>
     </div>
   </section>
 
@@ -1187,7 +1381,7 @@
     <div class="container footer-inner">
       <div class="footer-left">
         <a href="/" class="footer-logo">Wexpro Labs</a>
-        <span class="footer-copy">© 2026</span>
+        <span class="footer-copy">&copy; 2026</span>
       </div>
       <div class="footer-links">
         <a href="/">Lab</a>
@@ -1265,6 +1459,7 @@
         if (res.ok && json.ok) {
           this.style.display = 'none';
           betaSuccess.style.display = 'block';
+          betaSuccess.focus();
           if (ctaNote) ctaNote.style.display = 'none';
           setStatus('Request received.', 'success');
         } else {
