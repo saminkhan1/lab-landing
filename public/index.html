@@ -20,7 +20,7 @@
       --paper: #f7f7f3;
       --ink: #11110f;
       --soft: #45443f;
-      --muted: #77756d;
+      --muted: #66645c;
       --line: #d6d8d0;
       --strong-line: #11110f;
       --signal: #1238ff;
@@ -46,15 +46,6 @@
         var(--paper);
       background-size: 112px 112px;
       font-family: var(--serif);
-    }
-
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.82' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.05'/%3E%3C/svg%3E");
-      mix-blend-mode: multiply;
     }
 
     a {
@@ -87,6 +78,10 @@
     }
 
     .brand {
+      display: inline-flex;
+      align-items: center;
+      justify-self: start;
+      min-height: 32px;
       font-family: var(--serif);
       font-size: 1.56rem;
       font-weight: 400;
@@ -111,6 +106,7 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
+      min-height: 32px;
       color: var(--muted);
       font-size: 0.72rem;
       line-height: 1.5;
@@ -130,7 +126,10 @@
     }
 
     .contact {
+      display: inline-flex;
+      align-items: center;
       justify-self: end;
+      min-height: 32px;
       color: var(--soft);
       font-size: 0.72rem;
       line-height: 1.5;
@@ -162,7 +161,7 @@
       margin: 0;
       font-size: 8.2rem;
       font-weight: 300;
-      line-height: 0.9;
+      line-height: 0.98;
       letter-spacing: 0;
     }
 
@@ -329,7 +328,7 @@
       }
 
       h1 {
-        font-size: 5.75rem;
+        font-size: 5.45rem;
       }
 
       .intro-grid,
@@ -352,7 +351,8 @@
 
       .nav {
         grid-template-columns: 1fr auto;
-        gap: 8px 18px;
+        gap: 4px 18px;
+        padding-bottom: 16px;
       }
 
       .nav-center {
@@ -361,12 +361,16 @@
       }
 
       .hero {
-        padding: 62px 0 44px;
+        padding: 28px 0 44px;
+      }
+
+      .eyebrow {
+        margin-bottom: 18px;
       }
 
       h1 {
-        font-size: 3.55rem;
-        line-height: 0.96;
+        font-size: 3.28rem;
+        line-height: 1.02;
       }
 
       .intro-grid,
@@ -404,8 +408,8 @@
 <body>
   <div class="page">
     <header class="nav" aria-label="Primary">
-      <a class="brand" href="index.html">Wexpro Labs</a>
-      <a class="nav-center" href="agent-ui/index.html">agent-UI for Hermes</a>
+      <a class="brand" href="./">Wexpro Labs</a>
+      <a class="nav-center" href="agent-ui/">agent-UI for Hermes</a>
       <a class="contact" href="mailto:samin@wexprolabs.com">contact</a>
     </header>
 
