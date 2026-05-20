@@ -1,0 +1,8 @@
+# Wexpro Labs
+
+Wexpro Labs builds inference systems, long-running agents, and macOS surfaces for local Hermes workflows.
+
+## Pages
+
+- [Wexpro Labs overview](/): current lab focus.
+- [Hermes Pet for macOS](/agent-ui/): agent-UI product page.

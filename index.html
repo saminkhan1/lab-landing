@@ -4,434 +4,478 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Wexpro Labs</title>
-  <meta name="description" content="Wexpro Labs is a focused product lab. We build, test, and ship software products from first concept to production.">
+  <meta name="description" content="Wexpro Labs builds inference systems and long-running agents for useful AI software.">
+  <meta name="theme-color" content="#f7f7f3">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='5' fill='%23f7f7f3'/%3E%3Cpath d='M16 5 27 16 16 27 5 16z' fill='none' stroke='%231238ff' stroke-width='3'/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&amp;family=Newsreader:opsz,wght@6..72,300;6..72,400;6..72,500&amp;display=swap" rel="stylesheet">
   <style>
-    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
 
     :root {
-      --bg: #0a0a0c;
-      --bg-raised: #111114;
-      --border: #1e1e24;
-      --text: #e8e8ed;
-      --text-dim: #6b6b78;
-      --text-muted: #3a3a45;
-      --accent: #00E5A0;
-      --accent-dim: rgba(0, 229, 160, 0.08);
-      --mono: 'JetBrains Mono', monospace;
-      --sans: 'DM Sans', sans-serif;
+      color-scheme: light;
+      --paper: #f7f7f3;
+      --ink: #11110f;
+      --soft: #45443f;
+      --muted: #77756d;
+      --line: #d6d8d0;
+      --strong-line: #11110f;
+      --signal: #1238ff;
+      --serif: "Newsreader", Georgia, serif;
+      --mono: "IBM Plex Mono", "Courier New", monospace;
     }
 
     html {
+      min-height: 100%;
+      background: var(--paper);
+      color: var(--ink);
       font-size: 16px;
-      scroll-behavior: smooth;
-      max-width: 100%;
-      overflow-x: hidden;
-    }
-
-    @supports (overflow: clip) {
-      html { overflow-x: clip; }
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
     }
 
     body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: var(--sans);
       min-height: 100vh;
-      overflow-x: hidden;
-      max-width: 100%;
-      position: relative;
+      margin: 0;
+      background:
+        linear-gradient(90deg, rgba(17, 17, 15, 0.028) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(17, 17, 15, 0.024) 1px, transparent 1px),
+        var(--paper);
+      background-size: 112px 112px;
+      font-family: var(--serif);
     }
 
-    /* Noise overlay */
     body::before {
-      content: '';
+      content: "";
       position: fixed;
       inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
       pointer-events: none;
-      z-index: 9999;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.82' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.05'/%3E%3C/svg%3E");
+      mix-blend-mode: multiply;
     }
 
-    /* Subtle grid lines */
-    body::after {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image:
-        linear-gradient(var(--border) 1px, transparent 1px),
-        linear-gradient(90deg, var(--border) 1px, transparent 1px);
-      background-size: 120px 120px;
-      opacity: 0.15;
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    .container {
-      position: relative;
-      z-index: 1;
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 0 2rem;
-    }
-
-    /* ---- NAV ---- */
-    nav {
-      padding: 2rem 0;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .logo {
-      font-family: var(--mono);
-      font-weight: 500;
-      font-size: 0.8rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--text);
-      text-decoration: none;
-    }
-
-    .logo span {
-      color: var(--accent);
-    }
-
-    nav a.nav-link {
-      font-family: var(--mono);
-      font-size: 0.7rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--text-dim);
-      text-decoration: none;
-      transition: color 0.3s;
-    }
-
-    nav a.nav-link:hover {
-      color: var(--accent);
-    }
-
-    /* ---- HERO ---- */
-    .hero {
-      padding: 12rem 0 6rem;
-      position: relative;
-    }
-
-    .hero-label {
-      font-family: var(--mono);
-      font-size: 0.65rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      margin-bottom: 2rem;
-      opacity: 0;
-      animation: fadeUp 0.8s ease forwards 0.2s;
-    }
-
-    .hero h1 {
-      font-family: var(--sans);
-      font-weight: 300;
-      font-size: clamp(2.4rem, 5vw, 3.6rem);
-      line-height: 1.15;
-      letter-spacing: -0.03em;
-      max-width: 600px;
-      opacity: 0;
-      animation: fadeUp 0.8s ease forwards 0.4s;
-    }
-
-    .hero h1 em {
-      font-style: italic;
-      color: var(--text-dim);
-    }
-
-    .hero-sub {
-      margin-top: 2rem;
-      font-size: 1rem;
-      font-weight: 300;
-      color: var(--text-dim);
-      line-height: 1.7;
-      max-width: 440px;
-      opacity: 0;
-      animation: fadeUp 0.8s ease forwards 0.6s;
-    }
-
-    /* ---- DIVIDER ---- */
-    .divider {
-      height: 1px;
-      background: var(--border);
-      margin: 4rem 0;
-    }
-
-    /* ---- PROJECTS ---- */
-    .projects-header {
-      font-family: var(--mono);
-      font-size: 0.65rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      margin-bottom: 2.5rem;
-      opacity: 0;
-      animation: fadeUp 0.8s ease forwards 0.8s;
-    }
-
-    .project-list {
-      list-style: none;
-      opacity: 0;
-      animation: fadeUp 0.8s ease forwards 1s;
-    }
-
-    .project-list > li {
-      list-style: none;
-    }
-
-    .project-item {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      padding: 1.5rem 0;
-      border-top: 1px solid var(--border);
-      text-decoration: none;
+    a {
       color: inherit;
-      transition: background 0.3s;
-      cursor: pointer;
-      position: relative;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 0.24em;
     }
 
-    .project-list > li:last-child .project-item {
-      border-bottom: 1px solid var(--border);
+    a:focus-visible {
+      outline: 1px solid var(--ink);
+      outline-offset: 4px;
     }
 
-    .project-item::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: var(--accent-dim);
-      opacity: 0;
-      transition: opacity 0.3s;
-    }
-
-    .project-item:not(.project-item--static):hover::before {
-      opacity: 1;
-    }
-
-    .project-item:not(.project-item--static):hover .project-name {
-      color: var(--accent);
-    }
-
-    .project-item:not(.project-item--static):hover .project-arrow {
-      transform: translateX(4px);
-      color: var(--accent);
-    }
-
-    .project-item:not(.project-item--static):hover .project-desc {
-      color: var(--text);
-    }
-
-    .project-item--static {
-      cursor: default;
-    }
-
-    .project-item--static::before {
-      display: none;
-    }
-
-    .project-name--muted {
-      color: var(--text-dim);
-    }
-
-    .project-arrow--hidden {
-      visibility: hidden;
-    }
-
-    .project-name {
-      font-family: var(--sans);
-      font-weight: 400;
-      font-size: 1.1rem;
-      transition: color 0.3s;
-      position: relative;
-      z-index: 1;
-    }
-
-    .project-main {
+    .page {
+      width: min(100% - 48px, 1040px);
+      min-height: 100vh;
+      margin: 0 auto;
+      padding: 28px 0 32px;
       display: flex;
       flex-direction: column;
-      gap: 0.35rem;
-      padding-left: 1rem;
-      position: relative;
-      z-index: 1;
-      max-width: 620px;
     }
 
-    .project-desc {
-      font-size: 0.86rem;
-      font-weight: 300;
-      line-height: 1.6;
-      color: var(--text-dim);
-      transition: color 0.3s;
+    .nav {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: baseline;
+      gap: 24px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--strong-line);
     }
 
-    .project-meta {
-      display: flex;
-      align-items: center;
-      gap: 1.5rem;
-      position: relative;
-      z-index: 1;
-      padding-right: 1rem;
-      margin-top: 0.1rem;
-    }
-
-    .project-status {
-      font-family: var(--mono);
-      font-size: 0.65rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-    }
-
-    .project-status.active {
-      color: var(--accent);
-    }
-
-    .project-arrow {
-      font-family: var(--mono);
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      transition: transform 0.3s, color 0.3s;
-    }
-
-    /* ---- FOOTER ---- */
-    footer {
-      padding: 4rem 0 3rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      opacity: 0;
-      animation: fadeUp 0.8s ease forwards 1.2s;
-    }
-
-    footer .copyright {
-      font-family: var(--mono);
-      font-size: 0.65rem;
-      letter-spacing: 0.1em;
-      color: var(--text-muted);
-    }
-
-    footer .contact {
-      font-family: var(--mono);
-      font-size: 0.65rem;
-      letter-spacing: 0.1em;
-      color: var(--text-dim);
+    .brand {
+      font-family: var(--serif);
+      font-size: 1.56rem;
+      font-weight: 400;
+      line-height: 1;
+      letter-spacing: 0;
       text-decoration: none;
-      transition: color 0.3s;
     }
 
-    footer .contact:hover {
-      color: var(--accent);
+    .nav-center,
+    .contact,
+    .eyebrow,
+    .section-label,
+    .area-index,
+    .sequence-label,
+    .footer {
+      font-family: var(--mono);
+      letter-spacing: 0;
+      text-transform: lowercase;
     }
 
-    /* ---- GLOW ---- */
-    .glow {
-      position: fixed;
-      inset: 0;
-      background: radial-gradient(circle at 110% -10%, rgba(0, 229, 160, 0.04) 0%, transparent 45%);
-      pointer-events: none;
-      z-index: 0;
+    .nav-center {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 0.72rem;
+      line-height: 1.5;
+      text-decoration: none;
     }
 
-    /* ---- ANIMATIONS ---- */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(16px); }
-      to { opacity: 1; transform: translateY(0); }
+    .nav-center::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      border: 1px solid var(--signal);
+      transform: rotate(45deg);
     }
 
-    @media (prefers-reduced-motion: reduce) {
-      html { scroll-behavior: auto; }
-      *, *::before, *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
+    .nav-center:hover {
+      color: var(--signal);
+    }
+
+    .contact {
+      justify-self: end;
+      color: var(--soft);
+      font-size: 0.72rem;
+      line-height: 1.5;
+      text-decoration: none;
+    }
+
+    .contact:hover {
+      color: var(--signal);
+      text-decoration: underline;
+    }
+
+    main {
+      flex: 1;
+    }
+
+    .hero {
+      padding: 104px 0 66px;
+    }
+
+    .eyebrow {
+      margin: 0 0 30px;
+      color: var(--muted);
+      font-size: 0.72rem;
+      line-height: 1.5;
+    }
+
+    h1 {
+      max-width: 940px;
+      margin: 0;
+      font-size: 8.2rem;
+      font-weight: 300;
+      line-height: 0.9;
+      letter-spacing: 0;
+    }
+
+    h1 span {
+      display: block;
+    }
+
+    .intro-grid {
+      display: grid;
+      grid-template-columns: 230px minmax(0, 560px);
+      gap: 48px;
+      margin-top: 40px;
+    }
+
+    .intro {
+      margin: 0;
+      color: var(--soft);
+      font-size: 1.42rem;
+      font-weight: 300;
+      line-height: 1.38;
+      letter-spacing: 0;
+    }
+
+    .sequence {
+      margin-top: 48px;
+      padding: 15px 0;
+      border-top: 1px solid var(--strong-line);
+      border-bottom: 1px solid var(--strong-line);
+    }
+
+    .sequence-row {
+      display: grid;
+      grid-template-columns: 74px minmax(0, 1fr) 46px;
+      align-items: center;
+      gap: 16px;
+      min-height: 24px;
+    }
+
+    .sequence-row + .sequence-row {
+      border-top: 1px solid var(--line);
+    }
+
+    .sequence-row:nth-child(1) {
+      --run: 38%;
+    }
+
+    .sequence-row:nth-child(2) {
+      --run: 64%;
+    }
+
+    .sequence-row:nth-child(3) {
+      --run: 47%;
+    }
+
+    .sequence-row:nth-child(4) {
+      --run: 82%;
+    }
+
+    .sequence-label {
+      color: var(--muted);
+      font-size: 0.68rem;
+      line-height: 1.4;
+    }
+
+    .sequence-line {
+      position: relative;
+      height: 1px;
+      background: var(--line);
+      overflow: hidden;
+    }
+
+    .sequence-line::after {
+      content: "";
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: var(--run);
+      background: var(--ink);
+    }
+
+    .sequence-value {
+      justify-self: end;
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      line-height: 1.4;
+    }
+
+    .areas {
+      display: grid;
+      grid-template-columns: 230px minmax(0, 1fr);
+      gap: 48px;
+      padding: 44px 0 70px;
+    }
+
+    .section-label {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.72rem;
+      line-height: 1.5;
+    }
+
+    .area-list {
+      display: grid;
+      gap: 0;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      border-top: 1px solid var(--line);
+    }
+
+    .area {
+      display: grid;
+      grid-template-columns: 74px minmax(116px, 0.28fr) minmax(0, 1fr);
+      gap: 24px;
+      padding: 20px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .area-index {
+      color: var(--muted);
+      font-size: 0.68rem;
+      line-height: 1.5;
+    }
+
+    .area-title {
+      margin: 0;
+      font-family: var(--serif);
+      font-size: 1.28rem;
+      font-weight: 400;
+      line-height: 1.15;
+      letter-spacing: 0;
+    }
+
+    .area-copy {
+      margin: 0;
+      color: var(--soft);
+      font-size: 1.02rem;
+      font-weight: 300;
+      line-height: 1.5;
+      letter-spacing: 0;
+    }
+
+    .footer {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding-top: 24px;
+      border-top: 1px solid var(--strong-line);
+      color: var(--muted);
+      font-size: 0.68rem;
+      line-height: 1.5;
+    }
+
+    .mark {
+      width: 8px;
+      height: 8px;
+      border: 1px solid var(--signal);
+      transform: rotate(45deg);
+    }
+
+    @media (max-width: 860px) {
+      .hero {
+        padding: 86px 0 62px;
       }
-      body::before,
-      body::after {
-        display: none;
+
+      h1 {
+        font-size: 5.75rem;
+      }
+
+      .intro-grid,
+      .areas {
+        grid-template-columns: 170px minmax(0, 1fr);
+        gap: 32px;
+      }
+
+      .area {
+        grid-template-columns: 54px minmax(108px, 0.3fr) minmax(0, 1fr);
+        gap: 18px;
       }
     }
 
-    /* ---- RESPONSIVE ---- */
-    @media (max-width: 600px) {
-      .container { padding: 0 1.25rem; }
-      .hero { padding: 6rem 0 4rem; }
-      .project-meta { gap: 0.8rem; }
-      .project-status { display: none; }
-      .project-main { max-width: 100%; padding-left: 0; }
-      .project-meta { padding-right: 0; }
-      .project-desc { font-size: 0.82rem; }
-      footer { flex-direction: column; gap: 1rem; align-items: flex-start; }
+    @media (max-width: 640px) {
+      .page {
+        width: min(100% - 30px, 1040px);
+        padding-top: 22px;
+      }
+
+      .nav {
+        grid-template-columns: 1fr auto;
+        gap: 8px 18px;
+      }
+
+      .nav-center {
+        grid-column: 1 / -1;
+        grid-row: 2;
+      }
+
+      .hero {
+        padding: 62px 0 44px;
+      }
+
+      h1 {
+        font-size: 3.55rem;
+        line-height: 0.96;
+      }
+
+      .intro-grid,
+      .areas {
+        grid-template-columns: 1fr;
+        gap: 18px;
+      }
+
+      .intro {
+        font-size: 1.2rem;
+      }
+
+      .sequence {
+        margin-top: 32px;
+        padding: 12px 0;
+      }
+
+      .sequence-row {
+        grid-template-columns: 62px minmax(0, 1fr) 34px;
+        gap: 12px;
+        min-height: 22px;
+      }
+
+      .area {
+        grid-template-columns: 42px minmax(0, 1fr);
+        gap: 8px 16px;
+      }
+
+      .area-copy {
+        grid-column: 2;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="glow"></div>
-  <div class="container">
-    <nav>
-      <a href="/" class="logo">Wexpro<span>.</span></a>
-      <a href="mailto:samin@wexprolabs.com" class="nav-link">Contact</a>
-    </nav>
+  <div class="page">
+    <header class="nav" aria-label="Primary">
+      <a class="brand" href="index.html">Wexpro Labs</a>
+      <a class="nav-center" href="agent-ui/index.html">agent-UI for Hermes</a>
+      <a class="contact" href="mailto:samin@wexprolabs.com">contact</a>
+    </header>
 
-    <section class="hero">
-      <p class="hero-label">Applied Product Lab</p>
-      <h1>We build software that <em>ships and holds up.</em></h1>
-      <p class="hero-sub">Wexpro is a focused product lab. We find hard, practical problems and ship products people can rely on.</p>
-    </section>
-
-    <div class="divider"></div>
-
-    <p class="projects-header">Work</p>
-
-    <ul class="project-list">
-      <li>
-        <a href="/agentconnect" class="project-item">
-          <div class="project-main">
-            <span class="project-name">Agent Connect</span>
-            <p class="project-desc">One identity, one API for giving AI agents email inboxes, virtual cards, and a unified event timeline.</p>
-          </div>
-          <span class="project-meta">
-            <span class="project-status active">Beta</span>
-            <span class="project-arrow">→</span>
-          </span>
-        </a>
-      </li>
-      <li>
-        <div class="project-item project-item--static">
-          <div class="project-main">
-            <span class="project-name project-name--muted">Project Atlas</span>
-            <p class="project-desc">Next product track in active development.</p>
-          </div>
-          <span class="project-meta">
-            <span class="project-status">Coming soon</span>
-            <span class="project-arrow project-arrow--hidden">→</span>
-          </span>
+    <main>
+      <section class="hero" aria-labelledby="page-title">
+        <p class="eyebrow">inference and long-running agents</p>
+        <h1 id="page-title">
+          <span>Agent</span>
+          <span>and inference</span>
+          <span>lab.</span>
+        </h1>
+        <div class="intro-grid">
+          <p class="section-label">focus</p>
+          <p class="intro">Wexpro Labs works on the systems around models: lower-latency inference below them and agents that can keep working above them.</p>
         </div>
-      </li>
-      <li>
-        <div class="project-item project-item--static">
-          <div class="project-main">
-            <span class="project-name project-name--muted">Project Meridian</span>
-            <p class="project-desc">Ongoing research track for new product directions.</p>
-          </div>
-          <span class="project-meta">
-            <span class="project-status">Research</span>
-            <span class="project-arrow project-arrow--hidden">→</span>
-          </span>
-        </div>
-      </li>
-    </ul>
 
-    <footer>
-      <span class="copyright">© 2026 Wexpro Labs</span>
+        <figure class="sequence" aria-label="Abstract inference and agent sequence">
+          <div class="sequence-row">
+            <span class="sequence-label">serve</span>
+            <span class="sequence-line"></span>
+            <span class="sequence-value">01</span>
+          </div>
+          <div class="sequence-row">
+            <span class="sequence-label">plan</span>
+            <span class="sequence-line"></span>
+            <span class="sequence-value">02</span>
+          </div>
+          <div class="sequence-row">
+            <span class="sequence-label">act</span>
+            <span class="sequence-line"></span>
+            <span class="sequence-value">03</span>
+          </div>
+          <div class="sequence-row">
+            <span class="sequence-label">persist</span>
+            <span class="sequence-line"></span>
+            <span class="sequence-value">04</span>
+          </div>
+        </figure>
+      </section>
+
+      <section class="areas" aria-labelledby="areas-title">
+        <p class="section-label" id="areas-title">areas</p>
+        <ul class="area-list">
+          <li class="area">
+            <span class="area-index">01</span>
+            <h2 class="area-title">inference</h2>
+            <p class="area-copy">Lower latency and cost at the runtime layer.</p>
+          </li>
+          <li class="area">
+            <span class="area-index">02</span>
+            <h2 class="area-title">long-running agents</h2>
+            <p class="area-copy">Agents that keep state, resume work, and finish multi-step jobs.</p>
+          </li>
+          <li class="area">
+            <span class="area-index">03</span>
+            <h2 class="area-title">agent systems</h2>
+            <p class="area-copy">Tools, permissions, queues, and fewer brittle handoffs.</p>
+          </li>
+          <li class="area">
+            <span class="area-index">04</span>
+            <h2 class="area-title">experiments</h2>
+            <p class="area-copy">Applied probes that turn model capability into working behavior.</p>
+          </li>
+        </ul>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <span class="mark" aria-hidden="true"></span>
+      <span>&copy; 2026 Wexpro Labs</span>
     </footer>
   </div>
 </body>
