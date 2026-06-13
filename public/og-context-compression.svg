@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Context Compression preview image</title>
+  <desc id="desc">Open graph image for a local verifier that makes exact structured-data reads cheaper for AI agents.</desc>
+  <rect width="1200" height="630" fill="#f6f7f2"/>
+  <path d="M0 80H1200M0 160H1200M0 240H1200M0 320H1200M0 400H1200M0 480H1200M0 560H1200M120 0V630M240 0V630M360 0V630M480 0V630M600 0V630M720 0V630M840 0V630M960 0V630M1080 0V630" stroke="#d5dbe2" stroke-width="1"/>
+  <rect x="64" y="58" width="1072" height="514" rx="10" fill="#ffffff" stroke="#0f1115" stroke-width="3"/>
+  <rect x="64" y="58" width="1072" height="70" rx="10" fill="#101318"/>
+  <path d="M64 118H1136" stroke="#0f1115" stroke-width="3"/>
+  <circle cx="104" cy="93" r="10" fill="#0f8a51"/>
+  <circle cx="136" cy="93" r="10" fill="#1d4ed8"/>
+  <circle cx="168" cy="93" r="10" fill="#b35f00"/>
+  <text x="204" y="100" fill="#edf2f7" font-family="IBM Plex Mono, Consolas, monospace" font-size="25" font-weight="600">Context Compression</text>
+  <text x="94" y="210" fill="#0f1115" font-family="Arial Narrow, Helvetica, sans-serif" font-size="66" font-weight="700">Make exact reads</text>
+  <text x="94" y="306" fill="#0f1115" font-family="Arial Narrow, Helvetica, sans-serif" font-size="82" font-weight="700">cost fewer tokens</text>
+  <text x="94" y="367" fill="#68707c" font-family="IBM Plex Mono, Consolas, monospace" font-size="27">17,496,442 raw -> 15,171,483 optimized</text>
+  <rect x="94" y="420" width="360" height="64" rx="6" fill="#edf9f2" stroke="#0f1115" stroke-width="2"/>
+  <text x="118" y="462" fill="#0f1115" font-family="IBM Plex Mono, Consolas, monospace" font-size="25" font-weight="600">verified reversible</text>
+  <rect x="482" y="420" width="272" height="64" rx="6" fill="#f0f5ff" stroke="#0f1115" stroke-width="2"/>
+  <text x="506" y="462" fill="#0f1115" font-family="IBM Plex Mono, Consolas, monospace" font-size="25" font-weight="600">0 source rewrites</text>
+  <rect x="782" y="420" width="276" height="64" rx="6" fill="#fbf5ed" stroke="#0f1115" stroke-width="2"/>
+  <text x="806" y="462" fill="#0f1115" font-family="IBM Plex Mono, Consolas, monospace" font-size="25" font-weight="600">raw when unsafe</text>
+  <rect x="796" y="172" width="260" height="28" fill="#0f1115"/>
+  <rect x="796" y="224" width="212" height="28" fill="#1d4ed8"/>
+  <rect x="796" y="276" width="166" height="28" fill="#0f8a51"/>
+  <rect x="796" y="328" width="116" height="28" fill="#b35f00"/>
+  <text x="796" y="388" fill="#68707c" font-family="IBM Plex Mono, Consolas, monospace" font-size="22">background read substitution</text>
+  <text x="94" y="532" fill="#68707c" font-family="IBM Plex Mono, Consolas, monospace" font-size="23">Verified sidecars. Unchanged source files. Raw fallback when unsafe.</text>
+</svg>

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Wexpro Labs</title>
-  <meta name="description" content="Wexpro Labs builds inference systems and long-running agents for useful AI software.">
+  <meta name="description" content="Wexpro Labs builds inference systems, long-running agent infrastructure, and local tools that make existing AI agents cheaper and more reliable.">
   <meta name="theme-color" content="#f7f7f3">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='5' fill='%23f7f7f3'/%3E%3Cpath d='M16 5 27 16 16 27 5 16z' fill='none' stroke='%231238ff' stroke-width='3'/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -194,7 +194,7 @@
 
     .sequence-row {
       display: grid;
-      grid-template-columns: 74px minmax(0, 1fr) 46px;
+      grid-template-columns: 118px minmax(0, 1fr) 46px;
       align-items: center;
       gap: 16px;
       min-height: 24px;
@@ -205,19 +205,19 @@
     }
 
     .sequence-row:nth-child(1) {
-      --run: 38%;
+      --run: 82%;
     }
 
     .sequence-row:nth-child(2) {
-      --run: 64%;
+      --run: 56%;
     }
 
     .sequence-row:nth-child(3) {
-      --run: 47%;
+      --run: 68%;
     }
 
     .sequence-row:nth-child(4) {
-      --run: 82%;
+      --run: 44%;
     }
 
     .sequence-label {
@@ -293,6 +293,15 @@
       font-weight: 400;
       line-height: 1.15;
       letter-spacing: 0;
+    }
+
+    .area-title a {
+      text-decoration: none;
+    }
+
+    .area-title a:hover {
+      color: var(--signal);
+      text-decoration: underline;
     }
 
     .area-copy {
@@ -389,7 +398,7 @@
       }
 
       .sequence-row {
-        grid-template-columns: 62px minmax(0, 1fr) 34px;
+        grid-template-columns: 96px minmax(0, 1fr) 34px;
         gap: 12px;
         min-height: 22px;
       }
@@ -409,7 +418,7 @@
   <div class="page">
     <header class="nav" aria-label="Primary">
       <a class="brand" href="./">Wexpro Labs</a>
-      <a class="nav-center" href="agent-ui/">agent-UI for Hermes</a>
+      <a class="nav-center" href="context-compression/">Context Compression</a>
       <a class="contact" href="mailto:samin@wexprolabs.com">contact</a>
     </header>
 
@@ -423,27 +432,27 @@
         </h1>
         <div class="intro-grid">
           <p class="section-label">focus</p>
-          <p class="intro">Wexpro Labs works on the systems around models: lower-latency inference below them and agents that can keep working above them.</p>
+          <p class="intro">Wexpro Labs works on the systems around models: lower-cost inference below them, agents that keep working above them, and local tools that make existing agent workflows cheaper and more reliable.</p>
         </div>
 
-        <figure class="sequence" aria-label="Abstract inference and agent sequence">
+        <figure class="sequence" aria-label="Lab focus sequence">
           <div class="sequence-row">
-            <span class="sequence-label">serve</span>
+            <span class="sequence-label">compress context</span>
             <span class="sequence-line"></span>
             <span class="sequence-value">01</span>
           </div>
           <div class="sequence-row">
-            <span class="sequence-label">plan</span>
+            <span class="sequence-label">serve models</span>
             <span class="sequence-line"></span>
             <span class="sequence-value">02</span>
           </div>
           <div class="sequence-row">
-            <span class="sequence-label">act</span>
+            <span class="sequence-label">run agents</span>
             <span class="sequence-line"></span>
             <span class="sequence-value">03</span>
           </div>
           <div class="sequence-row">
-            <span class="sequence-label">persist</span>
+            <span class="sequence-label">ship probes</span>
             <span class="sequence-line"></span>
             <span class="sequence-value">04</span>
           </div>
@@ -451,22 +460,22 @@
       </section>
 
       <section class="areas" aria-labelledby="areas-title">
-        <p class="section-label" id="areas-title">areas</p>
+        <p class="section-label" id="areas-title">products</p>
         <ul class="area-list">
           <li class="area">
             <span class="area-index">01</span>
+            <h2 class="area-title"><a href="context-compression/">Context Compression</a></h2>
+            <p class="area-copy">A local background token saver for AI agents reading JSON, JSONL, CSV, and TSV.</p>
+          </li>
+          <li class="area">
+            <span class="area-index">02</span>
             <h2 class="area-title">inference</h2>
             <p class="area-copy">Lower latency and cost at the runtime layer.</p>
           </li>
           <li class="area">
-            <span class="area-index">02</span>
+            <span class="area-index">03</span>
             <h2 class="area-title">long-running agents</h2>
             <p class="area-copy">Agents that keep state, resume work, and finish multi-step jobs.</p>
-          </li>
-          <li class="area">
-            <span class="area-index">03</span>
-            <h2 class="area-title">agent systems</h2>
-            <p class="area-copy">Tools, permissions, queues, and fewer brittle handoffs.</p>
           </li>
           <li class="area">
             <span class="area-index">04</span>

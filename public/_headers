@@ -5,11 +5,11 @@
   X-Frame-Options: DENY
   Content-Security-Policy: default-src 'self'; base-uri 'none'; object-src 'none'; frame-ancestors 'none'; form-action 'none'; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; connect-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com; upgrade-insecure-requests
 
-/agent-ui-pet-frame.png
-  Cache-Control: public, max-age=31536000, immutable
-
 /robots.txt
   Cache-Control: public, max-age=3600
+
+/og-context-compression.svg
+  Cache-Control: public, max-age=31536000, immutable
 
 /llms.txt
   Cache-Control: public, max-age=3600
