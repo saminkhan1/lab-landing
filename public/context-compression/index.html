@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Context Compression | Exact agent reads, fewer tokens</title>
-  <meta name="description" content="A local verifier for AI agent file reads. It swaps supported JSON, JSONL, CSV, and TSV reads for lower-token sidecars only after round-trip checks pass.">
+  <title>Context Compression | Pay 13% fewer tokens on structured file reads</title>
+  <meta name="description" content="Swap bulky JSON/JSONL, CSV, and TSV reads for verified smaller sidecars. On 28 files: 17.5M tokens to 15.2M, with raw fallback.">
   <meta name="theme-color" content="#f4f7fb">
   <meta property="og:title" content="Context Compression">
-  <meta property="og:description" content="Make exact structured-data reads cheaper for AI agents. Verified lower-token sidecars, unchanged source files, and raw fallback when unsafe.">
+  <meta property="og:description" content="Swap bulky JSON/JSONL, CSV, and TSV reads for verified smaller sidecars. On 28 files: 17.5M tokens to 15.2M, with raw fallback.">
   <meta property="og:type" content="website">
   <meta property="og:image" content="/og-context-compression.svg">
   <meta property="og:image:type" content="image/svg+xml">
@@ -15,7 +15,7 @@
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Context Compression">
-  <meta name="twitter:description" content="Verified lower-token file reads for AI agents, with source files untouched and raw fallback when unsafe.">
+  <meta name="twitter:description" content="Swap bulky JSON/JSONL, CSV, and TSV reads for verified smaller sidecars. On 28 files: 17.5M tokens to 15.2M, with raw fallback.">
   <meta name="twitter:image" content="/og-context-compression.svg">
   <link rel="canonical" href="/context-compression/">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='5' fill='%23f4f7fb'/%3E%3Cpath d='M7 10h18M7 16h11M7 22h15' stroke='%230d1117' stroke-width='2.2' stroke-linecap='square'/%3E%3Cpath d='M23 14l3 3-3 3' fill='none' stroke='%231f6feb' stroke-width='2.2' stroke-linecap='square' stroke-linejoin='miter'/%3E%3C/svg%3E">
@@ -36,13 +36,13 @@
       --surface-green: #edf9f2;
       --ink: #0d1117;
       --ink-soft: #2d3642;
-      --muted: #687385;
+      --muted: #5f6b7a;
       --line: #c9d2df;
       --line-strong: #0d1117;
-      --blue: #1f6feb;
-      --green: #0d8f66;
-      --amber: #b35f00;
-      --red: #cf3f33;
+      --blue: #1d66dc;
+      --green: #087a57;
+      --amber: #9d5200;
+      --red: #b8322b;
       --shadow: rgba(13, 17, 23, 0.13);
       --grid-step: 54px;
       --radius: 6px;
@@ -114,7 +114,9 @@
     .brand {
       display: inline-flex;
       align-items: center;
+      justify-self: start;
       gap: 11px;
+      min-height: 44px;
       min-width: 0;
       font: 600 1.02rem/1 var(--mono);
       text-decoration: none;
@@ -150,6 +152,11 @@
     }
 
     .nav-links a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 44px;
+      min-height: 44px;
       text-decoration: none;
     }
 
@@ -160,32 +167,26 @@
 
     main {
       display: grid;
-      gap: 72px;
+      gap: 64px;
     }
 
     .hero {
-      display: grid;
-      grid-template-columns: minmax(0, 1.04fr) minmax(360px, 0.76fr);
-      gap: 48px;
-      align-items: start;
-      padding: 56px 0 0;
+      max-width: 850px;
+      padding: 44px 0 0;
     }
 
     .hero-copy,
-    .hero-visual,
     .section-head,
     .proof-card,
     .fit-card,
     .process-step,
-    .install-panel,
-    .final-cta {
+    .install-panel {
       min-width: 0;
     }
 
     .eyebrow,
     .kicker,
     .metric-label,
-    .decision-label,
     .tag,
     .step-number,
     .footer {
@@ -215,7 +216,7 @@
     h1 {
       max-width: 760px;
       margin: 0;
-      font-size: 5.2rem;
+      font-size: 4.7rem;
       font-weight: 700;
       line-height: 0.92;
       letter-spacing: 0;
@@ -267,16 +268,25 @@
       box-shadow: none;
     }
 
-    .hero-points {
+    .hero-links {
       display: flex;
       flex-wrap: wrap;
-      gap: 9px;
-      margin: 22px 0 0;
-      padding: 0;
-      list-style: none;
+      gap: 10px 16px;
+      align-items: center;
+      margin-top: 13px;
+      color: var(--muted);
+      font: 0.73rem/1.5 var(--mono);
+      text-transform: lowercase;
     }
 
-    .hero-points li,
+    .hero-links a {
+      display: inline-flex;
+      align-items: center;
+      min-width: 44px;
+      min-height: 44px;
+      color: var(--ink-soft);
+    }
+
     .tag {
       display: inline-flex;
       align-items: center;
@@ -288,115 +298,6 @@
       color: var(--ink-soft);
       font: 0.69rem/1 var(--mono);
       text-align: center;
-      text-transform: lowercase;
-    }
-
-    .hero-note {
-      max-width: 650px;
-      margin: 20px 0 0;
-      color: var(--muted);
-      font: 0.8rem/1.55 var(--mono);
-    }
-
-    .hero-visual {
-      border: 1px solid var(--line-strong);
-      border-radius: var(--radius);
-      background: var(--surface);
-      box-shadow: 10px 10px 0 var(--line-strong);
-      overflow: hidden;
-    }
-
-    .visual-top {
-      display: flex;
-      justify-content: space-between;
-      gap: 14px;
-      align-items: center;
-      min-height: 43px;
-      padding: 0 14px;
-      border-bottom: 1px solid var(--line-strong);
-      background: #111827;
-      color: #edf2f7;
-      font: 0.72rem/1.4 var(--mono);
-    }
-
-    .visual-top span:last-child {
-      color: #9be7bd;
-    }
-
-    .decision {
-      display: grid;
-      gap: 14px;
-      padding: 18px;
-    }
-
-    .decision-row {
-      display: grid;
-      grid-template-columns: 76px minmax(0, 1fr) auto;
-      gap: 14px;
-      align-items: center;
-      min-height: 70px;
-      border: 1px solid var(--line-strong);
-      border-radius: var(--radius-sm);
-      padding: 12px;
-      background: #f8fafc;
-    }
-
-    .decision-row.selected {
-      background: var(--surface-green);
-      box-shadow: var(--shadow-soft);
-    }
-
-    .decision-label {
-      color: var(--muted);
-      font-size: 0.69rem;
-      line-height: 1.35;
-    }
-
-    .decision-title {
-      margin: 0;
-      font-size: 1.1rem;
-      font-weight: 700;
-      line-height: 1.08;
-    }
-
-    .decision-detail {
-      margin: 5px 0 0;
-      color: var(--muted);
-      font: 0.72rem/1.45 var(--mono);
-    }
-
-    .decision-tokens {
-      font: 600 1.05rem/1 var(--mono);
-      font-variant-numeric: tabular-nums;
-      white-space: nowrap;
-    }
-
-    .verify-strip {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      border-top: 1px solid var(--line-strong);
-    }
-
-    .verify-strip div {
-      min-height: 92px;
-      padding: 15px;
-      border-right: 1px solid var(--line-strong);
-    }
-
-    .verify-strip div:last-child {
-      border-right: 0;
-      background: var(--surface-cool);
-    }
-
-    .verify-strip strong {
-      display: block;
-      margin-bottom: 7px;
-      font: 600 1.4rem/1 var(--mono);
-    }
-
-    .verify-strip span {
-      color: var(--muted);
-      font: 0.72rem/1.45 var(--mono);
       text-transform: lowercase;
     }
 
@@ -679,7 +580,7 @@
       transition: transform var(--motion-fast), box-shadow var(--motion-fast), color var(--motion-fast);
     }
 
-    :where(h1, h2, .decision-title, .fit-card h3, .process-step h3, .install-panel h3) {
+    :where(h1, h2, .fit-card h3, .process-step h3, .install-panel h3) {
       text-wrap: balance;
     }
 
@@ -715,24 +616,11 @@
       }
     }
 
-    .final-cta {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) auto;
-      gap: 26px;
-      align-items: end;
-      border-top: 2px solid var(--line-strong);
-      border-bottom: 2px solid var(--line-strong);
-      padding: 36px 0;
-    }
-
-    .final-cta h2 {
-      max-width: 820px;
-    }
-
     .footer {
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
+      align-items: center;
       gap: 12px;
       margin-top: 54px;
       border-top: 1px solid var(--line-strong);
@@ -742,14 +630,19 @@
       line-height: 1.5;
     }
 
+    .footer a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+    }
+
     @media (max-width: 1020px) {
-      .hero,
       .install-grid {
         grid-template-columns: 1fr;
       }
 
       h1 {
-        font-size: 4.75rem;
+        font-size: 4.2rem;
       }
 
       .proof-grid,
@@ -779,6 +672,7 @@
       .topbar {
         position: static;
         grid-template-columns: 1fr;
+        row-gap: 10px;
         min-height: 0;
         padding-bottom: 14px;
       }
@@ -788,15 +682,15 @@
       }
 
       main {
-        gap: 58px;
+        gap: 52px;
       }
 
       .hero {
-        padding-top: 34px;
+        padding-top: 26px;
       }
 
       h1 {
-        font-size: 3.25rem;
+        font-size: 2.8rem;
         line-height: 0.96;
       }
 
@@ -811,7 +705,7 @@
       .section-head,
       .fit-layout,
       .runtime-strip,
-      .final-cta {
+      .install-grid {
         grid-template-columns: 1fr;
       }
 
@@ -820,26 +714,11 @@
         gap: 14px;
       }
 
-      .hero-visual {
-        display: none;
-      }
-
-      .decision-row {
-        grid-template-columns: 1fr;
-        gap: 7px;
-      }
-
-      .decision-tokens {
-        white-space: normal;
-      }
-
-      .verify-strip,
       .proof-grid,
       .process-grid {
         grid-template-columns: 1fr;
       }
 
-      .verify-strip div,
       .proof-card,
       .proof-card:nth-child(2),
       .process-step,
@@ -848,7 +727,6 @@
         border-bottom: 1px solid var(--line-strong);
       }
 
-      .verify-strip div:last-child,
       .proof-card:last-child,
       .process-step:last-child {
         border-bottom: 0;
@@ -884,65 +762,19 @@
     <main>
       <section class="hero" aria-labelledby="page-title">
         <div class="hero-copy">
-          <p class="eyebrow"><span class="status-dots" aria-hidden="true"></span> local verifier for agent file reads</p>
+          <p class="eyebrow"><span class="status-dots" aria-hidden="true"></span> for local agents reading structured files</p>
           <h1 id="page-title">Make exact data reads cost less.</h1>
-          <p class="lead">Context Compression sits behind your AI tool. When an agent reads JSON, JSONL, CSV, or TSV, it can swap the raw file for a lower-token sidecar only after proving the sidecar decodes to the same parsed data.</p>
+          <p class="lead">Context Compression sits behind your AI tool. When an agent reads JSON, JSONL, CSV, or TSV, it can swap the file for a lower-token file only after proving the smaller file decodes to the same parsed data.</p>
           <div class="hero-actions" aria-label="Primary actions">
-            <a class="button" href="#install">Install locally</a>
-            <a class="button secondary" href="#proof">Check the proof</a>
-            <a class="button ghost" href="https://github.com/saminkhan1/context-compression">View GitHub</a>
+            <a class="button" href="#install">Run it on one file my agent reads</a>
           </div>
-          <ul class="hero-points" aria-label="Product boundaries">
-            <li>source files untouched</li>
-            <li>verified read_path only</li>
-            <li>raw fallback when unsafe</li>
-            <li>no cloud account required</li>
-          </ul>
-          <p class="hero-note">This is not summarization and not a general AI compression claim. It is a conservative file-read selector for repetitive structured data.</p>
+          <div class="hero-links" aria-label="Secondary links">
+            <a href="#proof">See the 28-file proof</a>
+            <span aria-hidden="true">/</span>
+            <a href="https://github.com/saminkhan1/context-compression">GitHub</a>
+          </div>
         </div>
 
-        <aside class="hero-visual" aria-label="Context selector decision">
-          <div class="visual-top">
-            <span>context-selector/v1</span>
-            <span>round-trip verified</span>
-          </div>
-          <div class="decision">
-            <div class="decision-row">
-              <span class="decision-label">raw read</span>
-              <div>
-                <p class="decision-title">Agent asks for the file it already needs.</p>
-                <p class="decision-detail">Whole-file read on a supported local structured file.</p>
-              </div>
-              <span class="decision-tokens">17.5M tok</span>
-            </div>
-            <div class="decision-row selected">
-              <span class="decision-label">selected</span>
-              <div>
-                <p class="decision-title">Verifier returns a smaller read path.</p>
-                <p class="decision-detail">The adapter reads the sidecar only after equality checks pass.</p>
-              </div>
-              <span class="decision-tokens">15.2M tok</span>
-            </div>
-            <div class="decision-row">
-              <span class="decision-label">fallback</span>
-              <div>
-                <p class="decision-title">Unsafe, tiny, or unsupported wins stay raw.</p>
-                <p class="decision-detail">Pipes, filters, remote content, and semantic shell intent are left alone.</p>
-              </div>
-              <span class="decision-tokens">0 rewrites</span>
-            </div>
-          </div>
-          <div class="verify-strip" aria-label="Verification guarantees">
-            <div>
-              <strong>read_path</strong>
-              <span>Adapters consume the verified path, not an untrusted generated output.</span>
-            </div>
-            <div>
-              <strong>.codex/context-cache</strong>
-              <span>Optimized sidecars live outside the source file and can be audited.</span>
-            </div>
-          </div>
-        </aside>
       </section>
 
       <section class="section" id="proof" aria-labelledby="proof-title">
@@ -950,7 +782,7 @@
           <p class="kicker">measured savings</p>
           <div>
             <h2 id="proof-title">Cut the noisy tokens before they reach the model.</h2>
-            <p class="section-copy">On a checked-in corpus of 28 JSON, JSONL, CSV, and TSV files, Context Compression reduced 17,496,442 raw tokens to 15,171,483 optimized tokens after round-trip checks. Unsupported or unsafe reads fall back to raw.</p>
+            <p class="section-copy">On 28 real files, Context Compression cut 17.5M tokens down to 15.2M. That is 2,324,959 tokens gone, and every selected read still decoded back to the exact same parsed data.</p>
           </div>
         </div>
         <div class="proof-grid" aria-label="Benchmark summary">
@@ -1025,7 +857,7 @@
           <div class="fit-column" aria-label="Bad fit">
             <article class="fit-card">
               <h3>Not semantic compression</h3>
-              <p>It does not decide what matters. The selected representation must decode to the same parsed source value.</p>
+              <p>It does not decide what matters. The selected representation must decode to the same parsed rows and keys.</p>
             </article>
             <article class="fit-card">
               <h3>Not arbitrary shell rewriting</h3>
@@ -1075,8 +907,8 @@
         <div class="section-head">
           <p class="kicker">install</p>
           <div>
-            <h2 id="install-title">Install once. Keep the fallback on.</h2>
-            <p class="section-copy">Start with a local checkout, run the selector against a file your agent reads too often, then wire the matching adapter into your runtime.</p>
+            <h2 id="install-title">Free. MIT open source. Keep the fallback on.</h2>
+            <p class="section-copy">Clone it, point it at your worst file, and keep the raw fallback on. Start with a local checkout, run the selector, then wire the matching adapter into your runtime.</p>
           </div>
         </div>
         <div class="install-grid">
@@ -1138,18 +970,10 @@ python3 scripts/verify_clean_install.py</code></pre>
         </div>
       </section>
 
-      <section class="final-cta" aria-labelledby="next-title">
-        <div>
-          <p class="kicker">next step</p>
-          <h2 id="next-title">Try it on the structured file your agent keeps rereading.</h2>
-          <p class="section-copy">If the report cannot prove a real token win, keep the raw file. That fallback is the product.</p>
-        </div>
-        <a class="button" href="#install">Install locally</a>
-      </section>
     </main>
 
     <footer class="footer">
-      <span>MIT open source. Maintained by Samin Khan.</span>
+      <span>MIT open source. Maintained by Wexpro Labs.</span>
       <span><a href="mailto:samin@wexprolabs.com">samin@wexprolabs.com</a></span>
     </footer>
   </div>

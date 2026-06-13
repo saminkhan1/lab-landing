@@ -5,4 +5,4 @@ Wexpro Labs builds inference systems, long-running agent infrastructure, and loc
 ## Pages
 
 - [Wexpro Labs overview](/): current lab focus.
-- [Context Compression](/context-compression/): local verifier for AI agent reads of JSON, JSONL, CSV, and TSV; it returns lower-token sidecars only after round-trip checks pass, leaves source files untouched, and falls back to raw when unsafe.
+- [Context Compression](/context-compression/): local verifier for AI agents that read JSON, JSONL, CSV, and TSV; it returns lower-token sidecars only after round-trip checks pass, leaves source files untouched, and falls back to raw when unsafe.
