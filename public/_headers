@@ -8,8 +8,14 @@
 /robots.txt
   Cache-Control: public, max-age=3600
 
+/sitemap.xml
+  Cache-Control: public, max-age=3600
+
 /og-context-compression.svg
   Cache-Control: public, max-age=31536000, immutable
 
 /llms.txt
+  Cache-Control: public, max-age=3600
+
+/workflow-automation/llms.txt
   Cache-Control: public, max-age=3600

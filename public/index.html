@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Wexpro Labs</title>
-  <meta name="description" content="Wexpro Labs builds inference systems, long-running agent infrastructure, and local tools that make existing AI agents cheaper and more reliable.">
+  <meta name="description" content="Wexpro Labs builds workflow automation, inference systems, long-running agent infrastructure, and local tools that make existing AI agents cheaper and more reliable.">
   <meta name="theme-color" content="#f7f7f3">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='5' fill='%23f7f7f3'/%3E%3Cpath d='M16 5 27 16 16 27 5 16z' fill='none' stroke='%231238ff' stroke-width='3'/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -81,7 +81,7 @@
       display: inline-flex;
       align-items: center;
       justify-self: start;
-      min-height: 32px;
+      min-height: 44px;
       font-family: var(--serif);
       font-size: 1.56rem;
       font-weight: 400;
@@ -105,15 +105,22 @@
     .nav-center {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      min-height: 32px;
+      gap: 14px;
+      min-height: 44px;
       color: var(--muted);
       font-size: 0.72rem;
       line-height: 1.5;
+    }
+
+    .nav-center a {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 44px;
       text-decoration: none;
     }
 
-    .nav-center::before {
+    .nav-center a::before {
       content: "";
       width: 7px;
       height: 7px;
@@ -121,7 +128,7 @@
       transform: rotate(45deg);
     }
 
-    .nav-center:hover {
+    .nav-center a:hover {
       color: var(--signal);
     }
 
@@ -129,7 +136,7 @@
       display: inline-flex;
       align-items: center;
       justify-self: end;
-      min-height: 32px;
+      min-height: 44px;
       color: var(--soft);
       font-size: 0.72rem;
       line-height: 1.5;
@@ -296,6 +303,9 @@
     }
 
     .area-title a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
       text-decoration: none;
     }
 
@@ -418,7 +428,10 @@
   <div class="page">
     <header class="nav" aria-label="Primary">
       <a class="brand" href="./">Wexpro Labs</a>
-      <a class="nav-center" href="context-compression/">Context Compression</a>
+      <nav class="nav-center" aria-label="Product links">
+        <a href="workflow-automation/">Workflow Automation</a>
+        <a href="context-compression/">Context Compression</a>
+      </nav>
       <a class="contact" href="mailto:samin@wexprolabs.com">contact</a>
     </header>
 
@@ -464,21 +477,26 @@
         <ul class="area-list">
           <li class="area">
             <span class="area-index">01</span>
+            <h2 class="area-title"><a href="workflow-automation/">Workflow Automation</a></h2>
+            <p class="area-copy">Reusable AI helpers for repetitive portal, spreadsheet, email, PDF, and legacy-app tasks.</p>
+          </li>
+          <li class="area">
+            <span class="area-index">02</span>
             <h2 class="area-title"><a href="context-compression/">Context Compression</a></h2>
             <p class="area-copy">A local background token saver for AI agents reading JSON, JSONL, CSV, and TSV.</p>
           </li>
           <li class="area">
-            <span class="area-index">02</span>
+            <span class="area-index">03</span>
             <h2 class="area-title">inference</h2>
             <p class="area-copy">Lower latency and cost at the runtime layer.</p>
           </li>
           <li class="area">
-            <span class="area-index">03</span>
+            <span class="area-index">04</span>
             <h2 class="area-title">long-running agents</h2>
             <p class="area-copy">Agents that keep state, resume work, and finish multi-step jobs.</p>
           </li>
           <li class="area">
-            <span class="area-index">04</span>
+            <span class="area-index">05</span>
             <h2 class="area-title">experiments</h2>
             <p class="area-copy">Applied probes that turn model capability into working behavior.</p>
           </li>
