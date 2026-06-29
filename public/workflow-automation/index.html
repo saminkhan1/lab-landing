@@ -3,19 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Workflow Automation for Repetitive Computer Tasks | Wexpro Labs</title>
-  <meta name="description" content="Show Wexpro Labs a repetitive computer task once. We turn portal, spreadsheet, email, PDF, and legacy app work into reusable AI helpers with review steps and logs.">
+  <title>Record Repeated Work Into Reviewed Helpers | Wexpro Labs</title>
+  <meta name="description" content="Record yourself doing a repeated computer task once. Wexpro Labs learns the steps, preferences, checks, and approval points, then turns the recording into a reviewed helper you can run again.">
   <meta name="robots" content="index,follow">
   <meta name="author" content="Wexpro Labs">
   <meta name="theme-color" content="#f5f8f2">
-  <meta property="og:title" content="Workflow Automation for Repetitive Computer Tasks | Wexpro Labs">
-  <meta property="og:description" content="Show us a task once. We turn repeated work across portals, spreadsheets, emails, PDFs, and legacy apps into reusable AI helpers.">
+  <meta property="og:title" content="Record Repeated Work Into Reviewed Helpers | Wexpro Labs">
+  <meta property="og:description" content="Do the task once while recording. Wexpro Labs learns the workflow, keeps approval points explicit, and turns it into a helper you can run again.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://wexprolabs.com/workflow-automation/">
   <meta property="og:site_name" content="Wexpro Labs">
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="Workflow Automation for Repetitive Computer Tasks | Wexpro Labs">
-  <meta name="twitter:description" content="Show us a task once. We turn repeated work across portals, spreadsheets, emails, PDFs, and legacy apps into reusable AI helpers.">
+  <meta property="og:image" content="https://wexprolabs.com/og-workflow-automation.svg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Record Repeated Work Into Reviewed Helpers | Wexpro Labs">
+  <meta name="twitter:description" content="Record yourself doing the task once. We learn it, turn it into a reviewed helper, and keep people in control of approvals.">
+  <meta name="twitter:image" content="https://wexprolabs.com/og-workflow-automation.svg">
   <link rel="canonical" href="https://wexprolabs.com/workflow-automation/">
   <link rel="alternate" type="text/plain" href="https://wexprolabs.com/workflow-automation/llms.txt" title="LLM summary for Workflow Automation">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='5' fill='%23f5f8f2'/%3E%3Cpath d='M7 9h18v5H7zM7 18h18v5H7z' fill='none' stroke='%2315130e' stroke-width='2'/%3E%3Cpath d='M18 11.5h5M18 20.5h5' stroke='%231f50ff' stroke-width='2'/%3E%3C/svg%3E">
@@ -201,6 +203,11 @@
     .section-kicker,
     .workflow-type,
     .step-index,
+    .compare-label,
+    .record-label,
+    .record-state,
+    .next-label,
+    .field-label,
     .footer {
       font-family: var(--mono);
       letter-spacing: 0;
@@ -233,12 +240,12 @@
     }
 
     h1 {
-      max-width: 740px;
+      max-width: 760px;
       margin: 0;
       font-family: var(--serif);
-      font-size: 5.65rem;
+      font-size: 4.85rem;
       font-weight: 500;
-      line-height: 0.98;
+      line-height: 1;
       letter-spacing: 0;
     }
 
@@ -447,7 +454,7 @@
 
     .mini-label {
       display: block;
-      color: var(--muted);
+      color: var(--ink-soft);
       font-size: 0.62rem;
       line-height: 1.45;
     }
@@ -632,6 +639,61 @@
       text-transform: lowercase;
     }
 
+    .section-action {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px 18px;
+      align-items: center;
+      margin-top: 24px;
+    }
+
+    .section-action span {
+      max-width: 560px;
+      color: var(--muted);
+      font: 400 0.78rem/1.58 var(--mono);
+      letter-spacing: 0;
+      text-transform: lowercase;
+    }
+
+    .comparison-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 30px;
+    }
+
+    .comparison-card {
+      min-height: 174px;
+      padding: 16px;
+      border: 1px solid var(--line-strong);
+      background: var(--surface);
+      box-shadow: 5px 5px 0 var(--shadow);
+    }
+
+    .compare-label {
+      display: block;
+      color: var(--blue);
+      font-size: 0.66rem;
+      line-height: 1.45;
+    }
+
+    .comparison-card strong {
+      display: block;
+      margin-top: 13px;
+      font: 700 1.04rem/1.1 var(--sans);
+      letter-spacing: 0;
+      text-transform: uppercase;
+    }
+
+    .comparison-card p {
+      margin: 10px 0 0;
+      color: var(--ink-soft);
+      font-family: var(--serif);
+      font-size: 1rem;
+      line-height: 1.44;
+      letter-spacing: 0;
+    }
+
     .fit-grid {
       display: grid;
       grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
@@ -790,6 +852,148 @@
       margin-top: 5px;
       border: 1px solid currentColor;
       background: var(--green);
+    }
+
+    .run-record {
+      margin-top: 24px;
+      border: 1px solid var(--line-strong);
+      background: var(--surface);
+      box-shadow: 7px 7px 0 var(--shadow);
+    }
+
+    .run-record header {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 18px;
+      align-items: center;
+      padding: 16px 18px;
+      border-bottom: 1px solid var(--line-strong);
+      background: #fff6dd;
+    }
+
+    .run-record h3 {
+      margin: 0;
+      font: 700 1.1rem/1.1 var(--sans);
+      letter-spacing: 0;
+      text-transform: uppercase;
+    }
+
+    .record-label {
+      display: block;
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: 0.64rem;
+      line-height: 1.45;
+    }
+
+    .record-state {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 34px;
+      padding: 0 10px;
+      border: 1px solid var(--green);
+      color: var(--green);
+      font-size: 0.62rem;
+      line-height: 1.2;
+      text-align: center;
+    }
+
+    .record-row {
+      display: grid;
+      grid-template-columns: 145px minmax(0, 1fr) 118px;
+      gap: 16px;
+      align-items: start;
+      min-height: 66px;
+      padding: 14px 18px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .record-row:last-child {
+      border-bottom: 0;
+    }
+
+    .record-row p {
+      margin: 0;
+      color: var(--ink-soft);
+      font-family: var(--serif);
+      font-size: 1rem;
+      line-height: 1.42;
+      letter-spacing: 0;
+    }
+
+    .record-row strong {
+      color: var(--ink);
+      font: 700 0.98rem/1.1 var(--sans);
+      letter-spacing: 0;
+      text-transform: uppercase;
+    }
+
+    .next-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+      gap: 22px;
+      margin-top: 30px;
+    }
+
+    .next-panel,
+    .field-panel {
+      border: 1px solid var(--line-strong);
+      background: var(--surface);
+    }
+
+    .next-panel header,
+    .field-panel header {
+      padding: 15px 16px;
+      border-bottom: 1px solid var(--line-strong);
+      background: var(--paper-deep);
+    }
+
+    .next-panel h3,
+    .field-panel h3 {
+      margin: 0;
+      font: 700 1.02rem/1.1 var(--sans);
+      letter-spacing: 0;
+      text-transform: uppercase;
+    }
+
+    .next-list,
+    .field-list {
+      display: grid;
+      gap: 0;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .next-list li,
+    .field-list li {
+      display: grid;
+      gap: 8px;
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .next-list li:last-child,
+    .field-list li:last-child {
+      border-bottom: 0;
+    }
+
+    .next-label,
+    .field-label {
+      color: var(--blue);
+      font-size: 0.64rem;
+      line-height: 1.45;
+    }
+
+    .next-list p,
+    .field-list p {
+      margin: 0;
+      color: var(--ink-soft);
+      font-family: var(--serif);
+      font-size: 1rem;
+      line-height: 1.42;
+      letter-spacing: 0;
     }
 
     .question-list {
@@ -995,6 +1199,10 @@
       .workflow-trigger {
         grid-column: 2;
       }
+
+      .comparison-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
     }
 
     @media (max-width: 760px) {
@@ -1104,11 +1312,22 @@
 
       .system-strip,
       .fit-grid,
+      .comparison-grid,
       .process,
+      .next-grid,
       .question-item,
       .proof-band,
       .cta-section {
         grid-template-columns: 1fr;
+      }
+
+      .run-record header,
+      .record-row {
+        grid-template-columns: 1fr;
+      }
+
+      .record-state {
+        justify-self: start;
       }
 
       .system-cell,
@@ -1141,6 +1360,10 @@
       }
 
       .cta-section .button {
+        width: 100%;
+      }
+
+      .section-action .button {
         width: 100%;
       }
     }
@@ -1194,12 +1417,8 @@
         display: none;
       }
 
-      .run-table {
+      .run-row:nth-child(n + 2) {
         display: none;
-      }
-
-      .sheet-top {
-        border-bottom: 0;
       }
 
       .run-row {
@@ -1210,11 +1429,29 @@
         grid-column: auto;
       }
     }
+
+    @media (max-width: 340px) {
+      h1 {
+        font-size: 2.22rem;
+      }
+
+      .lead {
+        font-size: 1.08rem;
+      }
+
+      .run-table {
+        display: none;
+      }
+
+      .sheet-top {
+        border-bottom: 0;
+      }
+    }
   </style>
 </head>
 <body itemscope itemtype="https://schema.org/Service">
-  <meta itemprop="name" content="Workflow Automation for Repetitive Computer Tasks">
-  <meta itemprop="serviceType" content="AI workflow automation for repetitive computer tasks">
+  <meta itemprop="name" content="Record Repeated Work Into Reviewed Helpers">
+  <meta itemprop="serviceType" content="Recorded workflow automation for repetitive computer tasks">
   <meta itemprop="provider" content="Wexpro Labs">
   <meta itemprop="areaServed" content="United States">
   <div class="page">
@@ -1224,222 +1461,148 @@
         <span>Wexpro Labs</span>
       </a>
       <nav class="nav-links" aria-label="Page links">
-        <a href="#workflows">Tasks</a>
-        <a href="#fit">Fit</a>
-        <a href="#process">Process</a>
+        <a href="#workflows">What to record</a>
+        <a href="#process">Replay</a>
         <a href="#safety">Safety</a>
       </nav>
-      <a class="nav-cta" href="mailto:samin@wexprolabs.com?subject=Show%20us%20a%20task">Show us a task</a>
+      <a class="nav-cta" href="mailto:samin@wexprolabs.com?subject=Record%20one%20repeated%20task&amp;body=Task%20I%20want%20to%20record%3A%0AHow%20often%20I%20do%20it%3A%0AWhat%20changes%20each%20time%3A%0AWhere%20the%20helper%20should%20pause%20for%20review%3A">Record one task</a>
     </header>
 
     <main>
       <section class="hero" aria-labelledby="page-title">
         <div class="hero-copy">
-          <p class="eyebrow">for work that repeats on a computer</p>
-          <h1 id="page-title" itemprop="headline">Turn repetitive computer work into a reusable helper</h1>
-          <p class="lead" itemprop="description">Show us a task once. We turn it into an AI helper that can click, type, copy, paste, upload, download, check its work, and pause when a person needs to review something.</p>
+          <p class="eyebrow">for work that is easier to show than explain</p>
+          <h1 id="page-title" itemprop="headline">Record the task once. We learn how to do it again.</h1>
+          <p class="lead" itemprop="description">Do the repeated computer task the way you normally do it. Wexpro Labs learns the steps, preferences, checks, and stop points, then turns the recording into a reviewed helper you can run again with new inputs.</p>
           <div class="hero-actions">
-            <a class="button" href="mailto:samin@wexprolabs.com?subject=Show%20us%20a%20task">Show us a task</a>
-            <a class="text-link" href="#fit">See what works</a>
+            <a class="button" href="mailto:samin@wexprolabs.com?subject=Record%20one%20repeated%20task&amp;body=Task%20I%20want%20to%20record%3A%0AHow%20often%20I%20do%20it%3A%0AWhat%20changes%20each%20time%3A%0AWhere%20the%20helper%20should%20pause%20for%20review%3A">Record one task</a>
+            <a class="text-link" href="#workflows">See what to record</a>
           </div>
-          <p class="hero-note">Works for a solo owner, a founder, or a team. If the same computer task keeps stealing time from the business, it is worth showing us.</p>
+          <p class="hero-note">Use a safe sample input. Mark the moments that need review.</p>
         </div>
 
         <aside class="run-sheet" aria-label="Reusable task helper">
           <div class="sheet-top">
             <div>
-              <p class="sheet-title">Reusable task helper</p>
-              <p class="sheet-subtitle">portal + spreadsheet + email + PDF + approval</p>
+              <p class="sheet-title">Recorded task helper</p>
+              <p class="sheet-subtitle">record + learn + replay + review</p>
             </div>
-            <span class="stamp">Show it<br>once</span>
+            <span class="stamp">Record<br>once</span>
           </div>
           <div class="run-table">
             <div class="run-row">
-              <span class="run-label">input</span>
+              <span class="run-label">record</span>
               <div class="run-task">
-                <strong>Messy invoice packet</strong>
-                <span>An email, a PDF, a portal page, and a spreadsheet row all need attention.</span>
+                <strong>Do the task normally</strong>
+                <span>Use a real example and do exactly what you normally do when the work comes in.</span>
               </div>
-              <span class="run-state blue">queued</span>
+              <span class="run-state blue">captured</span>
             </div>
             <div class="run-row">
-              <span class="run-label">browser</span>
+              <span class="run-label">learn</span>
               <div class="run-task">
-                <strong>Open the right tabs and fill fields</strong>
-                <span>The helper follows the demonstrated path, enters values, and checks the page state.</span>
+                <strong>Learn the pattern behind it</strong>
+                <span>The helper picks up the steps, what changes each run, what good looks like, and where to stop.</span>
               </div>
-              <span class="run-state green">checked</span>
+              <span class="run-state green">drafted</span>
             </div>
             <div class="run-row">
-              <span class="run-label">files</span>
+              <span class="run-label">replay</span>
               <div class="run-task">
-                <strong>Upload, download, compare</strong>
-                <span>Documents and reports move between tools without changing how the business works.</span>
+                <strong>Run it again with new inputs</strong>
+                <span>Give the helper this run's details and it follows the learned workflow with checks and a record.</span>
               </div>
-              <span class="run-state green">matched</span>
+              <span class="run-state green">ready</span>
             </div>
             <div class="run-row">
               <span class="run-label">control</span>
               <div class="run-task">
-                <strong>A person reviews important steps</strong>
-                <span>Payments, submissions, account changes, or uncertain moments wait for approval.</span>
+                <strong>Pause when a person should decide</strong>
+                <span>Unclear, sensitive, or irreversible moments wait for approval instead of being rushed through.</span>
               </div>
               <span class="run-state amber">approve</span>
             </div>
           </div>
           <div class="sheet-foot">
             <div class="mini-proof">
-              <span class="mini-label">evidence</span>
-              <strong>logs</strong>
+              <span class="mini-label">first step</span>
+              <strong>recording</strong>
             </div>
             <div class="mini-proof">
-              <span class="mini-label">handoff</span>
-              <strong>exceptions</strong>
+              <span class="mini-label">memory</span>
+              <strong>skill draft</strong>
             </div>
             <div class="mini-proof">
-              <span class="mini-label">repeat</span>
-              <strong>scheduled</strong>
+              <span class="mini-label">control</span>
+              <strong>approval gates</strong>
             </div>
           </div>
         </aside>
       </section>
 
-      <section class="section" aria-labelledby="systems-title">
-        <p class="section-kicker">between systems</p>
-        <div class="section-body">
-          <h2 id="systems-title">Built for the work trapped between tabs, files, and business systems.</h2>
-          <p class="section-copy">Your business runs on portals, inboxes, spreadsheets, PDFs, dashboards, CRMs, ERPs, and older tools. When those tools do not connect cleanly, a person becomes the glue. We turn the repeated path they take on screen into a controlled AI helper.</p>
-          <div class="system-strip" aria-label="Disconnected tools handled by the task helper">
-            <div class="system-cell">
-              <span class="system-icon" aria-hidden="true"></span>
-              <strong>Portals</strong>
-              <span>download reports, submit forms, update records</span>
-            </div>
-            <div class="system-cell">
-              <span class="system-icon" aria-hidden="true"></span>
-              <strong>Sheets</strong>
-              <span>copy rows, reconcile fields, clean lists</span>
-            </div>
-            <div class="system-cell">
-              <span class="system-icon" aria-hidden="true"></span>
-              <strong>Email</strong>
-              <span>collect inputs, route files, summarize threads</span>
-            </div>
-            <div class="system-cell">
-              <span class="system-icon" aria-hidden="true"></span>
-              <strong>PDFs</strong>
-              <span>extract values, compare documents, save evidence</span>
-            </div>
-            <div class="system-cell">
-              <span class="system-icon" aria-hidden="true"></span>
-              <strong>Legacy apps</strong>
-              <span>operate screens that still need a person today</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
       <section class="section" id="workflows" aria-labelledby="workflows-title">
-        <p class="section-kicker">common tasks</p>
+        <p class="section-kicker">what to record</p>
         <div class="section-body">
-          <h2 id="workflows-title">Start with one boring task that keeps coming back.</h2>
-          <p class="section-copy">It does not need to be perfectly clean. It can start from a messy inbox, a half-filled spreadsheet, a portal login, a PDF, or a checklist in someone's head. The question is whether the same kind of task shows up often enough that saving the time would matter.</p>
+          <h2 id="workflows-title">Do the task. Let the recording explain it.</h2>
+          <p class="section-copy">Pick one computer task you already know how to finish. Do it once while recording, talk through the important choices, and show where a person should stay in control.</p>
           <div class="workflow-list">
             <article class="workflow-row">
-              <span class="workflow-type">portal work</span>
+              <span class="workflow-type">normal run</span>
               <div>
-                <h3>Download reports and update records</h3>
-                <p>Vendor portals, customer dashboards, insurance systems, marketplace admin tools, and other sites where people repeat the same clicks every week.</p>
+                <h3>Do the task the usual way</h3>
+                <p>Click through the real path. Narrate small choices that matter, like which record to pick or how you know the result is right.</p>
               </div>
-              <span class="workflow-trigger">trigger: recurring report cycle</span>
+              <span class="workflow-trigger">record: one clean pass</span>
             </article>
             <article class="workflow-row">
-              <span class="workflow-type">back office</span>
+              <span class="workflow-type">changing input</span>
               <div>
-                <h3>Move invoice, order, and case data</h3>
-                <p>Copy values from PDFs, emails, spreadsheets, and internal tools into the systems that actually run the business.</p>
+                <h3>Show what changes each time</h3>
+                <p>Point out the parts that vary from run to run: customer, date, file, amount, destination, note, or approval.</p>
               </div>
-              <span class="workflow-trigger">trigger: invoices, orders, cases</span>
+              <span class="workflow-trigger">learn: variables</span>
             </article>
             <article class="workflow-row">
-              <span class="workflow-type">ops cleanup</span>
+              <span class="workflow-type">review point</span>
               <div>
-                <h3>Standardize recurring CRM and admin work</h3>
-                <p>Enrich records, dedupe entries, upload documents, configure accounts, and keep messy operational data from drifting.</p>
+                <h3>Mark where it should stop</h3>
+                <p>If something is sensitive, uncertain, or irreversible, the helper should pause and ask instead of pushing through.</p>
               </div>
-              <span class="workflow-trigger">trigger: records getting messy</span>
-            </article>
-            <article class="workflow-row">
-              <span class="workflow-type">compliance admin</span>
-              <div>
-                <h3>Collect evidence before review</h3>
-                <p>Verify fields, save screenshots, gather documents, compare checklist items, and queue exceptions for a human decision.</p>
-              </div>
-              <span class="workflow-trigger">trigger: proof needed later</span>
+              <span class="workflow-trigger">pause: approval</span>
             </article>
           </div>
-        </div>
-      </section>
-
-      <section class="section" id="fit" aria-labelledby="fit-title">
-        <p class="section-kicker">fit</p>
-        <div class="section-body">
-          <h2 id="fit-title">Useful when repeated computer work is slowing down the business.</h2>
-          <p class="section-copy">This is for solo owners, founders, operators, finance leads, admin teams, service firms, and anyone else who keeps doing the same kind of task across tabs, files, and business systems.</p>
-          <div class="fit-grid">
-            <article class="fit-panel good">
-              <header>
-                <h3>A strong first task</h3>
-              </header>
-              <ul class="fit-list">
-                <li>You or your team repeat the same kind of computer work daily, weekly, or every time a customer, invoice, order, vendor, or report appears.</li>
-                <li>The work jumps between tabs, forms, files, emails, portals, spreadsheets, or internal tools.</li>
-                <li>A person can show how they do it today, even if the starting material is messy.</li>
-                <li>The result can be checked: a record is updated, a file is saved, a report is downloaded, a draft is prepared, or an exception is flagged.</li>
-                <li>Important actions can wait for approval instead of being pushed through automatically.</li>
-              </ul>
-            </article>
-            <article class="fit-panel avoid">
-              <header>
-                <h3>Probably not worth it yet</h3>
-              </header>
-              <ul class="fit-list">
-                <li>The task is a one-off project that will not happen again.</li>
-                <li>It changes so much every time that there is no pattern to learn or check.</li>
-                <li>It takes only a minute and is not blocking higher-value work.</li>
-                <li>It depends entirely on personal judgment, negotiation, taste, or a sensitive decision.</li>
-                <li>You want risky actions like payments, legal filings, payroll changes, or account shutdowns to happen without review.</li>
-              </ul>
-            </article>
+          <div class="section-action">
+            <a class="button" href="mailto:samin@wexprolabs.com?subject=Record%20one%20repeated%20task&amp;body=Task%20I%20want%20to%20record%3A%0AHow%20often%20I%20do%20it%3A%0AWhat%20changes%20each%20time%3A%0AWhere%20the%20helper%20should%20pause%20for%20review%3A">Record one task</a>
+            <span>No workflow spec needed. A focused recording is the starting point.</span>
           </div>
         </div>
       </section>
 
       <section class="section" id="process" aria-labelledby="process-title">
-        <p class="section-kicker">how it works</p>
+        <p class="section-kicker">replay</p>
         <div class="section-body">
-          <h2 id="process-title">Show it once. Run it again and again.</h2>
-          <p class="section-copy">We convert the way the work is done today into a reusable helper with remembered steps, checks, approval points, and a record of what happened.</p>
+          <h2 id="process-title">The recording becomes a reusable run.</h2>
+          <p class="section-copy">We convert the demonstration into a helper that can repeat the task with new inputs, keep a record of what happened, and stop when a person should decide.</p>
           <div class="process">
             <article class="process-step">
               <span class="step-index">01</span>
-              <h3>Show the task</h3>
-              <p>Walk through the task the way you do it today, including the tabs, files, fields, shortcuts, and moments where you decide what to do next.</p>
+              <h3>Record</h3>
+              <p>You do the task once while recording. That is the source material.</p>
             </article>
             <article class="process-step">
               <span class="step-index">02</span>
-              <h3>Turn it into a helper</h3>
-              <p>The path becomes a reusable AI helper that knows what to click, what to fill in, what to check, and when to stop for help.</p>
+              <h3>Learn</h3>
+              <p>We turn the recording into a reusable set of steps, variables, checks, and pauses.</p>
             </article>
             <article class="process-step">
               <span class="step-index">03</span>
-              <h3>Run it with review</h3>
-              <p>Run it when needed or on a schedule, with a person approving important actions and a record saved for each run.</p>
+              <h3>Replay</h3>
+              <p>You give it the next run's input. The helper follows the learned task and shows its work.</p>
             </article>
             <article class="process-step">
               <span class="step-index">04</span>
-              <h3>Adjust it over time</h3>
-              <p>When a site, form, or business rule changes, update the demonstrated path instead of starting over with a custom software project.</p>
+              <h3>Review</h3>
+              <p>Important, unclear, or risky moments pause for a person.</p>
             </article>
           </div>
         </div>
@@ -1448,64 +1611,29 @@
       <section class="section" id="safety" aria-labelledby="safety-title">
         <p class="section-kicker">control</p>
         <div class="section-body">
-          <h2 id="safety-title">A helper should save time without taking away control.</h2>
-          <p class="section-copy">The goal is not to let software make every decision. The goal is to remove repeated computer work while keeping people responsible for approvals, exceptions, and judgment calls.</p>
+          <h2 id="safety-title">It learns the task. You keep the judgment.</h2>
+          <p class="section-copy">The helper should repeat the boring parts, not take over sensitive decisions. Anything unclear can stop for review.</p>
           <div class="proof-band">
             <div>
-              <h3>Every run should be inspectable.</h3>
-              <p>Owners and operators do not just need speed. They need to know what happened, where the helper paused, and what a person needs to decide next.</p>
+              <h3>Every replay should be inspectable.</h3>
+              <p>You should be able to see what happened, what changed, and where the helper paused.</p>
             </div>
             <ul class="proof-list">
-              <li>Logs and screenshots show the actions taken across the tools you already use.</li>
-              <li>Checks compare expected fields, files, and page states before moving on.</li>
-              <li>Approvals gate irreversible actions such as submissions, account changes, or payment-adjacent steps.</li>
-              <li>Exceptions route to a person instead of forcing the helper through an uncertain moment.</li>
-              <li>Broken tasks are updated from the demonstrated path rather than rebuilt from scratch.</li>
+              <li>Checks happen before moving forward.</li>
+              <li>Approval gates stay explicit.</li>
+              <li>Exceptions route to a person.</li>
+              <li>Runs leave an evidence trail.</li>
             </ul>
-          </div>
-        </div>
-      </section>
-
-      <section class="section" id="questions" aria-labelledby="questions-title" itemscope itemtype="https://schema.org/FAQPage">
-        <p class="section-kicker">questions</p>
-        <div class="section-body">
-          <h2 id="questions-title">What business task should you show us?</h2>
-          <p class="section-copy">Start with the task you keep delaying, delegating, or repeating while better work waits. We care less about whether it is tidy and more about whether the pattern repeats.</p>
-          <div class="question-list">
-            <article class="question-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
-              <h3 itemprop="name">Is this useful if I work alone?</h3>
-              <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-                <p itemprop="text">Yes. A solo owner or founder can be a strong fit when the same computer task keeps interrupting sales, service, finance, operations, or customer work.</p>
-              </div>
-            </article>
-            <article class="question-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
-              <h3 itemprop="name">Does the task need to be perfectly organized?</h3>
-              <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-                <p itemprop="text">No. The task can start from a messy inbox, a PDF, a portal login, a spreadsheet, or notes in someone's head. We just need a person to show the usual path.</p>
-              </div>
-            </article>
-            <article class="question-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
-              <h3 itemprop="name">What can the helper do?</h3>
-              <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-                <p itemprop="text">It can open pages, fill forms, copy values, compare files, upload documents, download reports, prepare drafts, flag exceptions, and pause for review before important actions.</p>
-              </div>
-            </article>
-            <article class="question-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
-              <h3 itemprop="name">When is it not worth automating?</h3>
-              <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-                <p itemprop="text">It is probably not worth it when the task is a one-off, takes only a minute, changes completely every time, or depends almost entirely on judgment, taste, negotiation, or sensitive decisions.</p>
-              </div>
-            </article>
           </div>
         </div>
       </section>
 
       <section class="cta-section" aria-labelledby="cta-title">
         <div>
-          <h2 id="cta-title">Show us the task you keep repeating.</h2>
-          <p>Send one task that keeps taking time: a portal update, report pull, invoice step, spreadsheet cleanup, document upload, or customer admin chore. We will tell you whether it is worth turning into a helper.</p>
+          <h2 id="cta-title">Record the task you keep repeating.</h2>
+          <p>Start with one real run. We will help turn it into a helper that can do the task again, ask when unsure, and leave a record.</p>
         </div>
-        <a class="button" href="mailto:samin@wexprolabs.com?subject=Show%20us%20a%20task">Show us a task</a>
+        <a class="button" href="mailto:samin@wexprolabs.com?subject=Record%20one%20repeated%20task&amp;body=Task%20I%20want%20to%20record%3A%0AHow%20often%20I%20do%20it%3A%0AWhat%20changes%20each%20time%3A%0AWhere%20the%20helper%20should%20pause%20for%20review%3A">Record one task</a>
       </section>
     </main>
 

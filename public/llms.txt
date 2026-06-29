@@ -5,5 +5,5 @@ Wexpro Labs builds workflow automation, inference systems, long-running agent in
 ## Pages
 
 - [Wexpro Labs overview](/): current lab focus.
-- [Workflow Automation](/workflow-automation/): reusable AI helpers for repetitive computer tasks across portals, spreadsheets, emails, PDFs, and legacy apps, with review steps and logs when work is risky. LLM summary: [/workflow-automation/llms.txt](/workflow-automation/llms.txt).
+- [Workflow Automation](/workflow-automation/): recorded workflow helpers for repeated computer work. The first step is recording one task so Wexpro Labs can learn the steps, variables, checks, and review points, then turn it into a helper that can run again. LLM summary: [/workflow-automation/llms.txt](/workflow-automation/llms.txt).
 - [Context Compression](/context-compression/): local verifier for AI agents that read JSON, JSONL, CSV, and TSV; it returns lower-token sidecars only after round-trip checks pass, leaves source files untouched, and falls back to raw when unsafe.

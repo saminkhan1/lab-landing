@@ -1,20 +1,27 @@
-# Workflow Automation
+# Recorded Workflow Helpers
 
-Wexpro Labs turns repetitive computer tasks into reusable AI helpers for solo owners, founders, operators, finance leads, admin teams, and service businesses.
+Wexpro Labs turns recordings of repeated computer work into reviewed helpers that can run the task again.
 
 ## What it does
 
-- A person shows Wexpro Labs a task once.
-- The task becomes a reusable helper that can click, type, copy, paste, upload, download, compare, and check work across existing tools.
-- The helper can pause for review before important or risky actions.
-- Runs leave logs and screenshots so owners and operators can see what happened.
+- A person records themselves doing one repeated computer task the normal way.
+- Wexpro Labs learns the steps, choices, variables, checks, and places where the helper should pause.
+- The recording becomes a reusable helper that can replay the task with new inputs.
+- The helper keeps people in control of important, uncertain, or irreversible moments.
 
 ## Best fit
 
-- Repeated tasks across portals, spreadsheets, emails, PDFs, dashboards, CRMs, ERPs, or older business tools.
-- Tasks that happen daily, weekly, or whenever a customer, invoice, order, vendor, report, case, or document appears.
-- Tasks that start messy but still follow a recognizable pattern.
-- Tasks where saving time matters more than building custom software from scratch.
+- Tasks that are easier to show than explain.
+- Tasks that repeat often enough to be worth learning.
+- Tasks where the person doing the recording can point out what changes each run.
+- Tasks where review points can stay explicit.
+
+## Control
+
+- Checks happen before moving forward.
+- Approval gates stay explicit.
+- Exceptions route to a person.
+- Runs leave an evidence trail.
 
 ## Probably not worth automating
 
@@ -22,7 +29,16 @@ Wexpro Labs turns repetitive computer tasks into reusable AI helpers for solo ow
 - Tasks that take only a minute and do not block better work.
 - Tasks that change completely every time.
 - Tasks that depend almost entirely on personal judgment, negotiation, taste, or sensitive decisions.
-- Risky actions such as payments, legal filings, payroll changes, or account shutdowns without human review.
+- Risky actions without human review.
+
+## First step
+
+Record one repeated task. Include:
+
+- What the task is.
+- How often it repeats.
+- What changes each time.
+- Where the helper should pause for review.
 
 ## Primary page
 
