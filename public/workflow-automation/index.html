@@ -20,7 +20,6 @@
   <meta name="twitter:image" content="https://wexprolabs.com/og-workflow-automation.svg">
   <link rel="canonical" href="https://wexprolabs.com/workflow-automation/">
   <link rel="alternate" type="text/plain" href="https://wexprolabs.com/workflow-automation/llms.txt" title="LLM summary for Workflow Automation">
-  <script>document.documentElement.classList.add('js')</script>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230b0b0c'/%3E%3Cpath d='M7 10h8l3 3h7M7 22h8l3-3h7' fill='none' stroke='%231f44ff' stroke-width='2.4' stroke-linecap='round'/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -614,12 +613,14 @@
       grid-template-columns: 34px 1fr;
       gap: 10px;
       min-height: 62px;
-      padding: 0;
-      border: 0;
+      padding: 12px;
+      border: 1px solid transparent;
+      border-radius: 8px;
       background: transparent;
       color: var(--ink);
       text-align: left;
       cursor: pointer;
+      transition: background 180ms ease, border-color 180ms ease, transform 180ms ease;
     }
 
     .workflow-tab strong {
@@ -679,6 +680,12 @@
       border-color: var(--blue);
     }
 
+    .workflow-tab:hover { border-color: var(--line-dark); }
+    .workflow-tab[aria-pressed="true"] {
+      border-color: var(--blue);
+      background: var(--blue-soft);
+      transform: translateY(-2px);
+    }
     .workflow-tab[aria-pressed="true"] span { color: var(--blue); }
 
     .flow-title {
@@ -1427,13 +1434,13 @@
         </div>
 
         <div class="workflow-tabs reveal" role="group" aria-label="Workflow stages">
-          <button class="workflow-tab" type="button" data-stage="record" aria-pressed="true"><strong>01</strong><span>Record<small>Live action trace across your tools</small></span></button>
-          <button class="workflow-tab" type="button" data-stage="draft" aria-pressed="false"><strong>02</strong><span>Review<small>Check the reasoning before it runs</small></span></button>
-          <button class="workflow-tab" type="button" data-stage="approve" aria-pressed="false"><strong>03</strong><span>Run<small>Approve one job to run on schedule</small></span></button>
+          <button class="workflow-tab" type="button" data-stage="record" aria-pressed="true" aria-controls="workflow-record"><strong>01</strong><span>Record<small>Live action trace across your tools</small></span></button>
+          <button class="workflow-tab" type="button" data-stage="draft" aria-pressed="false" aria-controls="workflow-draft"><strong>02</strong><span>Review<small>Check the reasoning before it runs</small></span></button>
+          <button class="workflow-tab" type="button" data-stage="approve" aria-pressed="false" aria-controls="workflow-approve"><strong>03</strong><span>Run<small>Approve one job to run on schedule</small></span></button>
         </div>
 
         <div class="workflow-canvas reveal" data-active="record">
-          <article class="flow-panel" data-panel="record">
+          <article class="flow-panel" id="workflow-record" data-panel="record">
             <div class="flow-title"><span>One cross-app recording</span><span class="live">capturing</span></div>
             <div class="record-stack">
               <div class="record-group">
@@ -1454,7 +1461,7 @@
             </div>
           </article>
 
-          <article class="flow-panel" data-panel="draft">
+          <article class="flow-panel" id="workflow-draft" data-panel="draft">
             <div class="flow-title"><span>Outcome-based plan</span><span class="mono">reviewable</span></div>
             <div class="draft-body">
               <div class="plan-summary">DAILY REQUEST TRIAGE / 08:30<br>process routine work; hold uncertainty</div>
@@ -1467,7 +1474,7 @@
             </div>
           </article>
 
-          <article class="flow-panel" data-panel="approve">
+          <article class="flow-panel" id="workflow-approve" data-panel="approve">
             <div class="flow-title"><span>Native Hermes job</span><span class="mono">draft</span></div>
             <div class="approve-body">
               <div class="run-symbol">&gt;_</div>
@@ -1539,28 +1546,6 @@
     </section>
   </main>
 
-  <script>
-    const canvas = document.querySelector('.workflow-canvas');
-    const tabs = [...document.querySelectorAll('.workflow-tab')];
-
-    if (canvas && tabs.length) {
-      tabs.forEach((tab) => {
-        tab.addEventListener('click', () => {
-          const stage = tab.dataset.stage;
-          canvas.dataset.active = stage;
-          tabs.forEach((item) => item.setAttribute('aria-pressed', String(item === tab)));
-        });
-      });
-    }
-
-    const approve = document.querySelector('[data-demo-approve]');
-    if (approve) {
-      approve.addEventListener('click', () => {
-        approve.textContent = 'Approved ✓';
-        approve.classList.add('is-approved');
-        approve.disabled = true;
-      });
-    }
-  </script>
+  <script src="/workflow-automation/workflow-stages.js"></script>
 </body>
 </html>
