@@ -619,8 +619,6 @@
       background: transparent;
       color: var(--ink);
       text-align: left;
-      cursor: pointer;
-      transition: background 180ms ease, border-color 180ms ease, transform 180ms ease;
     }
 
     .workflow-tab strong {
@@ -664,29 +662,7 @@
       border-radius: var(--radius);
       background: var(--white);
       box-shadow: 0 16px 48px rgba(15, 15, 22, .06);
-      transition: opacity 180ms ease, transform 180ms ease, border-color 180ms ease;
     }
-
-    .workflow-canvas[data-active="record"] .flow-panel:not([data-panel="record"]),
-    .workflow-canvas[data-active="draft"] .flow-panel:not([data-panel="draft"]),
-    .workflow-canvas[data-active="approve"] .flow-panel:not([data-panel="approve"]) {
-      opacity: .76;
-    }
-
-    .workflow-canvas[data-active="record"] [data-panel="record"],
-    .workflow-canvas[data-active="draft"] [data-panel="draft"],
-    .workflow-canvas[data-active="approve"] [data-panel="approve"] {
-      transform: translateY(-4px);
-      border-color: var(--blue);
-    }
-
-    .workflow-tab:hover { border-color: var(--line-dark); }
-    .workflow-tab[aria-pressed="true"] {
-      border-color: var(--blue);
-      background: var(--blue-soft);
-      transform: translateY(-2px);
-    }
-    .workflow-tab[aria-pressed="true"] span { color: var(--blue); }
 
     .flow-title {
       display: flex;
@@ -1277,18 +1253,9 @@
 
       .workflow-tab strong { font-size: .74rem; }
       .workflow-tab span { font-size: .86rem; }
-      .workflow-tab[aria-pressed="true"] { border-color: var(--blue); background: var(--blue-soft); }
       .workflow-tab small { display: none; }
       .workflow-canvas { display: block; min-height: 0; }
       .flow-panel + .flow-panel { margin-top: 16px; }
-      .js .flow-panel { display: none; margin-top: 0; }
-      .js .workflow-canvas[data-active="record"] [data-panel="record"],
-      .js .workflow-canvas[data-active="draft"] [data-panel="draft"],
-      .js .workflow-canvas[data-active="approve"] [data-panel="approve"] {
-        display: block;
-        opacity: 1;
-        transform: none;
-      }
 
       .record-group { grid-template-columns: 76px minmax(0, 1fr); }
       .record-group .evidence { display: none; }
@@ -1433,13 +1400,13 @@
           <p>Hermes records the real task across Chrome and macOS, then translates the evidence into the smallest reliable execution—not a fragile replay of every click.</p>
         </div>
 
-        <div class="workflow-tabs reveal" role="group" aria-label="Workflow stages">
-          <button class="workflow-tab" type="button" data-stage="record" aria-pressed="true" aria-controls="workflow-record"><strong>01</strong><span>Record<small>Live action trace across your tools</small></span></button>
-          <button class="workflow-tab" type="button" data-stage="draft" aria-pressed="false" aria-controls="workflow-draft"><strong>02</strong><span>Review<small>Check the reasoning before it runs</small></span></button>
-          <button class="workflow-tab" type="button" data-stage="approve" aria-pressed="false" aria-controls="workflow-approve"><strong>03</strong><span>Run<small>Approve one job to run on schedule</small></span></button>
+        <div class="workflow-tabs reveal" aria-label="Workflow stages">
+          <div class="workflow-tab"><strong>01</strong><span>Record<small>Live action trace across your tools</small></span></div>
+          <div class="workflow-tab"><strong>02</strong><span>Review<small>Check the reasoning before it runs</small></span></div>
+          <div class="workflow-tab"><strong>03</strong><span>Run<small>Approve one job to run on schedule</small></span></div>
         </div>
 
-        <div class="workflow-canvas reveal" data-active="record">
+        <div class="workflow-canvas reveal">
           <article class="flow-panel" id="workflow-record" data-panel="record">
             <div class="flow-title"><span>One cross-app recording</span><span class="live">capturing</span></div>
             <div class="record-stack">
@@ -1546,6 +1513,5 @@
     </section>
   </main>
 
-  <script src="/workflow-automation/workflow-stages.js"></script>
 </body>
 </html>

@@ -1,45 +1,56 @@
-# Recorded Workflow Helpers
+# Turn Repetitive Work Into a Reliable Hermes Job
 
-Wexpro Labs turns recordings of repeated computer work into reviewed helpers that can run the task again.
+Wexpro Labs is piloting Hermes Crunch for recurring computer work that crosses browser tabs, desktop apps, changing inputs, and operator judgment.
 
-## What it does
+## Core outcome
 
-- A person records themselves doing one repeated computer task the normal way.
-- Wexpro Labs learns the steps, choices, variables, checks, and places where the helper should pause.
-- The recording becomes a reusable helper that can replay the task with new inputs.
-- The helper keeps people in control of important, uncertain, or irreversible moments.
+- Record one real run across Google Chrome and macOS.
+- Preserve the task's outcome, targets, checks, and side-effect boundaries as evidence.
+- Translate that evidence into one reviewable native Hermes cron job.
+- Inspect the exact prompt or script, requirements, warnings, and schedule before approval.
+- Install and run only the approval-bound payload inside the customer's Hermes environment.
 
-## Best fit
+The recording is behavioral evidence, not a selector-by-selector macro. Hermes chooses the smallest reliable execution: a deterministic script, a script plus agent judgment, or an agent using the tools and skills the workflow requires.
 
-- Tasks that are easier to show than explain.
-- Tasks that repeat often enough to be worth learning.
-- Tasks where the person doing the recording can point out what changes each run.
-- Tasks where review points can stay explicit.
+## Best first workflow
 
-## Control
+- Repeats often enough to matter.
+- Crosses tools such as a portal, inbox, PDF, spreadsheet, Finder, CRM, or internal system.
+- Changes enough that a brittle macro breaks.
+- Contains checks or light judgment an experienced operator currently keeps in their head.
+- Ends in an observable result such as a report sent, record updated, file saved, total matched, or exception flagged.
 
-- Checks happen before moving forward.
-- Approval gates stay explicit.
-- Exceptions route to a person.
-- Runs leave an evidence trail.
+Examples include processing incoming requests from an inbox into a system of record, checking a recurring report, preparing a client or operations brief, and updating records while flagging exceptions. A strong workflow can process routine cases while pausing for missing information, possible duplicates, uncertain matches, or required approval.
 
-## Probably not worth automating
+## Control model
 
-- One-off tasks that will not happen again.
-- Tasks that take only a minute and do not block better work.
-- Tasks that change completely every time.
-- Tasks that depend almost entirely on personal judgment, negotiation, taste, or sensitive decisions.
-- Risky actions without human review.
+- Chrome and native macOS evidence are written into one trace.
+- Missing or ambiguous evidence stays visible as a warning instead of being guessed away.
+- Drafting does not install or schedule anything.
+- Review covers the execution shape, prerequisites, warnings, schedule, and expected proof of success.
+- Compiled scripts and the cron payload are digest-bound to approval before install.
+- Hermes owns the model, tools, skills, scheduling, delivery, logs, and run history.
 
-## First step
+## Current product boundary
 
-Record one repeated task. Include:
+- Native recording is implemented for macOS.
+- The specialized browser provider supports Google Chrome and Chrome Canary.
+- Password and secure-input contents remain redacted.
+- Protected Chrome pages cannot be recorded as live Chrome segments.
+- Each approved recording produces one native Hermes cron job.
 
-- What the task is.
-- How often it repeats.
-- What changes each time.
-- Where the helper should pause for review.
+## Probably not the first workflow
 
-## Primary page
+- A one-off task.
+- Work with no checkable finish.
+- A task that changes completely every time.
+- Work driven almost entirely by negotiation, taste, or sensitive human judgment.
+- Irreversible actions with no review point.
 
-- https://wexprolabs.com/workflow-automation/
+## Pilot
+
+Send one recurring task, where it happens, how often it runs, what changes, what a good result looks like, and where a person should review.
+
+Contact: samin@wexprolabs.com
+
+Primary page: https://wexprolabs.com/workflow-automation/

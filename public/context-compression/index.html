@@ -753,7 +753,7 @@
       <nav class="nav-links" aria-label="Project links">
         <a href="/">Lab</a>
         <a href="#proof">Proof</a>
-        <a href="#fit">Fit</a>
+        <a href="#fit">Reads</a>
         <a href="#install">Install</a>
         <a href="https://github.com/saminkhan1/context-compression">GitHub</a>
       </nav>
@@ -833,39 +833,39 @@
 
       <section class="section" id="fit" aria-labelledby="fit-title">
         <div class="section-head">
-          <p class="kicker">when to use it</p>
+          <p class="kicker">read path</p>
           <div>
-            <h2 id="fit-title">Use it when the data must stay exact.</h2>
-            <p class="section-copy">The sweet spot is simple: an agent needs the real rows or keys, but the original file format spends too many tokens on repeated notation.</p>
+            <h2 id="fit-title">Every supported read checks for a cheaper exact path.</h2>
+            <p class="section-copy">Context Compression belongs in the file-read layer. For JSON, JSONL, CSV, and TSV, it tries a lower-token sidecar, proves parsed equality, and otherwise hands back the original file.</p>
           </div>
         </div>
         <div class="fit-layout">
-          <div class="fit-column" aria-label="Good fit">
+          <div class="fit-column" aria-label="Read behavior">
             <article class="fit-card">
-              <h3>Repetitive structured files</h3>
-              <p>Exports, logs, benchmark data, metadata, and tables where brackets, keys, quoting, and delimiters dominate the read.</p>
+              <h3>Checked automatically</h3>
+              <p>Whole-file structured reads become candidates without asking the agent to pick a mode or change its prompt.</p>
             </article>
             <article class="fit-card">
-              <h3>Exact follow-up work</h3>
-              <p>Tasks where the model may need a specific row, field, or value later. A prose summary would be too lossy.</p>
+              <h3>Only exact views win</h3>
+              <p>Rows, keys, fields, and values must round-trip to the parsed source. Source files stay unchanged.</p>
             </article>
             <article class="fit-card">
-              <h3>Local agent workflows</h3>
-              <p>Codex, Claude Code, Pi, Hermes, MCP, OpenClaw, and generic agents can stay on their normal file-read path.</p>
+              <h3>Agents keep their workflow</h3>
+              <p>Codex, Claude Code, Pi, Hermes, MCP, OpenClaw, and generic agents keep their normal file-read path while the adapter chooses the verified file.</p>
             </article>
           </div>
-          <div class="fit-column" aria-label="Bad fit">
+          <div class="fit-column" aria-label="Read guardrails">
             <article class="fit-card">
-              <h3>Not semantic compression</h3>
-              <p>It does not decide what matters. The selected representation must decode to the same parsed rows and keys.</p>
+              <h3>Raw is the safety path</h3>
+              <p>Unsupported files, failed proofs, unsafe candidates, and partial reads return the original file instead of an approximate substitute.</p>
             </article>
             <article class="fit-card">
-              <h3>Not arbitrary shell rewriting</h3>
+              <h3>Shell intent stays raw</h3>
               <p><code>jq</code>, <code>grep</code>, <code>head</code>, pipes, flags, and raw-shell intent stay untouched.</p>
             </article>
             <article class="fit-card">
-              <h3>Not a quality claim</h3>
-              <p>The repo proves deterministic savings and equality checks. Full answer parity across model families is still open evidence.</p>
+              <h3>No semantic thinning</h3>
+              <p>It does not summarize rows, drop fields, or turn equality checks into a model-answer parity claim.</p>
             </article>
           </div>
         </div>
@@ -923,7 +923,7 @@ chmod +x run-hook.sh</code></pre>
           </article>
           <article class="install-panel">
             <h3>Codex hook</h3>
-            <p>Use the Bash <code>PreToolUse</code> hook for simple whole-file <code>cat</code> reads. Runtime hooks default to the safer candidate tier.</p>
+            <p>Use the Bash <code>PreToolUse</code> hook for simple whole-file <code>cat</code> reads. Runtime hooks use the safer candidate tier.</p>
             <pre><code>[features]
 hooks = true
 
