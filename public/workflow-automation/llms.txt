@@ -1,6 +1,10 @@
-# Turn Repetitive Work Into a Reliable Hermes Workflow
+# AI Workflow Automation for Operations Teams
 
-Wexpro Labs is piloting workflow automation for operations teams whose recurring computer work crosses Chrome, macOS apps, changing inputs, and repeatable human judgment.
+Wexpro Labs is piloting AI workflow automation for operations teams whose recurring computer work crosses Chrome, macOS apps, changing inputs, and repeatable human judgment.
+
+## Direct answer
+
+AI workflow automation turns a recurring computer task into a reviewable job that uses the tools and model configured in the customer's environment. Wexpro Labs records one real run, turns it into a reviewable Hermes workflow, and requires approval before the workflow is scheduled.
 
 ## Core outcome
 
