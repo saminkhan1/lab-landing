@@ -3,19 +3,19 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Turn Repetitive Work Into a Reliable Hermes Job | Wexpro Labs</title>
-  <meta name="description" content="Record a recurring task across Chrome and macOS. Hermes Crunch turns what actually happened into one reviewable workflow, then runs it on schedule with your tools, your model, and your approval.">
+  <title>Turn Repetitive Work Into a Reliable AI Workflow | Wexpro Labs</title>
+  <meta name="description" content="Record a recurring task across Chrome and your Mac. Hermes turns what actually happened into one reviewable workflow, then runs it on schedule with your tools, your model, and your approval.">
   <meta name="robots" content="index,follow">
   <meta name="author" content="Wexpro Labs">
   <meta name="theme-color" content="#ffffff">
-  <meta property="og:title" content="Turn repetitive work into a reliable Hermes job | Wexpro Labs">
-  <meta property="og:description" content="Show the work once. Review exactly what will run. Approve one native Hermes job.">
+  <meta property="og:title" content="Turn repetitive work into a reliable AI workflow | Wexpro Labs">
+  <meta property="og:description" content="Show the work once. Review what will run. Approve one reliable Hermes job.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://wexprolabs.com/workflow-automation/">
   <meta property="og:site_name" content="Wexpro Labs">
   <meta property="og:image" content="https://wexprolabs.com/og-workflow-automation.svg">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Turn repetitive work into a reliable Hermes job | Wexpro Labs">
+  <meta name="twitter:title" content="Turn repetitive work into a reliable AI workflow | Wexpro Labs">
   <meta name="twitter:description" content="Record the task. Review the plan. Run one approved Hermes job.">
   <meta name="twitter:image" content="https://wexprolabs.com/og-workflow-automation.svg">
   <link rel="canonical" href="https://wexprolabs.com/workflow-automation/">
@@ -79,6 +79,24 @@
       outline-offset: 4px;
     }
 
+    .skip-link {
+      position: fixed;
+      z-index: 100;
+      top: 12px;
+      left: 12px;
+      min-height: 44px;
+      padding: 12px 16px;
+      border-radius: 8px;
+      background: var(--ink);
+      color: var(--white);
+      font-weight: 600;
+      text-decoration: none;
+      transform: translateY(-160%);
+      transition: transform 160ms ease;
+    }
+
+    .skip-link:focus { transform: translateY(0); }
+
     .shell {
       width: min(100%, var(--page));
       margin: 0 auto;
@@ -111,7 +129,7 @@
       display: flex;
       align-items: center;
       gap: clamp(22px, 3vw, 48px);
-      font-size: .94rem;
+      font-size: 1rem;
       font-weight: 500;
     }
 
@@ -190,7 +208,7 @@
       max-width: 680px;
       margin-bottom: 30px;
       font-family: var(--display);
-      font-size: clamp(4.25rem, 6.2vw, 6.9rem);
+      font-size: clamp(3.4rem, 4.8vw, 4.75rem);
       font-weight: 650;
       line-height: .96;
       letter-spacing: -.04em;
@@ -200,7 +218,7 @@
       max-width: 610px;
       margin-bottom: 34px;
       color: var(--ink-2);
-      font-size: clamp(1.1rem, 1.35vw, 1.35rem);
+      font-size: clamp(1.12rem, 1.3vw, 1.28rem);
       line-height: 1.55;
       letter-spacing: -.02em;
     }
@@ -218,7 +236,7 @@
       grid-template-columns: 1.04fr 1.08fr .88fr;
       gap: 20px;
       min-width: 0;
-      padding-top: 46px;
+      padding-top: 38px;
     }
 
     .demo-stage {
@@ -229,12 +247,12 @@
 
     .stage-head {
       position: absolute;
-      top: -46px;
+      top: -38px;
       left: 0;
       display: flex;
       align-items: center;
       gap: 10px;
-      height: 32px;
+      height: 28px;
       white-space: nowrap;
     }
 
@@ -251,14 +269,14 @@
 
     .stage-name {
       font-family: var(--display);
-      font-size: .82rem;
+      font-size: .88rem;
       font-weight: 700;
       letter-spacing: -.01em;
       text-transform: uppercase;
     }
 
     .product-panel {
-      min-height: 490px;
+      min-height: 360px;
       overflow: hidden;
       border: 1px solid var(--line-dark);
       border-radius: var(--radius);
@@ -270,7 +288,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      min-height: 48px;
+      min-height: 42px;
       padding: 0 15px;
       border-bottom: 1px solid var(--line);
       font-size: .78rem;
@@ -288,15 +306,15 @@
 
     .mono {
       font-family: var(--mono);
-      font-size: .65rem;
+      font-size: .72rem;
       line-height: 1.68;
     }
 
-    .trace { padding: 12px 14px 15px; }
+    .trace { padding: 9px 14px 11px; }
 
     .trace-row {
       display: grid;
-      grid-template-columns: 24px 42px minmax(0, 1fr);
+      grid-template-columns: 24px max-content minmax(0, 1fr);
       gap: 6px;
       color: var(--ink-2);
       white-space: nowrap;
@@ -306,13 +324,30 @@
     .trace-row strong { color: var(--blue); font-weight: 500; }
 
     .trace-divider {
-      margin: 10px -14px 9px;
+      margin: 7px -14px 6px;
       border-top: 1px solid var(--line);
     }
 
+    .trace-handoff {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin: 7px -14px 6px;
+      padding: 6px 14px;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      color: var(--blue);
+      font-size: .6rem;
+    }
+
+    .trace-handoff span { color: var(--muted); }
+
+    .trace-handoff strong { font-weight: 500; }
+
     .plan-code {
-      min-height: 410px;
-      padding: 15px 14px 16px;
+      min-height: 318px;
+      padding: 12px 14px;
       background: linear-gradient(90deg, #f6f6f8 1px, transparent 1px);
       background-size: 34px 100%;
     }
@@ -332,13 +367,13 @@
       display: flex;
       align-items: center;
       gap: 9px;
-      margin: 12px 12px 0;
-      padding: 10px;
+      margin: 9px 12px 0;
+      padding: 8px;
       border: 1px solid #e4bf5c;
       border-radius: 8px;
       background: var(--amber-soft);
       color: #5d4100;
-      font-size: .66rem;
+      font-size: .72rem;
       line-height: 1.35;
     }
 
@@ -350,7 +385,7 @@
       border-radius: 50%;
       background: #d39700;
       color: var(--white);
-      font-size: .66rem;
+      font-size: .72rem;
       font-weight: 700;
     }
 
@@ -358,7 +393,7 @@
       display: flex;
       flex-direction: column;
       align-items: stretch;
-      padding: 28px 18px 18px;
+      padding: 20px 18px 16px;
       text-align: center;
     }
 
@@ -366,7 +401,7 @@
       position: relative;
       width: 72px;
       height: 58px;
-      margin: 8px auto 28px;
+      margin: 0 auto 18px;
       border: 4px solid var(--blue);
       border-radius: 10px;
       color: var(--blue);
@@ -402,7 +437,7 @@
     }
 
     .run-time {
-      margin-bottom: 22px;
+      margin-bottom: 16px;
       color: var(--muted);
       font-size: .74rem;
       line-height: 1.5;
@@ -410,7 +445,7 @@
 
     .check-list {
       margin: 0;
-      padding: 18px 0 0;
+      padding: 14px 0 0;
       border-top: 1px solid var(--line);
       list-style: none;
       text-align: left;
@@ -419,7 +454,7 @@
     .check-list li {
       display: flex;
       gap: 8px;
-      margin-bottom: 11px;
+      margin-bottom: 8px;
       font-size: .67rem;
       line-height: 1.35;
     }
@@ -453,7 +488,7 @@
     .section h2 {
       margin-bottom: 28px;
       font-family: var(--display);
-      font-size: clamp(3.5rem, 6.3vw, 6.7rem);
+      font-size: clamp(2.6rem, 4.2vw, 4.4rem);
       font-weight: 650;
       line-height: .98;
       letter-spacing: -.045em;
@@ -470,7 +505,7 @@
       max-width: 600px;
       margin: 44px 0 0;
       color: var(--ink-2);
-      font-size: clamp(1.2rem, 1.65vw, 1.56rem);
+      font-size: clamp(1.12rem, 1.45vw, 1.32rem);
       line-height: 1.58;
       letter-spacing: -.025em;
     }
@@ -521,7 +556,7 @@
       max-width: 500px;
       margin: 0;
       color: var(--muted);
-      font-size: .98rem;
+      font-size: 1rem;
       line-height: 1.55;
     }
 
@@ -596,7 +631,7 @@
       max-width: 520px;
       margin: 0 0 6px auto;
       color: var(--ink-2);
-      font-size: 1.1rem;
+      font-size: 1.12rem;
       line-height: 1.6;
       letter-spacing: -.02em;
     }
@@ -612,7 +647,7 @@
       display: grid;
       grid-template-columns: 34px 1fr;
       gap: 10px;
-      min-height: 62px;
+      min-height: 68px;
       padding: 12px;
       border: 1px solid transparent;
       border-radius: 8px;
@@ -624,13 +659,13 @@
     .workflow-tab strong {
       color: var(--blue);
       font-family: var(--mono);
-      font-size: .84rem;
+      font-size: .9rem;
     }
 
     .workflow-tab span {
       display: block;
       font-family: var(--display);
-      font-size: 1.05rem;
+      font-size: 1.1rem;
       font-weight: 700;
       line-height: 1.15;
       letter-spacing: -.025em;
@@ -640,7 +675,7 @@
       display: block;
       margin-top: 5px;
       color: var(--muted);
-      font-size: .72rem;
+      font-size: .8rem;
       font-weight: 400;
       line-height: 1.35;
     }
@@ -672,7 +707,7 @@
       padding: 0 17px;
       border-bottom: 1px solid var(--line);
       font-family: var(--display);
-      font-size: .84rem;
+      font-size: .92rem;
       font-weight: 700;
     }
 
@@ -682,7 +717,7 @@
       gap: 7px;
       color: var(--mint);
       font-family: var(--mono);
-      font-size: .62rem;
+      font-size: .72rem;
       font-weight: 500;
     }
 
@@ -695,40 +730,133 @@
       box-shadow: 0 0 0 4px var(--mint-soft);
     }
 
-    .record-stack { padding: 4px 16px 16px; }
-
-    .record-group {
+    .record-stack {
       display: grid;
-      grid-template-columns: 92px minmax(0, 1fr) 120px;
-      gap: 14px;
+      gap: 10px;
+      padding: 16px;
+    }
+
+    .record-segment {
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--white);
+    }
+
+    .record-segment--desktop { border-color: #cbd4ff; }
+
+    .record-source {
+      display: flex;
       align-items: center;
-      min-height: 138px;
+      justify-content: space-between;
+      min-height: 38px;
+      padding: 0 12px;
       border-bottom: 1px solid var(--line);
+      background: #fafafd;
+      font-family: var(--mono);
+      font-size: .64rem;
     }
 
-    .record-group:last-child { border-bottom: 0; }
+    .record-segment--desktop .record-source {
+      border-color: #dce2ff;
+      background: #f5f7ff;
+    }
 
-    .record-app {
+    .record-source-name {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      color: var(--ink);
+      font-weight: 500;
+    }
+
+    .record-source-mark {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: conic-gradient(#ef4335 0 25%, #fbc02d 0 50%, #34a853 0 75%, #4285f4 0);
+    }
+
+    .record-source-mark.desktop {
+      width: 11px;
+      height: 8px;
+      border: 1.5px solid var(--blue);
+      border-radius: 2px;
+      background: transparent;
+      box-shadow: 0 4px 0 -2px var(--blue);
+    }
+
+    .record-source-time { color: var(--muted); }
+
+    .record-step {
+      display: grid;
+      grid-template-columns: 78px minmax(0, 1fr) 98px;
+      gap: 12px;
+      align-items: center;
+      min-height: 82px;
+      padding: 11px 12px;
+    }
+
+    .record-step + .record-step { border-top: 1px solid var(--line); }
+
+    .record-step-name {
       font-family: var(--display);
-      font-size: .85rem;
+      font-size: .88rem;
       font-weight: 700;
+      letter-spacing: -.015em;
     }
 
-    .record-app small {
+    .record-step-name small {
       display: block;
-      margin-top: 5px;
+      margin-top: 4px;
       color: var(--muted);
       font-family: var(--mono);
-      font-size: .58rem;
+      font-size: .66rem;
       font-weight: 400;
+      letter-spacing: 0;
     }
+
+    .record-handoff {
+      position: relative;
+      display: flex;
+      align-items: center;
+      min-height: 30px;
+      padding: 0 12px 0 42px;
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: .62rem;
+    }
+
+    .record-handoff::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 12px;
+      width: 18px;
+      height: 1px;
+      background: var(--blue);
+    }
+
+    .record-handoff::after {
+      content: "";
+      position: absolute;
+      top: calc(50% - 3px);
+      left: 26px;
+      width: 6px;
+      height: 6px;
+      border-top: 1px solid var(--blue);
+      border-right: 1px solid var(--blue);
+      transform: rotate(45deg);
+    }
+
+    .record-handoff strong { color: var(--ink-2); font-weight: 500; }
 
     .mini-trace {
       margin: 0;
       padding: 0;
       color: var(--ink-2);
       font-family: var(--mono);
-      font-size: .6rem;
+      font-size: .72rem;
       line-height: 1.7;
       list-style: none;
     }
@@ -769,7 +897,7 @@
       margin-bottom: 18px;
       color: var(--muted);
       font-family: var(--mono);
-      font-size: .62rem;
+      font-size: .72rem;
       line-height: 1.5;
     }
 
@@ -785,7 +913,7 @@
       min-height: 74px;
       padding: 0 0 19px 40px;
       color: var(--ink-2);
-      font-size: .82rem;
+      font-size: .94rem;
       font-weight: 500;
       line-height: 1.45;
       counter-increment: outcome;
@@ -826,7 +954,7 @@
       padding-top: 17px;
       border-top: 1px solid var(--line);
       color: var(--blue);
-      font-size: .69rem;
+      font-size: .78rem;
       line-height: 1.35;
     }
 
@@ -851,7 +979,7 @@
     .schedule-sub {
       margin-bottom: 24px;
       color: var(--muted);
-      font-size: .72rem;
+      font-size: .8rem;
     }
 
     .approval-warning {
@@ -864,31 +992,24 @@
       border-radius: 8px;
       background: var(--amber-soft);
       color: #634700;
-      font-size: .65rem;
+      font-size: .74rem;
       line-height: 1.35;
       text-align: left;
     }
 
     .approve-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       width: 100%;
       min-height: 48px;
       margin-top: auto;
-      border: 1px solid var(--ink);
+      border: 1px solid var(--line-dark);
       border-radius: 7px;
-      background: var(--ink);
-      color: var(--white);
-      font-size: .78rem;
+      background: #f6f6f8;
+      color: var(--muted);
+      font-size: .88rem;
       font-weight: 600;
-      cursor: pointer;
-    }
-
-    .approve-button:hover { background: var(--blue); border-color: var(--blue); }
-
-    .approve-button.is-approved,
-    .approve-button.is-approved:hover {
-      border-color: var(--mint);
-      background: var(--mint);
-      cursor: default;
     }
 
     .proof-strip {
@@ -932,7 +1053,7 @@
     .proof p {
       margin: 0;
       color: var(--muted);
-      font-size: .76rem;
+      font-size: .9rem;
       line-height: 1.45;
     }
 
@@ -946,7 +1067,7 @@
     .fit-intro p {
       margin: 0;
       color: var(--ink-2);
-      font-size: clamp(1.08rem, 1.5vw, 1.35rem);
+      font-size: clamp(1.08rem, 1.4vw, 1.28rem);
       line-height: 1.55;
     }
 
@@ -959,11 +1080,11 @@
 
     .fit-table {
       display: grid;
-      grid-template-columns: 1.1fr .9fr;
+      grid-template-columns: 1fr;
       border-top: 1px solid var(--line-dark);
     }
 
-    .fit-column:first-child { border-right: 1px solid var(--line); }
+    .fit-column:first-child { border-right: 0; }
 
     .fit-column h3 {
       margin: 0;
@@ -991,7 +1112,7 @@
       min-height: 68px;
       padding: 13px 22px;
       border-bottom: 1px solid var(--line);
-      font-size: .92rem;
+      font-size: 1rem;
       font-weight: 500;
       line-height: 1.35;
     }
@@ -1075,7 +1196,7 @@
     .trust-item p {
       margin: 0;
       color: var(--muted);
-      font-size: .78rem;
+      font-size: .9rem;
       line-height: 1.45;
     }
 
@@ -1092,7 +1213,7 @@
       max-width: 1180px;
       margin-bottom: 28px;
       font-family: var(--display);
-      font-size: clamp(3.7rem, 7vw, 7.4rem);
+      font-size: clamp(3rem, 5vw, 5.2rem);
       font-weight: 650;
       line-height: .97;
       letter-spacing: -.04em;
@@ -1102,7 +1223,7 @@
       max-width: 680px;
       margin-bottom: 38px;
       color: #c8c8d0;
-      font-size: clamp(1.08rem, 1.45vw, 1.35rem);
+      font-size: clamp(1.08rem, 1.35vw, 1.28rem);
       line-height: 1.55;
       letter-spacing: -.02em;
     }
@@ -1140,17 +1261,18 @@
       transform: none;
     }
 
-    @media (max-width: 1220px) {
+    /* Keep the product preview readable on common laptop-sized desktops. */
+    @media (max-width: 1360px) {
       .hero {
         grid-template-columns: 1fr;
         min-height: 0;
-        padding-top: 72px;
+        padding-top: 64px;
       }
 
       .hero-copy { max-width: 900px; }
-      h1 { max-width: 900px; font-size: clamp(4.5rem, 9vw, 7.4rem); }
+      h1 { max-width: 720px; font-size: clamp(3.4rem, 5vw, 4.6rem); }
       .hero-demo { max-width: 1040px; width: 100%; }
-      .product-panel { min-height: 470px; }
+      .product-panel { min-height: 360px; }
     }
 
     @media (max-width: 900px) {
@@ -1160,7 +1282,7 @@
       .nav .button { min-height: 46px; padding-inline: 16px; font-size: .87rem; }
 
       .hero { padding-top: 58px; }
-      h1 { font-size: clamp(3.7rem, 9vw, 5rem); }
+      h1 { font-size: clamp(3.15rem, 8vw, 4.6rem); }
       .hero-demo {
         display: flex;
         gap: 20px;
@@ -1181,7 +1303,7 @@
         scroll-snap-align: start;
       }
 
-      .product-panel { min-height: 430px; }
+      .product-panel { min-height: 350px; }
 
       .problem-grid, .workflow-head, .fit-layout { grid-template-columns: 1fr; }
       .problem-copy > p { margin-top: 28px; }
@@ -1205,8 +1327,8 @@
       .brand { font-size: 1.05rem; }
       .nav .button { min-height: 44px; padding-inline: 13px; font-size: .78rem; }
       .hero { padding-block: 42px 70px; }
-      h1 { margin-bottom: 24px; font-size: clamp(3.3rem, 16.2vw, 5rem); line-height: .98; }
-      .hero-copy > p { font-size: 1.04rem; }
+      h1 { margin-bottom: 24px; font-size: clamp(2.75rem, 13.5vw, 4rem); line-height: 1; }
+      .hero-copy > p { font-size: 1.08rem; }
       .hero-actions { align-items: flex-start; flex-direction: column; gap: 12px; }
 
       .hero-demo {
@@ -1224,12 +1346,12 @@
         scroll-snap-align: start;
       }
 
-      .product-panel { min-height: 430px; }
-      .trace-row { font-size: .59rem; }
-      .run-panel { min-height: 430px; }
+      .product-panel { min-height: 350px; }
+      .trace-row { font-size: .68rem; }
+      .run-panel { min-height: 350px; }
 
       .section { padding-block: 82px; }
-      .section h2 { font-size: clamp(3.1rem, 14.5vw, 4.8rem); }
+      .section h2 { font-size: clamp(2.5rem, 11.8vw, 3.7rem); }
       .pain-rail { padding-left: 42px; }
       .pain-item::before { left: -40px; }
       .rail-stop::before { left: -42px; }
@@ -1251,14 +1373,14 @@
         border-radius: 8px;
       }
 
-      .workflow-tab strong { font-size: .74rem; }
-      .workflow-tab span { font-size: .86rem; }
+      .workflow-tab strong { font-size: .78rem; }
+      .workflow-tab span { font-size: .94rem; }
       .workflow-tab small { display: none; }
       .workflow-canvas { display: block; min-height: 0; }
       .flow-panel + .flow-panel { margin-top: 16px; }
 
-      .record-group { grid-template-columns: 76px minmax(0, 1fr); }
-      .record-group .evidence { display: none; }
+      .record-step { grid-template-columns: 74px minmax(0, 1fr); }
+      .record-step .evidence { display: none; }
       .proof-strip { margin-top: 22px; }
 
       .fit-table { grid-template-columns: 1fr; }
@@ -1266,7 +1388,7 @@
       .fit-column.bad { margin-top: 34px; }
       .fit-note { padding-left: 26px; }
 
-      .cta h2 { font-size: clamp(3.4rem, 15vw, 5rem); }
+      .cta h2 { font-size: clamp(2.7rem, 12.5vw, 4rem); }
       .cta-actions { align-items: flex-start; flex-direction: column; margin-bottom: 72px; }
       .footer { align-items: flex-start; flex-direction: column; }
     }
@@ -1279,22 +1401,23 @@
   </style>
 </head>
 <body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
   <header class="shell site-header">
     <a class="brand" href="/">WEXPRO LABS</a>
     <nav class="nav" aria-label="Primary navigation">
       <a class="nav-link" href="#how-it-works">How it works</a>
       <a class="nav-link" href="#why-it-works">Why it works</a>
-      <a class="button" href="mailto:samin@wexprolabs.com?subject=Hermes%20Crunch%20pilot&amp;body=The%20task%20we%20repeat%3A%0AWhere%20it%20happens%3A%0AHow%20often%20it%20runs%3A%0AWhat%20a%20good%20result%20looks%20like%3A%0AWhere%20a%20person%20should%20review%3A">Request a pilot</a>
+      <a class="button" href="mailto:samin@wexprolabs.com?subject=Hermes%20Crunch%20pilot&amp;body=The%20task%20we%20repeat%3A%0AWhere%20it%20happens%3A%0AHow%20often%20it%20runs%3A%0AWhat%20changes%20between%20runs%3A%0AWhat%20a%20good%20result%20looks%20like%3A%0AWhere%20a%20person%20should%20review%3A">Request a pilot</a>
     </nav>
   </header>
 
-  <main>
+  <main id="main-content">
     <section class="shell hero" aria-labelledby="hero-title">
       <div class="hero-copy">
         <h1 id="hero-title">Turn the work you do by hand into a job that runs itself.</h1>
-        <p>Record the task once across Chrome and your Mac. Hermes turns what actually happened into one reviewable workflow—then runs it on schedule with your tools, your model, and your approval.</p>
+        <p>Record it once across Chrome and your Mac. Review the workflow, then approve it to run on schedule.</p>
         <div class="hero-actions">
-          <a class="button" href="mailto:samin@wexprolabs.com?subject=Hermes%20Crunch%20pilot&amp;body=The%20task%20we%20repeat%3A%0AWhere%20it%20happens%3A%0AHow%20often%20it%20runs%3A%0AWhat%20a%20good%20result%20looks%20like%3A%0AWhere%20a%20person%20should%20review%3A">Request a pilot</a>
+          <a class="button" href="mailto:samin@wexprolabs.com?subject=Hermes%20Crunch%20pilot&amp;body=The%20task%20we%20repeat%3A%0AWhere%20it%20happens%3A%0AHow%20often%20it%20runs%3A%0AWhat%20changes%20between%20runs%3A%0AWhat%20a%20good%20result%20looks%20like%3A%0AWhere%20a%20person%20should%20review%3A">Request a pilot</a>
           <a class="text-link" href="#how-it-works">See how it works
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M3 10h13M11 5l5 5-5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </a>
@@ -1310,13 +1433,13 @@
               <div class="trace-row"><span>01</span><strong>open</strong><span>new request</span></div>
               <div class="trace-row"><span>02</span><strong>read</strong><span>email + PDF</span></div>
               <div class="trace-row"><span>03</span><strong>capture</strong><span>reference</span></div>
-              <div class="trace-divider"></div>
-              <div class="panel-topbar" style="margin:0 -14px 10px;padding-inline:14px"><span class="app-name">Case record</span><span class="mono">Chrome · 00:18</span></div>
+              <div class="trace-handoff"><span>switch apps</span><strong>Chrome → desktop CRM</strong></div>
+              <div class="panel-topbar" style="margin:0 -14px 10px;padding-inline:14px"><span class="app-name">Case record</span><span class="mono">desktop CRM · 00:18</span></div>
               <div class="trace-row"><span>04</span><strong>match</strong><span>account + case</span></div>
               <div class="trace-row"><span>05</span><strong>check</strong><span>history</span></div>
               <div class="trace-row"><span>06</span><strong>spot</strong><span>duplicates</span></div>
               <div class="trace-divider"></div>
-              <div class="panel-topbar" style="margin:0 -14px 10px;padding-inline:14px"><span class="app-name">Decision</span><span class="mono">CRM · 00:27</span></div>
+              <div class="panel-topbar" style="margin:0 -14px 10px;padding-inline:14px"><span class="app-name">Decision</span><span class="mono">desktop CRM · 00:27</span></div>
               <div class="trace-row"><span>07</span><strong>update</strong><span>routine case</span></div>
               <div class="trace-row"><span>08</span><strong>draft</strong><span>response</span></div>
               <div class="trace-row"><span>09</span><strong>queue</strong><span>unclear work</span></div>
@@ -1363,32 +1486,23 @@
       <div class="shell">
         <div class="problem-grid">
           <div class="problem-copy reveal">
-            <h2 id="problem-title">The hard part isn’t repeating clicks.</h2>
-            <p>The work worth automating rarely stays in one clean system. It crosses a portal, an inbox, a PDF, a spreadsheet, and the part only your team knows to check.</p>
+            <h2 id="problem-title">The work gets harder when it crosses tools.</h2>
+            <p>Your team moves between inboxes, portals, documents, and spreadsheets—carrying context and remembering the checks each system misses.</p>
           </div>
           <div class="pain-rail reveal">
             <article class="pain-item">
-              <h3>It lives between tools.</h3>
-              <p>You switch context, stitch information together, and remember what happened where.</p>
+              <h3>The work is scattered.</h3>
+              <p>Every run means switching tools, moving information by hand, and piecing together what happened where.</p>
             </article>
             <article class="pain-item">
-              <h3>The inputs keep changing.</h3>
-              <p>Formats shift, fields move, and exceptions pile up faster than a macro can keep up.</p>
+              <h3>Every run is a little different.</h3>
+              <p>New files, changed fields, and exceptions make rigid macros brittle—and leave your team fixing what they miss.</p>
             </article>
             <article class="pain-item">
-              <h3>The judgment is undocumented.</h3>
-              <p>Critical checks live in one operator’s head, not in a process someone else can run.</p>
+              <h3>The process lives in people's heads.</h3>
+              <p>Critical checks and exception handling are hard to document, delegate, or audit.</p>
             </article>
-            <article class="pain-item">
-              <h3>A wrong run costs more than a missed run.</h3>
-              <p>When the stakes are real, you need a safe stop—not automation that guesses and carries on.</p>
-            </article>
-            <div class="rail-stop">Pause for review when the evidence is incomplete.</div>
           </div>
-        </div>
-        <div class="problem-close reveal">
-          <p>That’s why copying the clicks is the wrong goal.</p>
-          <a class="close-link" href="#how-it-works"><span>→</span> Capture the work. Preserve the outcome.</a>
         </div>
       </div>
     </section>
@@ -1397,34 +1511,41 @@
       <div class="shell">
         <div class="workflow-head reveal">
           <h2 id="workflow-title">Show it once. Review what will run.</h2>
-          <p>Hermes records the real task across Chrome and macOS, then translates the evidence into the smallest reliable execution—not a fragile replay of every click.</p>
+          <p>One real run becomes a reviewable workflow—not a brittle replay of every click.</p>
         </div>
 
         <div class="workflow-tabs reveal" aria-label="Workflow stages">
-          <div class="workflow-tab"><strong>01</strong><span>Record<small>Live action trace across your tools</small></span></div>
-          <div class="workflow-tab"><strong>02</strong><span>Review<small>Check the reasoning before it runs</small></span></div>
-          <div class="workflow-tab"><strong>03</strong><span>Run<small>Approve one job to run on schedule</small></span></div>
+          <div class="workflow-tab"><strong>01</strong><span>Record<small>Capture one real run across your tools</small></span></div>
+          <div class="workflow-tab"><strong>02</strong><span>Review<small>Check the plan, warnings, and expected result</small></span></div>
+          <div class="workflow-tab"><strong>03</strong><span>Run<small>Approve one Hermes job to run on schedule</small></span></div>
         </div>
 
         <div class="workflow-canvas reveal">
           <article class="flow-panel" id="workflow-record" data-panel="record">
             <div class="flow-title"><span>One cross-app recording</span><span class="live">capturing</span></div>
             <div class="record-stack">
-              <div class="record-group">
-                <div class="record-app">Inbox<small>Chrome · 00:42</small></div>
-                <ul class="mini-trace"><li><b>open</b> new request</li><li><b>read</b> email + PDF</li><li><b>capture</b> reference</li></ul>
-                <div class="evidence" aria-hidden="true"><div class="evidence-bar"></div><div class="evidence-line"></div><div class="evidence-line short"></div><div class="evidence-line"></div></div>
-              </div>
-              <div class="record-group">
-                <div class="record-app">Case record<small>Chrome · 00:18</small></div>
-                <ul class="mini-trace"><li><b>match</b> account + case</li><li><b>check</b> history</li><li><b>spot</b> duplicates</li></ul>
-                <div class="evidence" aria-hidden="true"><div class="evidence-line short"></div><div class="evidence-bar" style="width:88%"></div><div class="evidence-line"></div></div>
-              </div>
-              <div class="record-group">
-                <div class="record-app">Decision<small>CRM · 00:27</small></div>
-                <ul class="mini-trace"><li><b>update</b> routine case</li><li><b>draft</b> response</li><li><b>queue</b> unclear work</li></ul>
-                <div class="evidence" aria-hidden="true"><div class="evidence-line"></div><div class="evidence-line short"></div><div class="evidence-bar" style="margin-left:auto;width:42%"></div></div>
-              </div>
+              <section class="record-segment" aria-label="Chrome inbox activity">
+                <div class="record-source"><span class="record-source-name"><span class="record-source-mark" aria-hidden="true"></span>Chrome</span><span class="record-source-time">00:42</span></div>
+                <div class="record-step">
+                  <div class="record-step-name">Inbox<small>new request</small></div>
+                  <ul class="mini-trace"><li><b>open</b> new request</li><li><b>read</b> email + PDF</li><li><b>capture</b> reference</li></ul>
+                  <div class="evidence" aria-hidden="true"><div class="evidence-bar"></div><div class="evidence-line"></div><div class="evidence-line short"></div><div class="evidence-line"></div></div>
+                </div>
+              </section>
+              <div class="record-handoff" aria-label="The recording continues in the desktop CRM"><strong>Continue in desktop CRM</strong></div>
+              <section class="record-segment record-segment--desktop" aria-label="Desktop CRM activity">
+                <div class="record-source"><span class="record-source-name"><span class="record-source-mark desktop" aria-hidden="true"></span>Desktop CRM</span><span class="record-source-time">00:45</span></div>
+                <div class="record-step">
+                  <div class="record-step-name">Case record<small>00:18</small></div>
+                  <ul class="mini-trace"><li><b>match</b> account + case</li><li><b>check</b> history</li><li><b>spot</b> duplicates</li></ul>
+                  <div class="evidence" aria-hidden="true"><div class="evidence-line short"></div><div class="evidence-bar" style="width:88%"></div><div class="evidence-line"></div></div>
+                </div>
+                <div class="record-step">
+                  <div class="record-step-name">Decision<small>00:27</small></div>
+                  <ul class="mini-trace"><li><b>update</b> routine case</li><li><b>draft</b> response</li><li><b>queue</b> unclear work</li></ul>
+                  <div class="evidence" aria-hidden="true"><div class="evidence-line"></div><div class="evidence-line short"></div><div class="evidence-bar" style="margin-left:auto;width:42%"></div></div>
+                </div>
+              </section>
             </div>
           </article>
 
@@ -1448,7 +1569,7 @@
               <div class="schedule-title">Every weekday at 08:30</div>
               <div class="schedule-sub">America/New_York · routine records update</div>
               <div class="approval-warning"><span class="warning-icon">!</span>Unclear requests and external replies wait for review</div>
-              <button class="approve-button" type="button" data-demo-approve aria-live="polite">Approve &amp; schedule</button>
+              <button class="approve-button" type="button" disabled>Approval required before scheduling</button>
             </div>
           </article>
         </div>
@@ -1478,22 +1599,8 @@
                 <li>Update records, flag exceptions, and leave proof</li>
               </ul>
             </div>
-            <div class="fit-column bad">
-              <h3>Probably not the first one</h3>
-              <ul class="fit-list">
-                <li>One-off tasks</li>
-                <li>Work with no checkable finish</li>
-                <li>Irreversible actions with no review point</li>
-              </ul>
-            </div>
           </div>
-          <aside class="fit-note reveal"><span>→</span>Start with the chore your best operator knows by muscle memory.</aside>
-        </div>
-
-        <div class="trust-strip reveal">
-          <div class="trust-item"><div class="trust-mark">tool</div><div><strong>Your tools</strong><p>Runs inside Hermes.</p></div></div>
-          <div class="trust-item"><div class="trust-mark">LLM</div><div><strong>Your model</strong><p>Uses the provider you configure.</p></div></div>
-          <div class="trust-item"><div class="trust-mark">✓</div><div><strong>Your approval</strong><p>The exact payload is bound before install.</p></div></div>
+          <aside class="fit-note reveal"><span>→</span>If someone can show us the task from start to finish, we can tell you if it’s a good fit.</aside>
         </div>
       </div>
     </section>
@@ -1501,9 +1608,9 @@
     <section class="cta-section" aria-labelledby="cta-title">
       <div class="shell cta">
         <h2 id="cta-title">Show us the task you never want to do again.</h2>
-        <p>Walk through one real run. We’ll tell you if it’s a strong pilot and what a reliable version should look like.</p>
+        <p>Walk us through one real run. We’ll tell you if it’s a good fit.</p>
         <div class="cta-actions">
-          <a class="button button-light" href="mailto:samin@wexprolabs.com?subject=Hermes%20Crunch%20pilot&amp;body=The%20task%20we%20repeat%3A%0AWhere%20it%20happens%3A%0AHow%20often%20it%20runs%3A%0AWhat%20a%20good%20result%20looks%20like%3A%0AWhere%20a%20person%20should%20review%3A">Request a pilot</a>
+          <a class="button button-light" href="mailto:samin@wexprolabs.com?subject=Hermes%20Crunch%20pilot&amp;body=The%20task%20we%20repeat%3A%0AWhere%20it%20happens%3A%0AHow%20often%20it%20runs%3A%0AWhat%20changes%20between%20runs%3A%0AWhat%20a%20good%20result%20looks%20like%3A%0AWhere%20a%20person%20should%20review%3A">Request a pilot</a>
           <a class="text-link" href="mailto:samin@wexprolabs.com">samin@wexprolabs.com
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M3 10h13M11 5l5 5-5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </a>

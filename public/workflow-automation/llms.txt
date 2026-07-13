@@ -1,55 +1,45 @@
-# Turn Repetitive Work Into a Reliable Hermes Job
+# Turn Repetitive Work Into a Reliable Hermes Workflow
 
-Wexpro Labs is piloting Hermes Crunch for recurring computer work that crosses browser tabs, desktop apps, changing inputs, and operator judgment.
+Wexpro Labs is piloting workflow automation for operations teams whose recurring computer work crosses Chrome, macOS apps, changing inputs, and repeatable human judgment.
 
 ## Core outcome
 
-- Record one real run across Google Chrome and macOS.
-- Preserve the task's outcome, targets, checks, and side-effect boundaries as evidence.
-- Translate that evidence into one reviewable native Hermes cron job.
-- Inspect the exact prompt or script, requirements, warnings, and schedule before approval.
-- Install and run only the approval-bound payload inside the customer's Hermes environment.
+- Record one real run across Chrome and macOS.
+- Use the recording as evidence of the task, its checks, and its intended outcome.
+- Turn that evidence into one reviewable workflow.
+- Review the plan, requirements, warnings, and schedule.
+- Approve and install one native Hermes job.
 
-The recording is behavioral evidence, not a selector-by-selector macro. Hermes chooses the smallest reliable execution: a deterministic script, a script plus agent judgment, or an agent using the tools and skills the workflow requires.
+The result is an agentic workflow, not a selector-by-selector replay of every click. Hermes uses the tools and model configured in the customer's environment to complete the work and can leave uncertain cases for review.
 
-## Best first workflow
+## Strong first workflows
 
-- Repeats often enough to matter.
-- Crosses tools such as a portal, inbox, PDF, spreadsheet, Finder, CRM, or internal system.
-- Changes enough that a brittle macro breaks.
-- Contains checks or light judgment an experienced operator currently keeps in their head.
-- Ends in an observable result such as a report sent, record updated, file saved, total matched, or exception flagged.
+- Repeat often enough to matter.
+- Cross tools such as an inbox, portal, PDF, spreadsheet, CRM, or desktop app.
+- Follow a process an experienced operator can demonstrate.
+- Include checks or light judgment that a simple macro cannot handle.
+- End in an observable result such as a report sent, record updated, file saved, total matched, or exception flagged.
 
-Examples include processing incoming requests from an inbox into a system of record, checking a recurring report, preparing a client or operations brief, and updating records while flagging exceptions. A strong workflow can process routine cases while pausing for missing information, possible duplicates, uncertain matches, or required approval.
+Examples include pulling and checking recurring reports, moving invoice or order data between systems, preparing client or operations briefs, and updating routine records while flagging exceptions.
 
 ## Control model
 
-- Chrome and native macOS evidence are written into one trace.
-- Missing or ambiguous evidence stays visible as a warning instead of being guessed away.
-- Drafting does not install or schedule anything.
-- Review covers the execution shape, prerequisites, warnings, schedule, and expected proof of success.
-- Compiled scripts and the cron payload are digest-bound to approval before install.
-- Hermes owns the model, tools, skills, scheduling, delivery, logs, and run history.
-
-## Current product boundary
-
-- Native recording is implemented for macOS.
-- The specialized browser provider supports Google Chrome and Chrome Canary.
-- Password and secure-input contents remain redacted.
-- Protected Chrome pages cannot be recorded as live Chrome segments.
-- Each approved recording produces one native Hermes cron job.
+- Recording and drafting do not install or schedule anything.
+- The workflow remains reviewable before approval.
+- Hermes owns scheduling, execution, logs, and run history.
+- The customer controls the tools, model provider, and final approval.
 
 ## Probably not the first workflow
 
 - A one-off task.
 - Work with no checkable finish.
 - A task that changes completely every time.
-- Work driven almost entirely by negotiation, taste, or sensitive human judgment.
+- Work driven primarily by negotiation, taste, or sensitive human judgment.
 - Irreversible actions with no review point.
 
 ## Pilot
 
-Send one recurring task, where it happens, how often it runs, what changes, what a good result looks like, and where a person should review.
+Send one recurring task, where it happens, how often it runs, what changes between runs, what a good result looks like, and where a person should review.
 
 Contact: samin@wexprolabs.com
 
