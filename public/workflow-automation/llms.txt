@@ -1,43 +1,36 @@
-# Connect, record, replace, and scale across every system
+# Record, review, and run recurring work across every system
 
-Wexpro Labs helps operations teams connect to browser portals, desktop applications, Citrix environments, and private APIs, then turn one demonstrated process into a reusable workflow that can run at scale.
+Wexpro Labs provides workflow automation for teams that repeat computer work across browser tabs, desktop applications, Citrix, files, internal tools, and APIs.
 
 ## Direct answer
 
-A user performs one real recurring workflow across every system it touches. Wexpro records the browser, desktop, Citrix, file, and API handoffs in one trace, converts stable steps into reusable execution, and keeps agentic computer use for variation. A human approval checkpoint can be placed anywhere—or nowhere. Approved workflows can start from the UI, a schedule, or an API event, run in parallel, leave evidence, and return exceptions with context.
+A teammate names the workflow, describes the final result and how wexpro can verify it, then performs one real case from input to finished result. Wexpro records the actions, handoffs, checks, and human decisions across every system the process uses. The recording becomes a draft the team can inspect, correct with wexpro, and schedule with the required human checks.
 
-## The business problem
+## The problem
 
-The same process must be performed again for every request, order, report, customer, or account change. Operators become the integration layer between systems that do not talk to one another. Important checks live in their heads, rigid macros break when inputs vary, and more volume becomes longer queues and more staffing pressure.
+Every system is its own island. People still carry information between inboxes, documents, portals, spreadsheets, and desktop apps. Each new request repeats the same manual labor, which turns higher volume into longer queues, overtime, or more hiring.
 
-## The solution
+## Record, review, run
 
-1. Connect: use the integration surface the system supports—browser, desktop, Citrix, or a reverse-engineered private API.
-2. Record and replace: record one real end-to-end workflow, add a human approval checkpoint wherever judgment belongs, and replace the repeatable path with approved execution.
-3. Scale: keep sessions authenticated, run thousands of workflows in parallel, optimize stable steps into deterministic routes, and retain computer use when a system changes.
+1. Record: name the workflow, describe the result wexpro should produce and verify, then show one representative case across browser, full desktop, Citrix, files, and APIs.
+2. Review: inspect the learned steps and capture warnings, ask wexpro about the draft or request corrections, and choose the consequential actions that require a human check.
+3. Run: schedule the reviewed workflow or create a verified event trigger, execute eligible cases, and return completed results or exceptions with context.
 
-## Why it is not a click recorder
+## Horizontal fit
 
-A click recorder memorizes coordinates and one fixed path. Wexpro learns an outcome-level workflow from the demonstrated process. Each approved step can use a public or private API where one is available and browser, desktop, or Citrix computer use where it is not. The workflow preserves checks and expected results as inputs change, stops when it cannot confirm the intended outcome, and keeps the full process in one evidence trail.
+Strong first workflows repeat often, cross multiple systems, follow known checks, include a routine path, and end in a result wexpro can verify. Examples include request intake, reconciliation, reporting, record changes, onboarding, and recurring checks.
 
-## Scale and measurement
+## Team hours returned
 
-Wexpro keeps approved credentials and sessions warm, re-authenticates when systems expire, and fans work out across thousands of parallel sessions. Production measurements include 99%+ agent completion, 25–30× lower cost than staff time measured from a real customer bill, and one live portal workflow optimizing from 12 minutes to 77 seconds.
+The recording establishes the active team time required for one manual case. The pilot measures eligible runs, verified completions without teammate handling, and time spent reviewing exceptions.
 
-## Illustrative workflow patterns
+Estimated routine team hours returned = (active manual minutes per case × verified no-touch completions − exception review minutes) ÷ 60.
 
-- Inbox request to an updated CRM record.
-- Invoice or order to reconciled systems.
-- Weekly exports to a checked client brief.
-- Approved customer change to updated records.
-- New client to ready onboarding systems.
-- Recurring check to an exception queue.
-
-Each pattern includes illustrative workload math so a buyer can see how volume, minutes per item, and the routine share translate into potential capacity. These are scenarios, not customer performance claims.
+Automated elapsed runtime is reported separately because it affects throughput but does not consume team labor when the run is unattended.
 
 ## Controlled pilot
 
-Start with one recurring process the team already knows how to show. Map the workflow, review the draft, approve a limited replay, and compare the result with the current manual process before deciding whether to scale.
+Start with one recurring process. Describe the result, record the real work, review and correct the draft, choose the human checks, and compare completion, runtime, human review, cost, and required evidence with the current process. Agree on the completion threshold, runtime measure, and a cost per completed run below the equivalent manual cost before increasing volume.
 
 Book a workflow mapping: https://wexprolabs.com/demo/
-Primary page: https://wexprolabs.com/workflow-automation/
+Comparison page: https://wexprolabs.com/workflow-automation/
