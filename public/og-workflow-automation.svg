@@ -1,77 +1,18 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
-  <title id="title">Turn repetitive work into a reliable Hermes job</title>
-  <desc id="desc">Wexpro Labs turns one recorded browser and desktop task into a reviewable, approved Hermes job.</desc>
-  <rect width="1200" height="630" fill="#ffffff"/>
-  <text x="56" y="68" fill="#0b0b0c" font-family="Arial, sans-serif" font-size="24" font-weight="700" letter-spacing="-1">WEXPRO LABS</text>
-  <text x="56" y="176" fill="#0b0b0c" font-family="Arial, sans-serif" font-size="68" font-weight="700" letter-spacing="-4">Turn the work you do</text>
-  <text x="56" y="248" fill="#0b0b0c" font-family="Arial, sans-serif" font-size="68" font-weight="700" letter-spacing="-4">by hand into a job</text>
-  <text x="56" y="320" fill="#0b0b0c" font-family="Arial, sans-serif" font-size="68" font-weight="700" letter-spacing="-4">that runs itself.</text>
-  <text x="58" y="378" fill="#565661" font-family="Arial, sans-serif" font-size="21">Record once across Chrome and macOS.</text>
-  <text x="58" y="408" fill="#565661" font-family="Arial, sans-serif" font-size="21">Review one native Hermes job before it runs.</text>
-
-  <g transform="translate(58 468)">
-    <rect width="144" height="52" rx="8" fill="#0b0b0c"/>
-    <text x="72" y="33" fill="#ffffff" font-family="Arial, sans-serif" font-size="17" font-weight="700" text-anchor="middle">Request a pilot</text>
+  <title id="title">One workflow across browser, desktop, and APIs</title>
+  <desc id="desc">Wexpro records one real cross-platform process, turns it into a draft to review and approve, and runs the approved workflow again.</desc>
+  <rect width="1200" height="630" fill="#fcfbfa"/>
+  <path d="M0 82h1200M48 530h1104" fill="none" stroke="#e6e1e3"/>
+  <text x="48" y="51" fill="#171718" font-family="IBM Plex Mono, Courier New, monospace" font-size="20" font-weight="500" letter-spacing="4">WEXPRO LABS</text>
+  <text x="48" y="168" fill="#171718" font-family="Georgia, serif" font-size="54" letter-spacing="-2">One recorded workflow,</text>
+  <text x="48" y="226" fill="#171718" font-family="Georgia, serif" font-size="54" letter-spacing="-2">across every system it touches.</text>
+  <text x="50" y="290" fill="#716e70" font-family="Inter, Arial, sans-serif" font-size="20">Browser tabs · desktop apps · files · connected APIs</text>
+  <text x="50" y="322" fill="#716e70" font-family="Inter, Arial, sans-serif" font-size="20">Review the draft. Add human checkpoints. Run it again.</text>
+  <g transform="translate(48 382)" font-family="IBM Plex Mono, monospace">
+    <g><rect width="344" height="96" fill="#fff" stroke="#cbc5c8"/><text x="18" y="29" fill="#692fff" font-size="13">01 / RECORD</text><text x="18" y="59" fill="#171718" font-size="15">Perform one real workflow</text><text x="18" y="80" fill="#716e70" font-size="11">Browser → file → API → desktop</text></g>
+    <g transform="translate(368)"><rect width="344" height="96" fill="#fff" stroke="#cbc5c8"/><text x="18" y="29" fill="#692fff" font-size="13">02 / REVIEW &amp; APPROVE</text><text x="18" y="59" fill="#171718" font-size="15">Inspect the workflow draft</text><text x="18" y="80" fill="#716e70" font-size="11">Steps · checks · exceptions</text></g>
+    <g transform="translate(736)"><rect width="344" height="96" fill="#fff" stroke="#cbc5c8"/><text x="18" y="29" fill="#692fff" font-size="13">03 / RUN</text><text x="18" y="59" fill="#171718" font-size="15">Trigger the approved workflow</text><text x="18" y="80" fill="#716e70" font-size="11">UI · schedule · API event · evidence</text></g>
   </g>
-
-  <g transform="translate(666 108)">
-    <path d="M36 292H440" stroke="#1f44ff" stroke-width="3"/>
-
-    <g>
-      <circle cx="18" cy="18" r="17" fill="#ffffff" stroke="#0b0b0c" stroke-width="2"/>
-      <text x="18" y="24" fill="#0b0b0c" font-family="Courier New, monospace" font-size="16" text-anchor="middle">1</text>
-      <text x="48" y="25" fill="#0b0b0c" font-family="Arial, sans-serif" font-size="18" font-weight="700">RECORD</text>
-      <rect x="0" y="54" width="152" height="354" rx="14" fill="#ffffff" stroke="#a8a8b2" stroke-width="2"/>
-      <path d="M0 112H152M0 266H152" stroke="#d9d9df" stroke-width="2"/>
-      <circle cx="20" cy="83" r="7" fill="#1f44ff"/>
-      <text x="37" y="89" fill="#0b0b0c" font-family="Arial, sans-serif" font-size="15" font-weight="700">Chrome</text>
-      <g fill="#1f44ff" font-family="Courier New, monospace" font-size="12">
-        <text x="16" y="142">click</text><text x="16" y="167">filter</text><text x="16" y="192">export</text>
-      </g>
-      <g fill="#565661" font-family="Courier New, monospace" font-size="12">
-        <text x="69" y="142">orders</text><text x="69" y="167">status</text><text x="69" y="192">CSV</text>
-      </g>
-      <text x="16" y="296" fill="#0b0b0c" font-family="Arial, sans-serif" font-size="15" font-weight="700">Mail</text>
-      <g fill="#1f44ff" font-family="Courier New, monospace" font-size="12">
-        <text x="16" y="326">attach</text><text x="16" y="351">send</text>
-      </g>
-      <g fill="#565661" font-family="Courier New, monospace" font-size="12">
-        <text x="77" y="326">report</text><text x="77" y="351">ops</text>
-      </g>
-    </g>
-
-    <g transform="translate(176)">
-      <circle cx="18" cy="18" r="17" fill="#ffffff" stroke="#0b0b0c" stroke-width="2"/>
-      <text x="18" y="24" fill="#0b0b0c" font-family="Courier New, monospace" font-size="16" text-anchor="middle">2</text>
-      <text x="48" y="25" fill="#0b0b0c" font-family="Arial, sans-serif" font-size="18" font-weight="700">REVIEW</text>
-      <rect x="0" y="54" width="172" height="354" rx="14" fill="#ffffff" stroke="#a8a8b2" stroke-width="2"/>
-      <path d="M0 112H172" stroke="#d9d9df" stroke-width="2"/>
-      <text x="16" y="88" fill="#0b0b0c" font-family="Arial, sans-serif" font-size="14" font-weight="700">Open orders job</text>
-      <g font-family="Courier New, monospace" font-size="11">
-        <text x="16" y="145" fill="#1f44ff">1</text><text x="38" y="145" fill="#0b0b0c">find report</text>
-        <text x="16" y="176" fill="#1f44ff">2</text><text x="38" y="176" fill="#0b0b0c">verify account</text>
-        <text x="16" y="207" fill="#1f44ff">3</text><text x="38" y="207" fill="#0b0b0c">send checked file</text>
-      </g>
-      <rect x="12" y="245" width="148" height="58" rx="8" fill="#fff8dd" stroke="#d2a52f"/>
-      <circle cx="29" cy="274" r="9" fill="#d39700"/>
-      <text x="47" y="270" fill="#5d4100" font-family="Arial, sans-serif" font-size="11">Confirm recipient</text>
-      <text x="47" y="286" fill="#5d4100" font-family="Arial, sans-serif" font-size="11">before first run</text>
-    </g>
-
-    <g transform="translate(372)">
-      <circle cx="18" cy="18" r="17" fill="#ffffff" stroke="#0b0b0c" stroke-width="2"/>
-      <text x="18" y="24" fill="#0b0b0c" font-family="Courier New, monospace" font-size="16" text-anchor="middle">3</text>
-      <text x="48" y="25" fill="#0b0b0c" font-family="Arial, sans-serif" font-size="18" font-weight="700">RUN</text>
-      <rect x="0" y="54" width="152" height="354" rx="14" fill="#ffffff" stroke="#a8a8b2" stroke-width="2"/>
-      <rect x="42" y="112" width="68" height="52" rx="8" fill="none" stroke="#1f44ff" stroke-width="4"/>
-      <text x="76" y="147" fill="#1f44ff" font-family="Courier New, monospace" font-size="20" text-anchor="middle">&gt;_</text>
-      <circle cx="111" cy="164" r="17" fill="#12a98c" stroke="#ffffff" stroke-width="3"/>
-      <path d="m103 164 6 6 11-13" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-      <text x="76" y="211" fill="#0b0b0c" font-family="Arial, sans-serif" font-size="20" font-weight="700" text-anchor="middle">Scheduled</text>
-      <text x="76" y="240" fill="#676772" font-family="Arial, sans-serif" font-size="13" text-anchor="middle">Weekdays 08:30</text>
-      <g fill="#12a98c" font-family="Arial, sans-serif" font-size="12">
-        <text x="16" y="300">✓ Report found</text><text x="16" y="326">✓ Account checked</text><text x="16" y="352">✓ Run logged</text>
-      </g>
-    </g>
-  </g>
+  <text x="48" y="578" fill="#716e70" font-family="IBM Plex Mono, monospace" font-size="12" letter-spacing="2">RECORD · REVIEW &amp; APPROVE · RUN</text>
+  <g transform="translate(907 552)"><rect width="245" height="44" fill="#692fff"/><text x="122" y="28" fill="#fff" font-family="Inter, Arial, sans-serif" font-size="14" text-anchor="middle">Book a workflow mapping</text></g>
 </svg>

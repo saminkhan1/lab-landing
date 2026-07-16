@@ -1,50 +1,43 @@
-# AI Workflow Automation for Operations Teams
+# Connect, record, replace, and scale across every system
 
-Wexpro Labs is piloting AI workflow automation for operations teams whose recurring computer work crosses Chrome, macOS apps, changing inputs, and repeatable human judgment.
+Wexpro Labs helps operations teams connect to browser portals, desktop applications, Citrix environments, and private APIs, then turn one demonstrated process into a reusable workflow that can run at scale.
 
 ## Direct answer
 
-AI workflow automation turns a recurring computer task into a reviewable job that uses the tools and model configured in the customer's environment. Wexpro Labs records one real run, turns it into a reviewable Hermes workflow, and requires approval before the workflow is scheduled.
+A user performs one real recurring workflow across every system it touches. Wexpro records the browser, desktop, Citrix, file, and API handoffs in one trace, converts stable steps into reusable execution, and keeps agentic computer use for variation. A human approval checkpoint can be placed anywhere—or nowhere. Approved workflows can start from the UI, a schedule, or an API event, run in parallel, leave evidence, and return exceptions with context.
 
-## Core outcome
+## The business problem
 
-- Record one real run across Chrome and macOS.
-- Use the recording as evidence of the task, its checks, and its intended outcome.
-- Turn that evidence into one reviewable workflow.
-- Review the plan, requirements, warnings, and schedule.
-- Approve and install one native Hermes job.
+The same process must be performed again for every request, order, report, customer, or account change. Operators become the integration layer between systems that do not talk to one another. Important checks live in their heads, rigid macros break when inputs vary, and more volume becomes longer queues and more staffing pressure.
 
-The result is an agentic workflow, not a selector-by-selector replay of every click. Hermes uses the tools and model configured in the customer's environment to complete the work and can leave uncertain cases for review.
+## The solution
 
-## Strong first workflows
+1. Connect: use the integration surface the system supports—browser, desktop, Citrix, or a reverse-engineered private API.
+2. Record and replace: record one real end-to-end workflow, add a human approval checkpoint wherever judgment belongs, and replace the repeatable path with approved execution.
+3. Scale: keep sessions authenticated, run thousands of workflows in parallel, optimize stable steps into deterministic routes, and retain computer use when a system changes.
 
-- Repeat often enough to matter.
-- Cross tools such as an inbox, portal, PDF, spreadsheet, CRM, or desktop app.
-- Follow a process an experienced operator can demonstrate.
-- Include checks or light judgment that a simple macro cannot handle.
-- End in an observable result such as a report sent, record updated, file saved, total matched, or exception flagged.
+## Why it is not a click recorder
 
-Examples include pulling and checking recurring reports, moving invoice or order data between systems, preparing client or operations briefs, and updating routine records while flagging exceptions.
+A click recorder memorizes coordinates and one fixed path. Wexpro learns an outcome-level workflow from the demonstrated process. Each approved step can use a public or private API where one is available and browser, desktop, or Citrix computer use where it is not. The workflow preserves checks and expected results as inputs change, stops when it cannot confirm the intended outcome, and keeps the full process in one evidence trail.
 
-## Control model
+## Scale and measurement
 
-- Recording and drafting do not install or schedule anything.
-- The workflow remains reviewable before approval.
-- Hermes owns scheduling, execution, logs, and run history.
-- The customer controls the tools, model provider, and final approval.
+Wexpro keeps approved credentials and sessions warm, re-authenticates when systems expire, and fans work out across thousands of parallel sessions. Production measurements include 99%+ agent completion, 25–30× lower cost than staff time measured from a real customer bill, and one live portal workflow optimizing from 12 minutes to 77 seconds.
 
-## Probably not the first workflow
+## Illustrative workflow patterns
 
-- A one-off task.
-- Work with no checkable finish.
-- A task that changes completely every time.
-- Work driven primarily by negotiation, taste, or sensitive human judgment.
-- Irreversible actions with no review point.
+- Inbox request to an updated CRM record.
+- Invoice or order to reconciled systems.
+- Weekly exports to a checked client brief.
+- Approved customer change to updated records.
+- New client to ready onboarding systems.
+- Recurring check to an exception queue.
 
-## Pilot
+Each pattern includes illustrative workload math so a buyer can see how volume, minutes per item, and the routine share translate into potential capacity. These are scenarios, not customer performance claims.
 
-Send one recurring task, where it happens, how often it runs, what changes between runs, what a good result looks like, and where a person should review.
+## Controlled pilot
 
-Contact: samin@wexprolabs.com
+Start with one recurring process the team already knows how to show. Map the workflow, review the draft, approve a limited replay, and compare the result with the current manual process before deciding whether to scale.
 
+Book a workflow mapping: https://wexprolabs.com/demo/
 Primary page: https://wexprolabs.com/workflow-automation/

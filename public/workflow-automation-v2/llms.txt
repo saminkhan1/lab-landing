@@ -1,0 +1,36 @@
+# Record, review, and run recurring work across every system
+
+Wexpro Labs provides workflow automation for teams that repeat computer work across browser tabs, desktop applications, Citrix, files, internal tools, and APIs.
+
+## Direct answer
+
+A teammate names the workflow, describes the final result and how wexpro can verify it, then performs one real case from input to finished result. Wexpro records the actions, handoffs, checks, and human decisions across every system the process uses. The recording becomes a draft the team can inspect, correct with wexpro, and schedule with the required human checks.
+
+## The problem
+
+Every system is its own island. People still carry information between inboxes, documents, portals, spreadsheets, and desktop apps. Each new request repeats the same manual labor, which turns higher volume into longer queues, overtime, or more hiring.
+
+## Record, review, run
+
+1. Record: name the workflow, describe the result wexpro should produce and verify, then show one representative case across browser, full desktop, Citrix, files, and APIs.
+2. Review: inspect the learned steps and capture warnings, ask wexpro about the draft or request corrections, and choose the consequential actions that require a human check.
+3. Run: schedule the reviewed workflow or create a verified event trigger, execute eligible cases, and return completed results or exceptions with context.
+
+## Horizontal fit
+
+Strong first workflows repeat often, cross multiple systems, follow known checks, include a routine path, and end in a result wexpro can verify. Examples include request intake, reconciliation, reporting, record changes, onboarding, and recurring checks.
+
+## Team hours returned
+
+The recording establishes the active team time required for one manual case. The pilot measures eligible runs, verified completions without teammate handling, and time spent reviewing exceptions.
+
+Estimated routine team hours returned = (active manual minutes per case × verified no-touch completions − exception review minutes) ÷ 60.
+
+Automated elapsed runtime is reported separately because it affects throughput but does not consume team labor when the run is unattended.
+
+## Controlled pilot
+
+Start with one recurring process. Describe the result, record the real work, review and correct the draft, choose the human checks, and compare completion, runtime, human review, cost, and required evidence with the current process. Agree on the completion threshold, runtime measure, and a cost per completed run below the equivalent manual cost before increasing volume.
+
+Book a workflow mapping: https://wexprolabs.com/demo/
+Comparison page: https://wexprolabs.com/workflow-automation-v2/
