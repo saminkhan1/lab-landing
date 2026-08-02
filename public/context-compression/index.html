@@ -5,10 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Context Compression | Pay 13% fewer tokens on structured file reads</title>
   <meta name="description" content="Swap bulky JSON/JSONL, CSV, and TSV reads for verified smaller sidecars. On 28 files: 17.5M tokens to 15.2M, with raw fallback.">
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
+  <meta name="author" content="Wexpro Labs">
   <meta name="theme-color" content="#f4f7fb">
   <meta property="og:title" content="Context Compression">
   <meta property="og:description" content="Swap bulky JSON/JSONL, CSV, and TSV reads for verified smaller sidecars. On 28 files: 17.5M tokens to 15.2M, with raw fallback.">
   <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Wexpro Labs">
+  <meta property="og:url" content="https://wexprolabs.com/context-compression/">
   <meta property="og:image" content="/og-context-compression.svg">
   <meta property="og:image:type" content="image/svg+xml">
   <meta property="og:image:width" content="1200">
@@ -17,8 +21,44 @@
   <meta name="twitter:title" content="Context Compression">
   <meta name="twitter:description" content="Swap bulky JSON/JSONL, CSV, and TSV reads for verified smaller sidecars. On 28 files: 17.5M tokens to 15.2M, with raw fallback.">
   <meta name="twitter:image" content="/og-context-compression.svg">
-  <link rel="canonical" href="/context-compression/">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='5' fill='%23f4f7fb'/%3E%3Cpath d='M7 10h18M7 16h11M7 22h15' stroke='%230d1117' stroke-width='2.2' stroke-linecap='square'/%3E%3Cpath d='M23 14l3 3-3 3' fill='none' stroke='%231f6feb' stroke-width='2.2' stroke-linecap='square' stroke-linejoin='miter'/%3E%3C/svg%3E">
+  <meta name="twitter:image:alt" content="Context Compression verifies smaller sidecars for structured file reads">
+  <link rel="canonical" href="https://wexprolabs.com/context-compression/">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": "https://wexprolabs.com/context-compression/#webpage",
+        "url": "https://wexprolabs.com/context-compression/",
+        "name": "Context Compression | Pay 13% fewer tokens on structured file reads",
+        "description": "Swap bulky JSON/JSONL, CSV, and TSV reads for verified smaller sidecars. On 28 files: 17.5M tokens to 15.2M, with raw fallback.",
+        "isPartOf": {"@id": "https://wexprolabs.com/#website"},
+        "about": {"@id": "https://wexprolabs.com/context-compression/#software"},
+        "inLanguage": "en-US"
+      },
+      {
+        "@type": "SoftwareApplication",
+        "@id": "https://wexprolabs.com/context-compression/#software",
+        "name": "Context Compression",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "Local development environments",
+        "url": "https://wexprolabs.com/context-compression/",
+        "author": {"@id": "https://wexprolabs.com/#organization"},
+        "description": "A local verifier that produces smaller sidecars for structured file reads while preserving a raw fallback."
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://wexprolabs.com/context-compression/#breadcrumbs",
+        "itemListElement": [
+          {"@type": "ListItem", "position": 1, "name": "Wexpro Labs", "item": "https://wexprolabs.com/"},
+          {"@type": "ListItem", "position": 2, "name": "Context Compression", "item": "https://wexprolabs.com/context-compression/"}
+        ]
+      }
+    ]
+  }
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&amp;family=IBM+Plex+Sans+Condensed:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
@@ -765,10 +805,10 @@
           <p class="eyebrow"><span class="status-dots" aria-hidden="true"></span> for local agents reading structured files</p>
           <h1 id="page-title">Make exact data reads cost less.</h1>
           <p class="lead">Context Compression sits behind your AI tool. When an agent reads JSON, JSONL, CSV, or TSV, it can swap the file for a lower-token file only after proving the smaller file decodes to the same parsed data.</p>
-          <div class="hero-actions" aria-label="Primary actions">
+          <div class="hero-actions" role="group" aria-label="Primary actions">
             <a class="button" href="#install">Run it on one file my agent reads</a>
           </div>
-          <div class="hero-links" aria-label="Secondary links">
+          <div class="hero-links" role="group" aria-label="Secondary links">
             <a href="#proof">See the 28-file proof</a>
             <span aria-hidden="true">/</span>
             <a href="https://github.com/saminkhan1/context-compression">GitHub</a>
@@ -785,7 +825,7 @@
             <p class="section-copy">On 28 real files, Context Compression cut 17.5M tokens down to 15.2M. That is 2,324,959 tokens gone, and every selected read still decoded back to the exact same parsed data.</p>
           </div>
         </div>
-        <div class="proof-grid" aria-label="Benchmark summary">
+        <div class="proof-grid" role="group" aria-label="Benchmark summary">
           <div class="proof-card">
             <span class="metric-label">raw tokens</span>
             <span class="metric-value">17,496,442</span>
@@ -807,7 +847,7 @@
             <p class="metric-note">with raw fallback included</p>
           </div>
         </div>
-        <div class="slice-list" aria-label="Largest source-family savings">
+        <div class="slice-list" role="group" aria-label="Largest source-family savings">
           <div class="slice-row">
             <span>SQuAD QA rows</span>
             <span class="bar-track"><span class="bar-fill" style="--bar: 72.7%;"></span></span>
@@ -840,7 +880,7 @@
           </div>
         </div>
         <div class="fit-layout">
-          <div class="fit-column" aria-label="Read behavior">
+          <div class="fit-column" role="group" aria-label="Read behavior">
             <article class="fit-card">
               <h3>Checked automatically</h3>
               <p>Whole-file structured reads become candidates without asking the agent to pick a mode or change its prompt.</p>
@@ -854,7 +894,7 @@
               <p>Codex, Claude Code, Pi, Hermes, MCP, OpenClaw, and generic agents keep their normal file-read path while the adapter chooses the verified file.</p>
             </article>
           </div>
-          <div class="fit-column" aria-label="Read guardrails">
+          <div class="fit-column" role="group" aria-label="Read guardrails">
             <article class="fit-card">
               <h3>Raw is the safety path</h3>
               <p>Unsupported files, failed proofs, unsafe candidates, and partial reads return the original file instead of an approximate substitute.</p>
@@ -879,7 +919,7 @@
             <p class="section-copy">Adapters stay thin. They ask the selector for a decision, then read only the verified path. If the proof fails, the agent receives the original file.</p>
           </div>
         </div>
-        <div class="process-grid" aria-label="Selector flow">
+        <div class="process-grid" role="group" aria-label="Selector flow">
           <article class="process-step">
             <span class="step-number">01</span>
             <h3>Catch a whole-file read</h3>
@@ -957,8 +997,8 @@ python3 scripts/verify_clean_install.py</code></pre>
 
       <section class="section" aria-labelledby="runtime-title">
         <div class="runtime-strip">
-          <p class="kicker" id="runtime-title">agent runtimes</p>
-          <div class="runtime-links" aria-label="Compatible agent runtimes">
+          <h2 class="kicker" id="runtime-title">agent runtimes</h2>
+          <div class="runtime-links" role="group" aria-label="Compatible agent runtimes">
             <a class="runtime-link" href="https://github.com/saminkhan1/context-compression#codex-hook">Codex</a>
             <a class="runtime-link" href="https://github.com/saminkhan1/context-compression/tree/main/adapters/claude-code">Claude Code</a>
             <a class="runtime-link" href="https://github.com/saminkhan1/context-compression/tree/main/adapters/pi">Pi</a>

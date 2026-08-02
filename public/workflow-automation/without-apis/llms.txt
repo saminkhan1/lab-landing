@@ -1,0 +1,24 @@
+# Workflow automation without APIs
+
+Wexpro Labs explains when recurring operational work can use browser, desktop, Citrix, files, and APIs in one reviewed workflow, even when a complete API integration does not exist.
+
+## Short answer
+
+Use an API when it reliably exposes the needed data or action. Use browser, desktop, Citrix, or file steps when that is where the real work happens and the intended result can be verified. Keep human approval before consequential changes and stop uncertain cases instead of guessing.
+
+## Fit criteria
+
+- Repeatable workflow with a recognizable routine path.
+- Known checks and an observable completed result.
+- Multiple systems, files, or handoffs that a single integration does not cover.
+- A safe place to pause for human approval or judgment.
+- A measurable manual baseline, completion rate, review time, and cost per completed case.
+
+## Boundaries
+
+Do not automate undocumented judgment, unstable interfaces with no detectable failure signal, or consequential actions with no safe review point. A controlled pilot should establish the real baseline before volume increases.
+
+## Links
+
+- Main workflow automation page: https://wexprolabs.com/workflow-automation/
+- Workflow mapping: https://wexprolabs.com/demo/

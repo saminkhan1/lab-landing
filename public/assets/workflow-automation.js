@@ -1,7 +1,63 @@
 (() => {
   const root = document.documentElement;
-  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
   root.classList.add("js");
+
+  const attributionKeys = ["utm_source", "utm_medium", "utm_campaign", "utm_content", "gclid", "msclkid"];
+  const attributionStorageKey = "wexpro_attribution_v1";
+  const readStoredAttribution = () => {
+    try {
+      return JSON.parse(window.sessionStorage.getItem(attributionStorageKey) || "{}");
+    } catch {
+      return {};
+    }
+  };
+  const currentParams = new URLSearchParams(window.location.search);
+  const storedAttribution = readStoredAttribution();
+  const attribution = { ...storedAttribution };
+  const currentPage = `${window.location.pathname}${window.location.search}`.slice(0, 500);
+  attributionKeys.forEach((key) => {
+    const value = currentParams.get(key);
+    if (value) attribution[key] = value.slice(0, 160);
+  });
+  if (!attribution.landing_path) attribution.landing_path = `${window.location.pathname}${window.location.search}`.slice(0, 500);
+  if (!attribution.referrer_host && document.referrer) {
+    try { attribution.referrer_host = new URL(document.referrer).host.slice(0, 160); } catch { /* ignore malformed referrers */ }
+  }
+  try { window.sessionStorage.setItem(attributionStorageKey, JSON.stringify(attribution)); } catch { /* storage is optional */ }
+  window.wexproAttribution = attribution;
+
+  try { window.dataLayer = window.dataLayer || []; } catch { /* analytics hooks are optional */ }
+  const track = (event, details = {}) => {
+    const payload = {
+      event,
+      page_path: window.location.pathname,
+      ...details,
+    };
+    if (Array.isArray(window.dataLayer)) window.dataLayer.push(payload);
+    window.dispatchEvent(new CustomEvent("wexpro:analytics", { detail: payload }));
+    if (typeof window.gtag === "function") window.gtag("event", event, details);
+  };
+  track("page_view", { page_title: document.title });
+
+  document.querySelectorAll("[data-cta]").forEach((link) => {
+    const cta = link.dataset.cta || "unknown";
+    const destination = new URL(link.href, window.location.href);
+    if (destination.pathname === "/demo/") {
+      if (!destination.searchParams.has("workflow")) destination.searchParams.set("workflow", "workflow-mapping");
+      if (!destination.searchParams.has("cta")) destination.searchParams.set("cta", cta);
+      attributionKeys.concat(["landing_path", "referrer_host"]).forEach((key) => {
+        if (attribution[key] && !destination.searchParams.has(key)) destination.searchParams.set(key, attribution[key]);
+      });
+      if (!destination.searchParams.has("cta_page")) destination.searchParams.set("cta_page", currentPage);
+      link.href = `${destination.pathname}${destination.search}`;
+    }
+    link.addEventListener("click", () => track("cta_click", {
+      cta,
+      destination: `${destination.pathname}${destination.search}`,
+      workflow: destination.searchParams.get("workflow") || undefined,
+    }));
+  });
 
   const menuToggle = document.querySelector("[data-menu-toggle]");
   const mobileMenu = document.querySelector("[data-mobile-menu]");
@@ -79,7 +135,7 @@
       if (!card) return;
       const styles = window.getComputedStyle(rail);
       const gap = Number.parseFloat(styles.columnGap || styles.gap) || 0;
-      rail.scrollBy({ left: direction * (card.offsetWidth + gap), behavior: reduceMotion ? "auto" : "smooth" });
+      rail.scrollBy({ left: direction * (card.offsetWidth + gap), behavior: reducedMotionQuery.matches ? "auto" : "smooth" });
     };
     previous.addEventListener("click", () => moveRail(-1));
     next.addEventListener("click", () => moveRail(1));
@@ -89,7 +145,7 @@
   }
 
   const revealNodes = document.querySelectorAll("[data-reveal]");
-  if (reduceMotion || !("IntersectionObserver" in window)) {
+  if (reducedMotionQuery.matches || !("IntersectionObserver" in window)) {
     revealNodes.forEach((node) => node.classList.add("is-visible"));
   } else {
     const observer = new IntersectionObserver((entries, activeObserver) => {

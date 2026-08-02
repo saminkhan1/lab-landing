@@ -1,4 +1,8 @@
 User-agent: *
 Allow: /
 
+# Keep search-answer discovery explicit; the wildcard above remains the default for other crawlers.
+User-agent: OAI-SearchBot
+Allow: /
+
 Sitemap: https://wexprolabs.com/sitemap.xml

@@ -3,6 +3,7 @@
   if (!bookingRoot) return;
 
   const allowedWorkflows = {
+    "workflow-mapping": "one recurring workflow",
     "request-intake": "Request intake → updated record",
     reporting: "Recurring report → checked brief",
     reconciliation: "Invoice or order → reconciled systems",
@@ -13,8 +14,21 @@
   const params = new URLSearchParams(window.location.search);
   const workflow = params.get("workflow");
   const workflowLabel = workflow && allowedWorkflows[workflow] ? allowedWorkflows[workflow] : "one recurring workflow";
+  const attributionKeys = ["utm_source", "utm_medium", "utm_campaign", "utm_content", "gclid", "msclkid", "landing_path", "referrer_host", "cta_page"];
+  let storedAttribution = {};
+  try { storedAttribution = JSON.parse(window.sessionStorage.getItem("wexpro_attribution_v1") || "{}"); } catch { /* storage is optional */ }
+  const attribution = { ...storedAttribution };
+  attributionKeys.forEach((key) => {
+    const value = params.get(key);
+    if (value) attribution[key] = value.slice(0, 160);
+  });
+  const cta = params.get("cta") || "unknown";
   const context = document.querySelector("[data-booking-context]");
   if (context) context.textContent = `Bring ${workflowLabel.toLowerCase()}. We’ll map what you demonstrate, what Wexpro would draft, what should stay under review, and whether it fits a controlled pilot.`;
+  const recordEvent = (event, details = {}) => {
+    try { window.dataLayer = window.dataLayer || []; } catch { /* analytics hooks are optional */ }
+    if (Array.isArray(window.dataLayer)) window.dataLayer.push({ event, ...details });
+  };
 
   const calLink = bookingRoot.dataset.calLink?.trim();
   const skeleton = document.querySelector("[data-booking-skeleton]");
@@ -23,6 +37,7 @@
   const showFallback = () => {
     skeleton?.classList.add("is-hidden");
     fallback?.classList.add("is-visible");
+    recordEvent("booking_fallback", { workflow, cta, page_path: window.location.pathname });
   };
   if (!calLink) {
     showFallback();
@@ -65,16 +80,23 @@
 
   window.Cal("init", "wexpro-demo", { origin: "https://cal.com" });
   const cal = window.Cal.ns["wexpro-demo"];
-  cal("on", { action: "linkReady", callback: () => skeleton?.classList.add("is-hidden") });
+  cal("on", { action: "linkReady", callback: () => {
+    skeleton?.classList.add("is-hidden");
+    recordEvent("booking_widget_ready", { workflow, cta, page_path: window.location.pathname });
+  } });
   cal("on", { action: "linkFailed", callback: showFallback });
+  const metadata = { workflow, cta, ...attribution, booking_page: window.location.pathname };
+  const config = {
+    layout: "month_view",
+    useSlotsViewOnSmallScreen: "true",
+  };
+  Object.entries(metadata).forEach(([key, value]) => {
+    if (value) config[`metadata[${key}]`] = value;
+  });
   cal("inline", {
     elementOrSelector: "#wexpro-cal-embed",
     calLink,
-    config: {
-      layout: "month_view",
-      useSlotsViewOnSmallScreen: "true",
-      ...(workflow && allowedWorkflows[workflow] ? { "metadata[workflow]": workflow } : {}),
-    },
+    config,
   });
   cal("ui", { hideEventTypeDetails: false, layout: "month_view" });
 })();

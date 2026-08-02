@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Wexpro Labs</title>
+  <desc id="desc">Agent and inference systems for reliable work across software.</desc>
+  <rect width="1200" height="630" fill="#f7f7f3"/>
+  <path d="M0 510h1200M0 120h1200" stroke="#d6d8d0"/>
+  <path d="M96 112h1008M96 518h1008" stroke="#11110f" stroke-width="2"/>
+  <path d="M102 185h996M102 445h996" stroke="#d6d8d0"/>
+  <text x="96" y="176" fill="#1238ff" font-family="IBM Plex Mono, monospace" font-size="22" letter-spacing="4">WEXPRO LABS</text>
+  <text x="96" y="300" fill="#11110f" font-family="Georgia, serif" font-size="86">Agent and inference</text>
+  <text x="96" y="398" fill="#11110f" font-family="Georgia, serif" font-size="86">systems that work.</text>
+  <text x="96" y="486" fill="#45443f" font-family="IBM Plex Mono, monospace" font-size="20">workflow automation · context compression · applied agents</text>
+  <rect x="1010" y="166" width="88" height="88" fill="none" stroke="#1238ff" stroke-width="3" transform="rotate(45 1054 210)"/>
+</svg>
