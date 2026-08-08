@@ -1,3 +1,7 @@
 name = "wexpro-labs"
 compatibility_date = "2026-03-04"
 pages_build_output_dir = "public"
+
+[[analytics_engine_datasets]]
+binding = "SEO_FUNNEL"
+dataset = "wexpro_funnel"

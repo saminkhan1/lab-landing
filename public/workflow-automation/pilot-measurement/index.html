@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Workflow automation pilot metrics and scorecard | Wexpro Labs</title>
+  <meta name="description" content="Use a practical scorecard to evaluate a workflow automation pilot: eligibility, verified completion, exception review, team hours returned, runtime, and cost.">
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
+  <meta name="author" content="Wexpro Labs">
+  <meta name="theme-color" content="#fcfbfa">
+  <link rel="canonical" href="https://wexprolabs.com/workflow-automation/pilot-measurement/">
+  <link rel="alternate" type="text/plain" href="https://wexprolabs.com/workflow-automation/pilot-measurement/llms.txt" title="LLM summary for the workflow automation pilot scorecard">
+  <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+  <meta property="og:type" content="article">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:site_name" content="Wexpro Labs">
+  <meta property="og:title" content="Workflow automation pilot metrics and scorecard | Wexpro Labs">
+  <meta property="og:description" content="A transparent scorecard for eligibility, verified completion, review time, team hours returned, runtime, and cost per completed case.">
+  <meta property="og:url" content="https://wexprolabs.com/workflow-automation/pilot-measurement/">
+  <meta property="og:image" content="https://wexprolabs.com/og-workflow-automation.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:alt" content="Wexpro workflow automation pilot measurement scorecard">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Workflow automation pilot metrics and scorecard | Wexpro Labs">
+  <meta name="twitter:description" content="A transparent scorecard for eligibility, verified completion, review time, team hours returned, runtime, and cost per completed case.">
+  <meta name="twitter:image" content="https://wexprolabs.com/og-workflow-automation.png">
+  <meta name="twitter:image:alt" content="Wexpro workflow automation pilot measurement scorecard">
+  <link rel="stylesheet" href="../../assets/wexpro-foundations.css?v=20260714c">
+  <link rel="stylesheet" href="../../assets/workflow-guide.css?v=20260807a">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Article",
+        "@id": "https://wexprolabs.com/workflow-automation/pilot-measurement/#article",
+        "url": "https://wexprolabs.com/workflow-automation/pilot-measurement/",
+        "headline": "Workflow automation pilot metrics and scorecard",
+        "description": "Use a practical scorecard to evaluate a workflow automation pilot: eligibility, verified completion, exception review, team hours returned, runtime, and cost.",
+        "datePublished": "2026-08-07",
+        "dateModified": "2026-08-07",
+        "author": {"@id": "https://wexprolabs.com/#organization"},
+        "publisher": {"@id": "https://wexprolabs.com/#organization"},
+        "isPartOf": {"@id": "https://wexprolabs.com/#website"},
+        "about": {"@id": "https://wexprolabs.com/workflow-automation/#service"},
+        "mainEntityOfPage": "https://wexprolabs.com/workflow-automation/pilot-measurement/",
+        "inLanguage": "en-US"
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://wexprolabs.com/workflow-automation/pilot-measurement/#breadcrumbs",
+        "itemListElement": [
+          {"@type": "ListItem", "position": 1, "name": "Wexpro Labs", "item": "https://wexprolabs.com/"},
+          {"@type": "ListItem", "position": 2, "name": "Workflow Automation", "item": "https://wexprolabs.com/workflow-automation/"},
+          {"@type": "ListItem", "position": 3, "name": "Pilot measurement", "item": "https://wexprolabs.com/workflow-automation/pilot-measurement/"}
+        ]
+      }
+    ]
+  }
+  </script>
+  <script defer src="../../assets/workflow-automation.js?v=20260807a"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <header class="guide-header guide-shell">
+    <a class="brand" href="/" aria-label="Wexpro Labs home">WEXPRO LABS</a>
+    <nav aria-label="Scorecard navigation">
+      <a href="../">Workflow automation</a>
+      <a href="#metrics">Metrics</a>
+      <a href="#scorecard">Scorecard</a>
+      <a href="#questions">Questions</a>
+    </nav>
+    <a class="button button--primary" data-cta="pilot-scorecard-header" href="/demo/?workflow=workflow-mapping">Map one workflow</a>
+  </header>
+
+  <main id="main-content">
+    <article>
+      <header class="guide-hero guide-shell">
+        <p class="guide-kicker">Measurement guide · workflow automation</p>
+        <h1>Workflow automation pilot metrics: a scorecard that separates activity from value.</h1>
+        <p class="guide-lede">A run is not a business result. A useful pilot defines which cases are eligible, what proves completion, how much review remains, and what each verified result costs before the first test begins.</p>
+        <div class="guide-actions">
+          <a class="button button--primary" href="/downloads/workflow-automation-pilot-scorecard.csv" download>Download the scorecard · CSV <span aria-hidden="true">↓</span></a>
+          <a class="button button--secondary" href="../without-apis/">Read the no-API decision guide</a>
+        </div>
+        <p class="guide-note"><strong>Short answer:</strong> track eligible cases, verified completions, no-touch completions, exception-review time, team hours returned, runtime, and cost per verified completed case. Set the decision thresholds before seeing pilot results.</p>
+      </header>
+
+      <section class="guide-section" id="metrics" aria-labelledby="metrics-title">
+        <div class="guide-shell">
+          <p class="section-label">The measures</p>
+          <h2 id="metrics-title">Seven numbers tell a more honest story than “runs completed.”</h2>
+          <div class="model-list">
+            <article><span>01</span><div><h3>Cases received</h3><p>All cases presented during the measurement period. Keep this denominator visible so excluded work does not disappear from the report.</p></div></article>
+            <article><span>02</span><div><h3>Eligible cases</h3><p>Cases that match the scope agreed before the pilot. Record every exclusion reason separately; do not recast a failed case as ineligible after the fact.</p></div></article>
+            <article><span>03</span><div><h3>Verified completions</h3><p>Eligible cases that reached the intended end state and passed the agreed result check. A click sequence finishing is not enough.</p></div></article>
+            <article><span>04</span><div><h3>No-touch completions</h3><p>Verified completions that required no teammate handling after the case entered the workflow. Report this as a count and as a share of eligible cases.</p></div></article>
+            <article><span>05</span><div><h3>Exception-review minutes</h3><p>Active teammate time spent understanding, correcting, approving, or recovering cases. This is labor shifted to review, so subtract it from time returned.</p></div></article>
+            <article><span>06</span><div><h3>Runtime</h3><p>Elapsed time from an eligible case entering the workflow to its verified result or exception. Report median and a high percentile; do not present runtime as labor saved.</p></div></article>
+            <article><span>07</span><div><h3>Cost per verified completion</h3><p>Total pilot run cost divided by verified completions. Show failed and excluded cases alongside it so the unit cost cannot hide poor coverage.</p></div></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="guide-section guide-section--tint" id="scorecard" aria-labelledby="scorecard-title">
+        <div class="guide-shell measure-grid">
+          <div>
+            <p class="section-label">The scorecard</p>
+            <h2 id="scorecard-title">Keep the formulas explicit.</h2>
+          </div>
+          <div class="measure-copy">
+            <p>Record raw counts and minutes first. Calculate rates only after the denominator is agreed, and preserve exception reasons so a changing case mix is visible.</p>
+            <div class="formula" role="group" aria-label="No-touch completion rate formula"><span>verified no-touch completions ÷ eligible cases</span><strong>= no-touch completion rate</strong></div>
+            <div class="formula" role="group" aria-label="Team hours returned formula"><span>(manual minutes per case × verified no-touch completions − exception-review minutes)</span><strong>÷ 60 = team hours returned</strong></div>
+            <div class="formula" role="group" aria-label="Cost per verified completion formula"><span>total measured run cost ÷ verified completions</span><strong>= cost per verified completion</strong></div>
+            <p class="measure-note">The downloadable CSV contains the input fields, calculated fields, threshold columns, and exception notes needed for a weekly pilot review.</p>
+            <a class="button button--secondary" href="/downloads/workflow-automation-pilot-scorecard.csv" download>Download CSV template <span aria-hidden="true">↓</span></a>
+          </div>
+        </div>
+      </section>
+
+      <section class="guide-section" aria-labelledby="example-title">
+        <div class="guide-shell">
+          <p class="section-label">Illustrative example</p>
+          <h2 id="example-title">Make the denominator and review burden visible.</h2>
+          <div class="decision-grid">
+            <section><h3 class="decision-label">Inputs</h3><ul><li>100 cases received;</li><li>85 cases eligible;</li><li>8 manual minutes per case;</li><li>45 exception-review minutes; and</li><li>$70 in measured run cost.</li></ul></section>
+            <section><h3 class="decision-label">Results</h3><ul><li>74 verified completions;</li><li>70 no-touch completions;</li><li>82.4% no-touch completion rate;</li><li>8.6 team hours returned; and</li><li>$0.95 per verified completion.</li></ul></section>
+            <section class="decision-stop"><h3 class="decision-label">What it does not prove</h3><ul><li>that excluded cases are solved;</li><li>that the same rate holds at higher volume;</li><li>that every exception is safe; or</li><li>that the pilot met its pre-agreed thresholds.</li></ul></section>
+          </div>
+          <p class="guide-note"><strong>Example status:</strong> these numbers are illustrative math, not a Wexpro customer result. The actual decision depends on thresholds agreed for the workflow’s risk, quality, cost, and case mix.</p>
+        </div>
+      </section>
+
+      <section class="guide-section guide-section--tint" aria-labelledby="decision-title">
+        <div class="guide-shell boundary-grid">
+          <div>
+            <p class="section-label">The decision</p>
+            <h2 id="decision-title">Agree on the pass criteria before the pilot starts.</h2>
+          </div>
+          <ul class="boundary-list">
+            <li><strong>Quality:</strong> define the observable result and the minimum verified completion rate.</li>
+            <li><strong>Coverage:</strong> set the minimum share of received cases that must be eligible.</li>
+            <li><strong>Safety:</strong> define actions that remain with a person and failure conditions that stop a case.</li>
+            <li><strong>Labor:</strong> set a minimum for net team hours returned after exception review.</li>
+            <li><strong>Economics:</strong> set the maximum cost per verified completed case.</li>
+            <li><strong>Scale:</strong> increase volume only when every required threshold holds for the agreed measurement window.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="guide-section" id="questions" aria-labelledby="questions-title">
+        <div class="guide-shell guide-faq">
+          <p class="section-label">Questions</p>
+          <h2 id="questions-title">Common workflow pilot measurement questions.</h2>
+          <details><summary>What is a good automation completion rate?</summary><p>There is no universal rate. The acceptable threshold depends on the workflow’s risk, case mix, manual cost, and the consequence of an incorrect result. Set it before the pilot so the target does not move after results arrive.</p></details>
+          <details><summary>Should excluded cases count as failures?</summary><p>Keep exclusions separate from failures, but show them beside the completion rate. A high completion rate over a small eligible share may still be a poor business result.</p></details>
+          <details><summary>Is runtime the same as time saved?</summary><p>No. Runtime is elapsed system time. Team time returned is active manual time avoided minus active exception-review time. Report both because they answer different questions.</p></details>
+          <details><summary>When is a pilot ready to scale?</summary><p>Only after the agreed quality, coverage, safety, labor, and cost thresholds hold for the chosen measurement window and the remaining exceptions have an explicit owner.</p></details>
+        </div>
+      </section>
+
+      <section class="guide-cta" aria-labelledby="guide-cta-title">
+        <div class="guide-shell guide-cta-shell">
+          <div><p class="section-label">Apply the scorecard</p><h2 id="guide-cta-title">Define the result before you automate the path.</h2><p>Bring one recurring workflow. We will map its case boundaries, completion evidence, exception ownership, and pilot thresholds.</p></div>
+          <a class="button button--primary" data-cta="pilot-scorecard-final" href="/demo/?workflow=workflow-mapping">Map one workflow · 30 min <span aria-hidden="true">→</span></a>
+        </div>
+      </section>
+    </article>
+  </main>
+
+  <footer class="guide-footer guide-shell"><a class="brand" href="/">WEXPRO LABS</a><nav aria-label="Footer navigation"><a href="../">Workflow automation</a><a href="../without-apis/">No-API guide</a><a href="/about/">About</a><a href="/privacy/">Privacy</a></nav><a href="mailto:samin@wexprolabs.com">samin@wexprolabs.com</a></footer>
+</body>
+</html>

@@ -1,0 +1,27 @@
+# Workflow automation pilot metrics and scorecard
+
+Wexpro Labs provides a transparent scorecard for evaluating a workflow automation pilot before increasing volume.
+
+## Direct answer
+
+Track cases received, eligible cases, verified completions, verified no-touch completions, exception-review minutes, runtime, and total measured run cost. Set quality, coverage, safety, labor, and cost thresholds before the pilot begins.
+
+## Core formulas
+
+- No-touch completion rate = verified no-touch completions divided by eligible cases.
+- Team hours returned = (manual minutes per case multiplied by verified no-touch completions minus exception-review minutes) divided by 60.
+- Cost per verified completion = total measured run cost divided by verified completions.
+
+Runtime is elapsed system time, not labor saved. Excluded cases should remain visible beside failures and completions so a narrow eligible case set cannot inflate the reported result.
+
+## Scale decision
+
+Increase volume only after the pre-agreed quality, coverage, safety, labor, and cost thresholds hold for the chosen measurement window and every remaining exception has an explicit owner.
+
+## Links
+
+- Full scorecard and definitions: https://wexprolabs.com/workflow-automation/pilot-measurement/
+- Downloadable CSV template: https://wexprolabs.com/downloads/workflow-automation-pilot-scorecard.csv
+- Workflow automation service: https://wexprolabs.com/workflow-automation/
+- Workflow automation without APIs: https://wexprolabs.com/workflow-automation/without-apis/
+- Workflow mapping: https://wexprolabs.com/demo/

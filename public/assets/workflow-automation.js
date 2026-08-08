@@ -3,8 +3,9 @@
   const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
   root.classList.add("js");
 
-  const attributionKeys = ["utm_source", "utm_medium", "utm_campaign", "utm_content", "gclid", "msclkid"];
+  const attributionKeys = ["utm_source", "utm_medium", "utm_campaign", "utm_content"];
   const attributionStorageKey = "wexpro_attribution_v1";
+  const analyticsSessionKey = "wexpro_analytics_session_v1";
   const readStoredAttribution = () => {
     try {
       return JSON.parse(window.sessionStorage.getItem(attributionStorageKey) || "{}");
@@ -14,18 +15,53 @@
   };
   const currentParams = new URLSearchParams(window.location.search);
   const storedAttribution = readStoredAttribution();
-  const attribution = { ...storedAttribution };
-  const currentPage = `${window.location.pathname}${window.location.search}`.slice(0, 500);
+  const attribution = {};
   attributionKeys.forEach((key) => {
-    const value = currentParams.get(key);
+    const value = currentParams.get(key) || (typeof storedAttribution[key] === "string" ? storedAttribution[key] : "");
     if (value) attribution[key] = value.slice(0, 160);
   });
-  if (!attribution.landing_path) attribution.landing_path = `${window.location.pathname}${window.location.search}`.slice(0, 500);
-  if (!attribution.referrer_host && document.referrer) {
+  const storedLandingPath = typeof storedAttribution.landing_path === "string" ? storedAttribution.landing_path : "";
+  attribution.landing_path = storedLandingPath.startsWith("/")
+    ? storedLandingPath.split(/[?#]/, 1)[0].slice(0, 240)
+    : window.location.pathname.slice(0, 240);
+  const storedReferrerHost = typeof storedAttribution.referrer_host === "string" ? storedAttribution.referrer_host : "";
+  if (storedReferrerHost && /^[a-z0-9.-]+(?::\d+)?$/i.test(storedReferrerHost)) {
+    attribution.referrer_host = storedReferrerHost.slice(0, 160);
+  } else if (document.referrer) {
     try { attribution.referrer_host = new URL(document.referrer).host.slice(0, 160); } catch { /* ignore malformed referrers */ }
   }
   try { window.sessionStorage.setItem(attributionStorageKey, JSON.stringify(attribution)); } catch { /* storage is optional */ }
   window.wexproAttribution = attribution;
+
+  const readAnalyticsSession = () => {
+    try {
+      const existing = window.sessionStorage.getItem(analyticsSessionKey);
+      if (existing) return existing;
+      const created = typeof window.crypto?.randomUUID === "function"
+        ? window.crypto.randomUUID()
+        : `${Date.now().toString(36)}-${Math.random().toString(36).slice(2)}`;
+      window.sessionStorage.setItem(analyticsSessionKey, created);
+      return created;
+    } catch {
+      return "session-storage-unavailable";
+    }
+  };
+  const analyticsSession = readAnalyticsSession();
+
+  const persist = (payload) => {
+    const body = JSON.stringify({
+      ...payload,
+      session_id: analyticsSession,
+      attribution,
+    });
+    window.fetch("/api/events", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body,
+      keepalive: true,
+      credentials: "same-origin",
+    }).catch(() => { /* measurement must never interrupt the visitor */ });
+  };
 
   try { window.dataLayer = window.dataLayer || []; } catch { /* analytics hooks are optional */ }
   const track = (event, details = {}) => {
@@ -37,7 +73,9 @@
     if (Array.isArray(window.dataLayer)) window.dataLayer.push(payload);
     window.dispatchEvent(new CustomEvent("wexpro:analytics", { detail: payload }));
     if (typeof window.gtag === "function") window.gtag("event", event, details);
+    persist(payload);
   };
+  window.wexproTrack = track;
   track("page_view", { page_title: document.title });
 
   document.querySelectorAll("[data-cta]").forEach((link) => {
@@ -49,12 +87,11 @@
       attributionKeys.concat(["landing_path", "referrer_host"]).forEach((key) => {
         if (attribution[key] && !destination.searchParams.has(key)) destination.searchParams.set(key, attribution[key]);
       });
-      if (!destination.searchParams.has("cta_page")) destination.searchParams.set("cta_page", currentPage);
       link.href = `${destination.pathname}${destination.search}`;
     }
     link.addEventListener("click", () => track("cta_click", {
       cta,
-      destination: `${destination.pathname}${destination.search}`,
+      destination: destination.pathname,
       workflow: destination.searchParams.get("workflow") || undefined,
     }));
   });

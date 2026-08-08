@@ -1,10 +1,14 @@
 # Wexpro Labs
 
-Wexpro Labs builds workflow automation, inference systems, long-running agent infrastructure, and local tools that make existing AI agents cheaper and more reliable.
+Wexpro Labs develops applied AI systems and a measured workflow automation service for recurring work across browser, desktop, and legacy software.
 
 ## Pages
 
-- [Wexpro Labs overview](/): current lab focus.
-- [Workflow Automation](/workflow-automation/): connect browser, desktop, Citrix, and private APIs; record one recurring process; add human approval where needed; replace the repeatable path; and run thousands of workflows in parallel. LLM summary: [/workflow-automation/llms.txt](/workflow-automation/llms.txt).
-- [Workflow mapping](/demo/): bring one recurring task and map whether it is a fit for a controlled pilot.
-- [Context Compression](/context-compression/): local verifier for AI agents that read JSON, JSONL, CSV, and TSV; it returns lower-token sidecars only after round-trip checks pass, leaves source files untouched, and falls back to raw when unsafe.
+- [Wexpro Labs overview](https://wexprolabs.com/): current lab focus.
+- [AI workflow automation services](https://wexprolabs.com/workflow-automation/): map one recurring cross-system process, define checks and exceptions, and measure a controlled pilot before increasing volume. [Plain-text summary](https://wexprolabs.com/workflow-automation/llms.txt).
+- [Workflow automation without APIs](https://wexprolabs.com/workflow-automation/without-apis/): decision guide for browser, desktop, legacy, file, and API steps. [Plain-text summary](https://wexprolabs.com/workflow-automation/without-apis/llms.txt).
+- [Workflow automation pilot scorecard](https://wexprolabs.com/workflow-automation/pilot-measurement/): definitions, formulas, decision thresholds, and a downloadable CSV. [Plain-text summary](https://wexprolabs.com/workflow-automation/pilot-measurement/llms.txt).
+- [Workflow mapping](https://wexprolabs.com/demo/): bring one recurring task and map whether it is a fit for a controlled pilot.
+- [About Wexpro Labs](https://wexprolabs.com/about/): operating approach and public evidence standard.
+- [Privacy notice](https://wexprolabs.com/privacy/): website analytics, booking, attribution, and contact-data handling.
+- [Context Compression](https://wexprolabs.com/context-compression/): local verifier for AI agents that read JSON, JSONL, CSV, and TSV; it returns lower-token sidecars only after round-trip checks pass, leaves source files untouched, and falls back to raw when unsafe.

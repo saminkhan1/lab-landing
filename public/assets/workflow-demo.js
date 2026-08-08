@@ -12,20 +12,29 @@
     "recurring-check": "Recurring check → exception queue",
   };
   const params = new URLSearchParams(window.location.search);
-  const workflow = params.get("workflow");
-  const workflowLabel = workflow && allowedWorkflows[workflow] ? allowedWorkflows[workflow] : "one recurring workflow";
-  const attributionKeys = ["utm_source", "utm_medium", "utm_campaign", "utm_content", "gclid", "msclkid", "landing_path", "referrer_host", "cta_page"];
+  const requestedWorkflow = params.get("workflow");
+  const workflow = requestedWorkflow && allowedWorkflows[requestedWorkflow] ? requestedWorkflow : "workflow-mapping";
+  const workflowLabel = allowedWorkflows[workflow];
+  const campaignKeys = ["utm_source", "utm_medium", "utm_campaign", "utm_content"];
   let storedAttribution = {};
   try { storedAttribution = JSON.parse(window.sessionStorage.getItem("wexpro_attribution_v1") || "{}"); } catch { /* storage is optional */ }
-  const attribution = { ...storedAttribution };
-  attributionKeys.forEach((key) => {
-    const value = params.get(key);
+  const attribution = {};
+  campaignKeys.forEach((key) => {
+    const value = params.get(key) || (typeof storedAttribution[key] === "string" ? storedAttribution[key] : "");
     if (value) attribution[key] = value.slice(0, 160);
   });
-  const cta = params.get("cta") || "unknown";
+  const landingPath = params.get("landing_path") || (typeof storedAttribution.landing_path === "string" ? storedAttribution.landing_path : "");
+  if (landingPath.startsWith("/")) attribution.landing_path = landingPath.split(/[?#]/, 1)[0].slice(0, 240);
+  const referrerHost = params.get("referrer_host") || (typeof storedAttribution.referrer_host === "string" ? storedAttribution.referrer_host : "");
+  if (/^[a-z0-9.-]+(?::\d+)?$/i.test(referrerHost)) attribution.referrer_host = referrerHost.slice(0, 160);
+  const cta = (params.get("cta") || "unknown").slice(0, 80);
   const context = document.querySelector("[data-booking-context]");
   if (context) context.textContent = `Bring ${workflowLabel.toLowerCase()}. We’ll map what you demonstrate, what Wexpro would draft, what should stay under review, and whether it fits a controlled pilot.`;
   const recordEvent = (event, details = {}) => {
+    if (typeof window.wexproTrack === "function") {
+      window.wexproTrack(event, details);
+      return;
+    }
     try { window.dataLayer = window.dataLayer || []; } catch { /* analytics hooks are optional */ }
     if (Array.isArray(window.dataLayer)) window.dataLayer.push({ event, ...details });
   };
@@ -44,7 +53,6 @@
     return;
   }
 
-  if (fallbackLink) fallbackLink.href = `https://cal.com/${calLink}`;
   ((contextWindow, embedUrl, initCommand) => {
     const enqueue = (api, args) => api.q.push(args);
     const documentRoot = contextWindow.document;
@@ -85,6 +93,16 @@
     recordEvent("booking_widget_ready", { workflow, cta, page_path: window.location.pathname });
   } });
   cal("on", { action: "linkFailed", callback: showFallback });
+  cal("on", { action: "bookingSuccessfulV2", callback: (event) => {
+    const data = event?.detail?.data || {};
+    recordEvent("booking_complete", {
+      workflow,
+      cta,
+      page_path: window.location.pathname,
+      booking_status: typeof data.status === "string" ? data.status.slice(0, 40) : "created",
+      is_recurring: Boolean(data.isRecurring),
+    });
+  } });
   const metadata = { workflow, cta, ...attribution, booking_page: window.location.pathname };
   const config = {
     layout: "month_view",

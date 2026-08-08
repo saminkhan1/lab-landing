@@ -3,15 +3,46 @@ name: Deploy to Cloudflare Pages
 on:
   push:
     branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+  deployments: write
 
 jobs:
-  deploy:
+  validate:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Validate crawl, metadata, structured data, links, and sitemap
+        run: python3 scripts/validate_site.py
+      - name: Validate Pages Function syntax
+        run: node --input-type=module --check < functions/api/events.js
+      - name: Test first-party event contracts
+        run: node scripts/test_events.mjs
+      - name: Compile Pages Function and routes
+        run: |
+          mkdir -p .wrangler-build
+          npx --yes wrangler@4.120.0 pages functions build functions --outdir .wrangler-build --project-directory . --build-output-directory public --output-routes-path .wrangler-build/routes.json
+
+  deploy:
+    if: github.event_name == 'push'
+    needs: validate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - name: Deploy
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           command: pages deploy public --project-name=wexpro-labs
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+          wranglerVersion: '4.120.0'
+      - name: Smoke-test production
+        run: python3 scripts/smoke_production.py --check-www
+      - name: Notify IndexNow of changed canonical pages
+        continue-on-error: true
+        run: python3 scripts/submit_indexnow.py --revision-range "${{ github.event.before }}..${{ github.sha }}"
