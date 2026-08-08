@@ -13,7 +13,7 @@ jobs:
   validate:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Validate crawl, metadata, structured data, links, and sitemap
         run: python3 scripts/validate_site.py
       - name: Validate Pages Function syntax
@@ -30,7 +30,7 @@ jobs:
     needs: validate
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 0
       - name: Deploy
@@ -38,7 +38,7 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy public --project-name=wexpro-labs
+          command: pages deploy public --project-name=wexpro-labs --commit-dirty=true
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
           wranglerVersion: '4.120.0'
       - name: Smoke-test production

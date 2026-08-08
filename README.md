@@ -23,6 +23,6 @@ node --input-type=module --check < functions/api/events.js
 node scripts/test_events.mjs
 ```
 
-Production deployments run the same checks, smoke-test public pages and first-party event receipt, and submit changed canonical pages to IndexNow only after the live smoke passes.
+Production deployments run the same checks, smoke-test public pages and the first-party event endpoint response, and submit changed canonical pages to IndexNow only after the live smoke passes. A dashboard query is still required to confirm durable event receipt.
 
 The current measurement framework and operating cadence are documented in [SEO_AEO_OPERATING_SYSTEM.md](SEO_AEO_OPERATING_SYSTEM.md).
