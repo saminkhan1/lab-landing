@@ -56,6 +56,23 @@ def wait_for_release() -> None:
     raise RuntimeError("production did not expose the expected workflow release within 30 seconds")
 
 
+def get_release_resource(path: str, markers: list[str]) -> tuple[int, str, str]:
+    expected_url = f"{BASE}{path}"
+    last_problem = "not checked"
+    for attempt in range(6):
+        try:
+            status, final_url, body = get(path)
+            missing = [marker for marker in markers if marker not in body]
+            if status == 200 and final_url == expected_url and not missing:
+                return status, final_url, body
+            last_problem = f"HTTP {status}, resolved to {final_url}, missing markers {missing}"
+        except (HTTPError, URLError, TimeoutError) as error:
+            last_problem = str(error)
+        if attempt < 5:
+            time.sleep(2)
+    raise RuntimeError(f"{path} did not converge to the release contract: {last_problem}")
+
+
 def post_smoke_event() -> None:
     body = json.dumps({
         "event": "deployment_smoke",
@@ -141,14 +158,7 @@ def main() -> None:
 
     wait_for_release()
     for path, markers in CHECKS.items():
-        status, final_url, body = get(path)
-        if status != 200:
-            raise RuntimeError(f"{path} returned HTTP {status}")
-        if final_url != f"{BASE}{path}":
-            raise RuntimeError(f"{path} unexpectedly resolved to {final_url}")
-        for marker in markers:
-            if marker not in body:
-                raise RuntimeError(f"{path} is missing marker {marker!r}")
+        get_release_resource(path, markers)
     check_sitemap_pages()
     check_bot_agents()
     post_smoke_event()
